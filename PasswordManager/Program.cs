@@ -13,7 +13,9 @@ namespace AuditScaner
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login());
+            Login lg = new Login();
+            lg.Show();
+            Application.Run();
         }
     }
 }

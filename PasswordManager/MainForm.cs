@@ -16,8 +16,9 @@ namespace AuditScaner
         private readonly Panel leftBorderBtn;
         public Form currentChildForm;
         private readonly string currentVersion = "Program version 0.1.1";
+        public string key;
 
-        public MainForm()
+        public MainForm(string key)
         {
             //Import the embedded .dll
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
@@ -51,6 +52,8 @@ namespace AuditScaner
             labelProgramStatus.Text = "All program modules launched successfully";
             //Create directory
             initializeDataSet();
+            //
+            this.key = key;
         }
         //Structs
         private struct RGBColors
@@ -284,6 +287,11 @@ namespace AuditScaner
         }
 
         private void panelTitleBar_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void MenuPanel_Paint(object sender, PaintEventArgs e)
         {
 
         }

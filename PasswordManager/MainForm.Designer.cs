@@ -76,6 +76,7 @@
             this.MenuPanel.Name = "MenuPanel";
             this.MenuPanel.Size = new System.Drawing.Size(220, 696);
             this.MenuPanel.TabIndex = 0;
+            this.MenuPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MenuPanel_Paint);
             // 
             // ExitButton
             // 

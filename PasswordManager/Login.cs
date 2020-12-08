@@ -97,16 +97,26 @@ namespace AuditScaner
 
         }
 
-        public void checkHash(string input)
+        public void checkHash(string user,string pass)
         {
             string curFile = @"c:\PasswordManager\user";
             string[] lines = File.ReadAllLines(curFile);
-            string[] newHash = GenerateHash(input, lines[0]);
-            if (newHash[1]==lines[1])
+            string[] hashUser = GenerateHash(user, lines[0]);
+            string[] hashPass = GenerateHash(pass, lines[2]);
+            if (hashUser[1] == lines[3])
             {
-                MessageBox.Show(newHash[1]);
-                MessageBox.Show(lines[1]);
+                if (hashPass[1] == lines[1])
+                {
+                    MainForm mf = new MainForm(pass);
+                    mf.Show();
+                    this.Close();
+                }
+
+                else { MessageBox.Show("Wrong Account"); }
             }
+
+            else { MessageBox.Show("Wrong Account"); }
+            
         }
 
         public string[] GenerateHash(string input, string salt)
@@ -137,11 +147,16 @@ namespace AuditScaner
         private void CreateUser_Click(object sender, EventArgs e)
         {
             string password = Password.Text;
-            string[] data = GenerateHash(password,GenerateRandomAlphanumericString());
+            string username = Username.Text;
+            string[] datapass = GenerateHash(password,GenerateRandomAlphanumericString());
+            string[] dataname = GenerateHash(username, GenerateRandomAlphanumericString());
             using (StreamWriter writer = new StreamWriter(@"c:\\PasswordManager\\user"))
             {
-                writer.WriteLine(data[0]);
-                writer.WriteLine(data[1]);
+                writer.WriteLine(datapass[0]);
+                writer.WriteLine(datapass[1]);
+                writer.WriteLine(dataname[0]);
+                writer.WriteLine(dataname[1]);
+
             }
             
         }
@@ -149,7 +164,8 @@ namespace AuditScaner
         private void LoginUser_Click(object sender, EventArgs e)
         {
             string password = Password.Text;
-            checkHash(password);
+            string username = Username.Text;
+            checkHash(username,password);
         }
     }
 }
