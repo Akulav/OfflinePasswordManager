@@ -33,9 +33,9 @@
             this.ExitButton = new FontAwesome.Sharp.IconButton();
             this.labelEstheticLine = new System.Windows.Forms.Label();
             this.Settings = new FontAwesome.Sharp.IconButton();
-            this.Scan = new FontAwesome.Sharp.IconButton();
+            this.ViewData = new FontAwesome.Sharp.IconButton();
             this.ExportTools = new FontAwesome.Sharp.IconButton();
-            this.ManagePolicies = new FontAwesome.Sharp.IconButton();
+            this.CreateData = new FontAwesome.Sharp.IconButton();
             this.Dashboard = new FontAwesome.Sharp.IconButton();
             this.PanelLogo = new System.Windows.Forms.Panel();
             this.btnHome = new System.Windows.Forms.PictureBox();
@@ -66,9 +66,9 @@
             this.MenuPanel.Controls.Add(this.ExitButton);
             this.MenuPanel.Controls.Add(this.labelEstheticLine);
             this.MenuPanel.Controls.Add(this.Settings);
-            this.MenuPanel.Controls.Add(this.Scan);
+            this.MenuPanel.Controls.Add(this.ViewData);
             this.MenuPanel.Controls.Add(this.ExportTools);
-            this.MenuPanel.Controls.Add(this.ManagePolicies);
+            this.MenuPanel.Controls.Add(this.CreateData);
             this.MenuPanel.Controls.Add(this.Dashboard);
             this.MenuPanel.Controls.Add(this.PanelLogo);
             this.MenuPanel.Dock = System.Windows.Forms.DockStyle.Left;
@@ -76,7 +76,6 @@
             this.MenuPanel.Name = "MenuPanel";
             this.MenuPanel.Size = new System.Drawing.Size(220, 696);
             this.MenuPanel.TabIndex = 0;
-            this.MenuPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MenuPanel_Paint);
             // 
             // ExitButton
             // 
@@ -133,27 +132,27 @@
             this.Settings.UseVisualStyleBackColor = true;
             this.Settings.Click += new System.EventHandler(this.Settings_Click);
             // 
-            // Scan
+            // ViewData
             // 
-            this.Scan.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Scan.FlatAppearance.BorderSize = 0;
-            this.Scan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Scan.ForeColor = System.Drawing.Color.Gainsboro;
-            this.Scan.IconChar = FontAwesome.Sharp.IconChar.ShieldVirus;
-            this.Scan.IconColor = System.Drawing.Color.Gainsboro;
-            this.Scan.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.Scan.IconSize = 32;
-            this.Scan.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Scan.Location = new System.Drawing.Point(0, 320);
-            this.Scan.Name = "Scan";
-            this.Scan.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.Scan.Size = new System.Drawing.Size(220, 60);
-            this.Scan.TabIndex = 4;
-            this.Scan.Text = "Scan for Vulnerabilities";
-            this.Scan.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Scan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.Scan.UseVisualStyleBackColor = true;
-            this.Scan.Click += new System.EventHandler(this.Scan_Click);
+            this.ViewData.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ViewData.FlatAppearance.BorderSize = 0;
+            this.ViewData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ViewData.ForeColor = System.Drawing.Color.Gainsboro;
+            this.ViewData.IconChar = FontAwesome.Sharp.IconChar.ShieldVirus;
+            this.ViewData.IconColor = System.Drawing.Color.Gainsboro;
+            this.ViewData.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ViewData.IconSize = 32;
+            this.ViewData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ViewData.Location = new System.Drawing.Point(0, 320);
+            this.ViewData.Name = "ViewData";
+            this.ViewData.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.ViewData.Size = new System.Drawing.Size(220, 60);
+            this.ViewData.TabIndex = 4;
+            this.ViewData.Text = "View Data";
+            this.ViewData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ViewData.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.ViewData.UseVisualStyleBackColor = true;
+            this.ViewData.Click += new System.EventHandler(this.ViewData_Click);
             // 
             // ExportTools
             // 
@@ -177,27 +176,27 @@
             this.ExportTools.UseVisualStyleBackColor = true;
             this.ExportTools.Click += new System.EventHandler(this.ExportTools_Click);
             // 
-            // ManagePolicies
+            // CreateData
             // 
-            this.ManagePolicies.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ManagePolicies.FlatAppearance.BorderSize = 0;
-            this.ManagePolicies.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ManagePolicies.ForeColor = System.Drawing.Color.Gainsboro;
-            this.ManagePolicies.IconChar = FontAwesome.Sharp.IconChar.ChartBar;
-            this.ManagePolicies.IconColor = System.Drawing.Color.Gainsboro;
-            this.ManagePolicies.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.ManagePolicies.IconSize = 32;
-            this.ManagePolicies.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ManagePolicies.Location = new System.Drawing.Point(0, 200);
-            this.ManagePolicies.Name = "ManagePolicies";
-            this.ManagePolicies.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.ManagePolicies.Size = new System.Drawing.Size(220, 60);
-            this.ManagePolicies.TabIndex = 2;
-            this.ManagePolicies.Text = "Manage Policies";
-            this.ManagePolicies.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ManagePolicies.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.ManagePolicies.UseVisualStyleBackColor = true;
-            this.ManagePolicies.Click += new System.EventHandler(this.ManagePolicies_Click);
+            this.CreateData.Dock = System.Windows.Forms.DockStyle.Top;
+            this.CreateData.FlatAppearance.BorderSize = 0;
+            this.CreateData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CreateData.ForeColor = System.Drawing.Color.Gainsboro;
+            this.CreateData.IconChar = FontAwesome.Sharp.IconChar.ChartBar;
+            this.CreateData.IconColor = System.Drawing.Color.Gainsboro;
+            this.CreateData.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.CreateData.IconSize = 32;
+            this.CreateData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CreateData.Location = new System.Drawing.Point(0, 200);
+            this.CreateData.Name = "CreateData";
+            this.CreateData.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.CreateData.Size = new System.Drawing.Size(220, 60);
+            this.CreateData.TabIndex = 2;
+            this.CreateData.Text = "Create Data";
+            this.CreateData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CreateData.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.CreateData.UseVisualStyleBackColor = true;
+            this.CreateData.Click += new System.EventHandler(this.CreateData_Click);
             // 
             // Dashboard
             // 
@@ -254,7 +253,6 @@
             this.panelTitleBar.Name = "panelTitleBar";
             this.panelTitleBar.Size = new System.Drawing.Size(924, 75);
             this.panelTitleBar.TabIndex = 1;
-            this.panelTitleBar.Paint += new System.Windows.Forms.PaintEventHandler(this.panelTitleBar_Paint);
             this.panelTitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTitleBar_MouseDown);
             // 
             // Minimize
@@ -360,7 +358,6 @@
             this.panelDesktop.Name = "panelDesktop";
             this.panelDesktop.Size = new System.Drawing.Size(924, 621);
             this.panelDesktop.TabIndex = 3;
-            this.panelDesktop.Paint += new System.Windows.Forms.PaintEventHandler(this.panelDesktop_Paint);
             // 
             // labelProgramStatus
             // 
@@ -437,9 +434,9 @@
 
         private System.Windows.Forms.Panel MenuPanel;
         private FontAwesome.Sharp.IconButton Settings;
-        private FontAwesome.Sharp.IconButton Scan;
+        private FontAwesome.Sharp.IconButton ViewData;
         private FontAwesome.Sharp.IconButton ExportTools;
-        private FontAwesome.Sharp.IconButton ManagePolicies;
+        private FontAwesome.Sharp.IconButton CreateData;
         private FontAwesome.Sharp.IconButton Dashboard;
         private System.Windows.Forms.Panel PanelLogo;
         private System.Windows.Forms.PictureBox btnHome;

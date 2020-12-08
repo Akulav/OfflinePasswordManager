@@ -160,40 +160,31 @@ namespace AuditScaner
                 labelTitleOfChildForm.Text = "Home";
             }
 
-
+            Reset();
         }
 
-        private void ManagePolicies_Click(object sender, EventArgs e)
+        private void CreateData_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color2);
-            labelTitleOfChildForm.Text = "Policy Manager";
-            //OpenChildForm(new ManagePoliciesForm());
+            labelTitleOfChildForm.Text = "Create Data";
         }
 
         private void ExportTools_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color3);
-            //OpenChildForm(new Export());
+            labelTitleOfChildForm.Text = "Export Tools";
         }
 
-        private void Scan_Click(object sender, EventArgs e)
+        private void ViewData_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color4);
-            try
-            {
-                //OpenChildForm(new Scan());
-            }
-
-            catch
-            {
-                //OpenChildForm(new Error("Import a file first"));
-            }
+            labelTitleOfChildForm.Text = "View Data";
         }
 
         private void Settings_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color5);
-            //OpenChildForm(new Settings());
+            labelTitleOfChildForm.Text = "Settings";
         }
 
         private void btnHome_Click(object sender, EventArgs e)
@@ -279,21 +270,6 @@ namespace AuditScaner
         private void ExitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-
-        private void panelDesktop_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panelTitleBar_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void MenuPanel_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }
