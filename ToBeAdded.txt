@@ -1,9 +1,10 @@
-Delete Function for Login
-Confirm Dialog for Delete
-Implement Better Dashboard (maybe a live clock)
-Virtual Keyboard as choice for login
-Checksum integrity
-Export function
-Import function
-Create Data function
-View Data function
+Better DashBoard
+Add service + icon for Create Data
+Implement Delete on login
+Delete on login dialog
+Wrong Account Dialog
+Virtual Keyboard for login...
+Import / Export Data
+View Data
+Edit Data
+Check Sum Checker
