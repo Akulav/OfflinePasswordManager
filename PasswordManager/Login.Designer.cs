@@ -95,7 +95,7 @@ namespace AuditScaner
             this.Minimize.IconChar = FontAwesome.Sharp.IconChar.WindowMinimize;
             this.Minimize.IconColor = System.Drawing.Color.Gainsboro;
             this.Minimize.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.Minimize.Location = new System.Drawing.Point(631, 0);
+            this.Minimize.Location = new System.Drawing.Point(631, 3);
             this.Minimize.Name = "Minimize";
             this.Minimize.Size = new System.Drawing.Size(26, 23);
             this.Minimize.TabIndex = 3;
@@ -110,7 +110,7 @@ namespace AuditScaner
             this.Exit.IconChar = FontAwesome.Sharp.IconChar.WindowClose;
             this.Exit.IconColor = System.Drawing.Color.Gainsboro;
             this.Exit.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.Exit.Location = new System.Drawing.Point(663, 0);
+            this.Exit.Location = new System.Drawing.Point(663, 3);
             this.Exit.Name = "Exit";
             this.Exit.Size = new System.Drawing.Size(26, 23);
             this.Exit.TabIndex = 4;
@@ -180,6 +180,7 @@ namespace AuditScaner
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Login";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Login_Load);
             this.topPanel.ResumeLayout(false);
             this.ResumeLayout(false);

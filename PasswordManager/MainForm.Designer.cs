@@ -170,7 +170,7 @@
             this.ExportTools.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.ExportTools.Size = new System.Drawing.Size(220, 60);
             this.ExportTools.TabIndex = 3;
-            this.ExportTools.Text = "Export Tools";
+            this.ExportTools.Text = "Import / Export";
             this.ExportTools.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ExportTools.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.ExportTools.UseVisualStyleBackColor = true;

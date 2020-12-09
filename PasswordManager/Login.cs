@@ -158,6 +158,10 @@ namespace AuditScaner
                 writer.WriteLine(dataname[1]);
 
             }
+
+            SuccesDialog sc = new SuccesDialog("Login");
+            sc.Show();
+            this.Close();
             
         }
 
