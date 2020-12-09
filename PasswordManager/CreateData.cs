@@ -25,14 +25,33 @@ namespace AuditScaner
 
         private void create_Click(object sender, EventArgs e)
         {
+            Random rnd = new Random();
             string username = usernameText.Text;
             string password = passwordText.Text;
-            using (StreamWriter writer = new StreamWriter(@"c:\\PasswordManager\\Storage\\data1"))
+            string filename = GenerateRandomAlphanumericString(rnd.Next(0,100));
+            string filepath = "c:\\PasswordManager\\Storage\\" + filename;
+            using (StreamWriter writer = new StreamWriter(@filepath))
             {
                 writer.Write(Encrypt(username, this.key));
                 writer.Write("\n");
                 writer.Write(Encrypt(password, this.key));
             }
+        }
+
+        public string GenerateRandomAlphanumericString(int length)
+        {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var stringChars = new char[length];
+            Random rnd = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[rnd.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+
+            return finalString;
         }
 
         public string Encrypt(string clearText, string EncryptionKey)

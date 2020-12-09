@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -156,11 +157,11 @@ namespace AuditScaner
         {
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             var stringChars = new char[80];
-            var random = new Random();
+            Random rnd = new Random();
 
             for (int i = 0; i < stringChars.Length; i++)
             {
-                stringChars[i] = chars[random.Next(chars.Length)];
+                stringChars[i] = chars[rnd.Next(chars.Length)];
             }
 
             var finalString = new String(stringChars);
@@ -170,6 +171,7 @@ namespace AuditScaner
 
         private void CreateUser_Click(object sender, EventArgs e)
         {
+            Random rnd = new Random();
             string password = Password.Text;
             string username = Username.Text;
             string[] datapass = GenerateHash(password,GenerateRandomAlphanumericString());
@@ -177,10 +179,12 @@ namespace AuditScaner
             using (StreamWriter writer = new StreamWriter(@"c:\\PasswordManager\\user"))
             {
                 writer.WriteLine(datapass[0]);
+                Thread.Sleep(100);
                 writer.WriteLine(datapass[1]);
+                Thread.Sleep(100);
                 writer.WriteLine(dataname[0]);
+                Thread.Sleep(100);
                 writer.WriteLine(dataname[1]);
-
             }
 
             SuccesDialog sc = new SuccesDialog("Login");
