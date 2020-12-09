@@ -16,7 +16,7 @@ namespace AuditScaner
         private readonly Panel leftBorderBtn;
         public Form currentChildForm;
         private readonly string currentVersion = "Program version 0.1.1";
-        public string key;
+        private string key;
 
         public MainForm(string key)
         {
@@ -162,6 +162,7 @@ namespace AuditScaner
         {
             ActivateButton(sender, RGBColors.color2);
             labelTitleOfChildForm.Text = "Create Data";
+            OpenChildForm(new CreateData(this.key));
         }
 
         private void ExportTools_Click(object sender, EventArgs e)
