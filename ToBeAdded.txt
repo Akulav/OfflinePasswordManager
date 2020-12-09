@@ -1,0 +1,9 @@
+Delete Function for Login
+Confirm Dialog for Delete
+Implement Better Dashboard (maybe a live clock)
+Virtual Keyboard as choice for login
+Checksum integrity
+Export function
+Import function
+Create Data function
+View Data function

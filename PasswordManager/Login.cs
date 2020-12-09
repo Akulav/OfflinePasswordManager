@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,6 +19,10 @@ namespace AuditScaner
         public Login()
         {
             InitializeComponent();
+            //Make sure program is ran as Admin
+            enforceAdminPrivilegesWorkaround();
+            //Make sure to hide password
+            Password.PasswordChar = '*';
         }
 
         private void Login_Load(object sender, EventArgs e)
@@ -33,6 +38,35 @@ namespace AuditScaner
             else if (user == 1)
             {
                 CreateUser.Visible = false;
+            }
+        }
+
+        private void enforceAdminPrivilegesWorkaround()
+        {
+            RegistryKey rk;
+            string registryPath = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\";
+
+            try
+            {
+                if (Environment.Is64BitOperatingSystem)
+                {
+                    rk = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
+                }
+                else
+                {
+                    rk = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
+                }
+
+                rk = rk.OpenSubKey(registryPath, true);
+            }
+            catch (System.Security.SecurityException)
+            {
+                MessageBox.Show("Please run as administrator");
+                Environment.Exit(1);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
 
@@ -85,16 +119,6 @@ namespace AuditScaner
         {
             ReleaseCapture();
             SendMessage(Handle, 0x112, 0xf012, 0);
-        }
-
-        private void topPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void DeleteData_Click(object sender, EventArgs e)
-        {
-
         }
 
         public void checkHash(string user,string pass)
@@ -171,5 +195,6 @@ namespace AuditScaner
             string username = Username.Text;
             checkHash(username,password);
         }
+
     }
 }

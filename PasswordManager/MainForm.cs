@@ -33,16 +33,11 @@ namespace AuditScaner
                     return Assembly.Load(assemblyData);
                 }
             };
-            //Make sure program is ran as Admin
-            enforceAdminPrivilegesWorkaround();
             InitializeComponent();
             leftBorderBtn = new Panel();
             leftBorderBtn.Size = new Size(7, 60);
             MenuPanel.Controls.Add(leftBorderBtn);
             //Form
-            Text = string.Empty;
-            ControlBox = false;
-            DoubleBuffered = true;
             MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
             //Display Windows Version
             getWindowsVersion();
@@ -52,7 +47,7 @@ namespace AuditScaner
             labelProgramStatus.Text = "All program modules launched successfully";
             //Create directory
             initializeDataSet();
-            //
+            //Gets transfered the key for encryption / decryption
             this.key = key;
         }
         //Structs
@@ -107,8 +102,8 @@ namespace AuditScaner
 
         private void initializeDataSet()
         {
-            string root = @"C:\";
-            string subdir = @"C:\VulnerabilityScanner";
+            string root = @"C:\PasswordManager";
+            string subdir = @"C:\PasswordManager\Storage";
             if (!Directory.Exists(root))
             {
                 Directory.CreateDirectory(root);
@@ -194,35 +189,6 @@ namespace AuditScaner
                 currentChildForm.Close();
             }
             Reset();
-        }
-
-        private void enforceAdminPrivilegesWorkaround()
-        {
-            RegistryKey rk;
-            string registryPath = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\";
-
-            try
-            {
-                if (Environment.Is64BitOperatingSystem)
-                {
-                    rk = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
-                }
-                else
-                {
-                    rk = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
-                }
-
-                rk = rk.OpenSubKey(registryPath, true);
-            }
-            catch (System.Security.SecurityException)
-            {
-                MessageBox.Show("Please run as administrator");
-                Environment.Exit(1);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
         }
 
         private void Reset()

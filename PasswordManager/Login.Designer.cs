@@ -85,7 +85,6 @@ namespace AuditScaner
             this.DeleteData.TabIndex = 2;
             this.DeleteData.Text = "DeleteUser";
             this.DeleteData.UseVisualStyleBackColor = false;
-            this.DeleteData.Click += new System.EventHandler(this.DeleteData_Click);
             // 
             // Minimize
             // 
@@ -126,7 +125,6 @@ namespace AuditScaner
             this.topPanel.Name = "topPanel";
             this.topPanel.Size = new System.Drawing.Size(689, 33);
             this.topPanel.TabIndex = 5;
-            this.topPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.topPanel_Paint);
             this.topPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.topPanel_MouseDown);
             // 
             // Username
