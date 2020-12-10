@@ -8,3 +8,7 @@ Import / Export Data
 View Data
 Edit Data
 Check Sum Checker
+
+
+----TO WORK ON
+View Data scrollable area (flow)

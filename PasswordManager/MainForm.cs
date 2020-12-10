@@ -175,6 +175,7 @@ namespace AuditScaner
         {
             ActivateButton(sender, RGBColors.color4);
             labelTitleOfChildForm.Text = "View Data";
+            OpenChildForm(new ViewData(this.key));
         }
 
         private void Settings_Click(object sender, EventArgs e)

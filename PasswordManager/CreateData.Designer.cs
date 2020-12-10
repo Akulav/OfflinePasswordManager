@@ -34,6 +34,8 @@ namespace AuditScaner
             this.usernameText = new System.Windows.Forms.TextBox();
             this.user = new System.Windows.Forms.Label();
             this.pass = new System.Windows.Forms.Label();
+            this.domainText = new System.Windows.Forms.TextBox();
+            this.domain = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // create
@@ -44,7 +46,7 @@ namespace AuditScaner
             this.create.IconChar = FontAwesome.Sharp.IconChar.None;
             this.create.IconColor = System.Drawing.Color.Black;
             this.create.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.create.Location = new System.Drawing.Point(352, 272);
+            this.create.Location = new System.Drawing.Point(355, 298);
             this.create.Name = "create";
             this.create.Size = new System.Drawing.Size(192, 86);
             this.create.TabIndex = 0;
@@ -86,12 +88,31 @@ namespace AuditScaner
             this.pass.TabIndex = 4;
             this.pass.Text = "Password";
             // 
+            // domainText
+            // 
+            this.domainText.Location = new System.Drawing.Point(425, 272);
+            this.domainText.Name = "domainText";
+            this.domainText.Size = new System.Drawing.Size(119, 20);
+            this.domainText.TabIndex = 5;
+            // 
+            // domain
+            // 
+            this.domain.AutoSize = true;
+            this.domain.ForeColor = System.Drawing.Color.Gainsboro;
+            this.domain.Location = new System.Drawing.Point(352, 275);
+            this.domain.Name = "domain";
+            this.domain.Size = new System.Drawing.Size(43, 13);
+            this.domain.TabIndex = 6;
+            this.domain.Text = "Service";
+            // 
             // CreateData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(908, 582);
+            this.Controls.Add(this.domain);
+            this.Controls.Add(this.domainText);
             this.Controls.Add(this.pass);
             this.Controls.Add(this.user);
             this.Controls.Add(this.usernameText);
@@ -112,5 +133,7 @@ namespace AuditScaner
         private System.Windows.Forms.TextBox usernameText;
         private System.Windows.Forms.Label user;
         private System.Windows.Forms.Label pass;
+        private System.Windows.Forms.TextBox domainText;
+        private System.Windows.Forms.Label domain;
     }
 }

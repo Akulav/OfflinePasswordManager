@@ -79,6 +79,18 @@
     <Compile Include="SuccesDialog.Designer.cs">
       <DependentUpon>SuccesDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="SuccessWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SuccessWindow.Designer.cs">
+      <DependentUpon>SuccessWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewData.Designer.cs">
+      <DependentUpon>ViewData.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="CreateData.resx">
       <DependentUpon>CreateData.cs</DependentUpon>
     </EmbeddedResource>
@@ -100,6 +112,12 @@
     </Compile>
     <EmbeddedResource Include="SuccesDialog.resx">
       <DependentUpon>SuccesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SuccessWindow.resx">
+      <DependentUpon>SuccessWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewData.resx">
+      <DependentUpon>ViewData.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
     <None Include="packages.config" />
