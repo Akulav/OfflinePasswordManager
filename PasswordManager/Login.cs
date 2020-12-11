@@ -305,5 +305,24 @@ namespace AuditScaner
             Application.Restart();
 
         }
+
+        private void Password_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            int user = checkIfUser();
+
+            if (e.KeyCode == Keys.Return)
+            {
+                if (user == 0)
+                {
+                    CreateUser_Click(null, null);
+                }
+
+                else if (user == 1)
+                {
+                    LoginUser_Click(null, null);
+                }
+            }
+        }
     }
 }

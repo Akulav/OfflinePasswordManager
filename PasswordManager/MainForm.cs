@@ -33,11 +33,14 @@ namespace AuditScaner
                     return Assembly.Load(assemblyData);
                 }
             };
-            InitializeComponent();
+            
 
             t.Interval = 1000;
             t.Tick += new EventHandler(this.t_Tick);
             t.Start();
+
+            InitializeComponent();
+            this.Visible = false;
 
             leftBorderBtn = new Panel();
             leftBorderBtn.Size = new Size(7, 60);
@@ -54,8 +57,8 @@ namespace AuditScaner
             initializeDataSet();
             //Gets transfered the key for encryption / decryption
             this.key = key;
-            
-            
+
+            this.Visible = true;
 
         }
         //Structs

@@ -51,12 +51,14 @@
             this.labelProgramStatus = new System.Windows.Forms.Label();
             this.labelProgramVersion = new System.Windows.Forms.Label();
             this.labelWindowsVersion = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MenuPanel.SuspendLayout();
             this.PanelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnHome)).BeginInit();
             this.panelTitleBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconCurrentChildForm)).BeginInit();
             this.panelDesktop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // MenuPanel
@@ -348,6 +350,7 @@
             // panelDesktop
             // 
             this.panelDesktop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
+            this.panelDesktop.Controls.Add(this.pictureBox1);
             this.panelDesktop.Controls.Add(this.clock);
             this.panelDesktop.Controls.Add(this.labelProgramStatus);
             this.panelDesktop.Controls.Add(this.labelProgramVersion);
@@ -362,7 +365,7 @@
             // 
             this.clock.Font = new System.Drawing.Font("Microsoft Sans Serif", 64F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clock.ForeColor = System.Drawing.Color.Gainsboro;
-            this.clock.Location = new System.Drawing.Point(290, 148);
+            this.clock.Location = new System.Drawing.Point(305, 142);
             this.clock.Name = "clock";
             this.clock.Size = new System.Drawing.Size(681, 97);
             this.clock.TabIndex = 6;
@@ -401,6 +404,16 @@
             this.labelWindowsVersion.TabIndex = 3;
             this.labelWindowsVersion.Text = "PLACE_HOLDER_WIN_V";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(361, 245);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(265, 230);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -423,6 +436,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.iconCurrentChildForm)).EndInit();
             this.panelDesktop.ResumeLayout(false);
             this.panelDesktop.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -451,5 +465,6 @@
         public System.Windows.Forms.Panel panelDesktop;
         private System.Windows.Forms.Label labelProgramStatus;
         private System.Windows.Forms.Label clock;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
