@@ -17,7 +17,7 @@ namespace AuditScaner
         public Form currentChildForm;
         private readonly string currentVersion = "Program version 0.1.1";
         private string key;
-        Timer MyTimer = new Timer();
+        Timer t = new Timer();
         public MainForm(string key)
         {
             //Import the embedded .dll
@@ -34,6 +34,11 @@ namespace AuditScaner
                 }
             };
             InitializeComponent();
+
+            t.Interval = 1000;
+            t.Tick += new EventHandler(this.t_Tick);
+            t.Start();
+
             leftBorderBtn = new Panel();
             leftBorderBtn.Size = new Size(7, 60);
             MenuPanel.Controls.Add(leftBorderBtn);
@@ -44,11 +49,13 @@ namespace AuditScaner
             //Display program version
             labelProgramVersion.Text = currentVersion;
             //Display end of initialization
-            labelProgramStatus.Text = "All program modules launched successfully";
+            labelProgramStatus.Text = "Program status: ok";
             //Create directory
             initializeDataSet();
             //Gets transfered the key for encryption / decryption
             this.key = key;
+            
+            
 
         }
         //Structs
@@ -242,5 +249,48 @@ namespace AuditScaner
             Application.Exit();
         }
 
+        private void t_Tick(object sender, EventArgs e)
+        {
+            //get current time
+            int hh = DateTime.Now.Hour;
+            int mm = DateTime.Now.Minute;
+            int ss = DateTime.Now.Second;
+
+            //time
+            string time = "";
+
+            //padding leading zero
+            if (hh < 10)
+            {
+                time += "0" + hh;
+            }
+            else
+            {
+                time += hh;
+            }
+            time += ":";
+
+            if (mm < 10)
+            {
+                time += "0" + mm;
+            }
+            else
+            {
+                time += mm;
+            }
+            time += ":";
+
+            if (ss < 10)
+            {
+                time += "0" + ss;
+            }
+            else
+            {
+                time += ss;
+            }
+
+            //update label
+            clock.Text = time;
+        }
     }
 }
