@@ -17,7 +17,7 @@ namespace AuditScaner
         public Form currentChildForm;
         private readonly string currentVersion = "Program version 0.1.1";
         private string key;
-
+        Timer MyTimer = new Timer();
         public MainForm(string key)
         {
             //Import the embedded .dll
@@ -49,6 +49,7 @@ namespace AuditScaner
             initializeDataSet();
             //Gets transfered the key for encryption / decryption
             this.key = key;
+
         }
         //Structs
         private struct RGBColors
@@ -240,5 +241,6 @@ namespace AuditScaner
         {
             Application.Exit();
         }
+
     }
 }

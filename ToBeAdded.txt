@@ -1,17 +1,3 @@
 Better DashBoard
-Add service + icon for Create Data
-Implement Delete on login
-Delete on login dialog
-Wrong Account Dialog
-Virtual Keyboard for login...
-Import / Export Data
-View Data
 Edit Data
 Check Sum Checker
-
-
-----TO WORK ON
-Fix ViewData with a table layout
-CheckHash Remove MessageBox
-Delete Encryption
-Import Export

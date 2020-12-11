@@ -32,6 +32,8 @@ namespace AuditScaner
         {
             string[] fileList = Directory.GetFiles(fileLocation);
 
+            flowPanel.Anchor = AnchorStyles.None;
+
             TextBox[] usernames = new TextBox[fileList.Length];
             TextBox[] passwords = new TextBox[fileList.Length];
             Label[] serviceLabel = new Label[fileList.Length];
@@ -109,9 +111,16 @@ namespace AuditScaner
                 delete.Click += new EventHandler(delegate (Object o, EventArgs a)
                 {
                     int index = int.Parse(delete.Text);
-                    MessageBox.Show(index.ToString());
                     string[] list = getFileList();
-                    File.Delete(list[index]);
+                    try
+                    { 
+                            string oldData = File.ReadAllText(list[index]);
+                            string newData = Encrypt(oldData, GenerateRandomAlphanumericString());
+                            File.WriteAllText(list[index], newData);
+                            File.Delete(list[index]); 
+                    }
+
+                    catch { }
                     this.Controls.Clear();
                     this.InitializeComponent();
                     getData();
@@ -141,6 +150,43 @@ namespace AuditScaner
                 }
             }
             return cipherText;
+        }
+
+        public string GenerateRandomAlphanumericString()
+        {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var stringChars = new char[40];
+            Random rnd = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[rnd.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+
+            return finalString;
+        }
+
+        public string Encrypt(string clearText, string EncryptionKey)
+        {
+            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
+                    }
+                    clearText = Convert.ToBase64String(ms.ToArray());
+                }
+            }
+            return clearText;
         }
     }
 

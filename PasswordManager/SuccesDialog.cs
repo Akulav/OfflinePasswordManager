@@ -19,7 +19,7 @@ namespace AuditScaner
             InitializeComponent();
             this.form = form;
             if (form == "LoginFailUsername") { Succes.Text = "Username too short"; }
-            if (form == "LoginFailPassword") { Succes.Text = "Password must be at least 8 long"; }
+            if (form == "LoginFailPassword") { Succes.Text = "Password must be alpha-numeric\n and a length between 8 and 15"; }
         }
 
         private void DialogConfirm_Click(object sender, EventArgs e)
@@ -47,16 +47,6 @@ namespace AuditScaner
             }
         }
 
-        private void SuccesDialog_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void topPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
@@ -67,5 +57,6 @@ namespace AuditScaner
             ReleaseCapture();
             SendMessage(Handle, 0x112, 0xf012, 0);
         }
+
     }
 }

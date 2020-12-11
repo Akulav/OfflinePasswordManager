@@ -37,11 +37,11 @@ namespace AuditScaner
             // Succes
             // 
             this.Succes.AutoSize = true;
-            this.Succes.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Succes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Succes.ForeColor = System.Drawing.Color.Gainsboro;
-            this.Succes.Location = new System.Drawing.Point(65, 38);
+            this.Succes.Location = new System.Drawing.Point(150, 59);
             this.Succes.Name = "Succes";
-            this.Succes.Size = new System.Drawing.Size(299, 24);
+            this.Succes.Size = new System.Drawing.Size(251, 20);
             this.Succes.TabIndex = 0;
             this.Succes.Text = "Operation completed with success\r\n";
             // 
@@ -53,7 +53,7 @@ namespace AuditScaner
             this.DialogConfirm.IconChar = FontAwesome.Sharp.IconChar.None;
             this.DialogConfirm.IconColor = System.Drawing.Color.BlanchedAlmond;
             this.DialogConfirm.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.DialogConfirm.Location = new System.Drawing.Point(69, 74);
+            this.DialogConfirm.Location = new System.Drawing.Point(128, 104);
             this.DialogConfirm.Name = "DialogConfirm";
             this.DialogConfirm.Size = new System.Drawing.Size(295, 38);
             this.DialogConfirm.TabIndex = 1;
@@ -63,12 +63,12 @@ namespace AuditScaner
             // 
             // topPanel
             // 
+            this.topPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(25)))), ((int)(((byte)(62)))));
             this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topPanel.Location = new System.Drawing.Point(0, 0);
             this.topPanel.Name = "topPanel";
-            this.topPanel.Size = new System.Drawing.Size(413, 33);
+            this.topPanel.Size = new System.Drawing.Size(519, 33);
             this.topPanel.TabIndex = 6;
-            this.topPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.topPanel_Paint);
             this.topPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.topPanel_MouseDown);
             // 
             // SuccesDialog
@@ -77,7 +77,7 @@ namespace AuditScaner
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
-            this.ClientSize = new System.Drawing.Size(413, 155);
+            this.ClientSize = new System.Drawing.Size(519, 178);
             this.Controls.Add(this.topPanel);
             this.Controls.Add(this.DialogConfirm);
             this.Controls.Add(this.Succes);
@@ -86,7 +86,6 @@ namespace AuditScaner
             this.Name = "SuccesDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SuccesDialog";
-            this.Load += new System.EventHandler(this.SuccesDialog_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
