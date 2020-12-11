@@ -85,6 +85,7 @@ namespace AuditScaner
             this.DeleteData.TabIndex = 2;
             this.DeleteData.Text = "DeleteUser";
             this.DeleteData.UseVisualStyleBackColor = false;
+            this.DeleteData.Click += new System.EventHandler(this.DeleteData_Click);
             // 
             // Minimize
             // 
@@ -118,6 +119,7 @@ namespace AuditScaner
             // 
             // topPanel
             // 
+            this.topPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(25)))), ((int)(((byte)(62)))));
             this.topPanel.Controls.Add(this.Exit);
             this.topPanel.Controls.Add(this.Minimize);
             this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;

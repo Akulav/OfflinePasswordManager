@@ -15,7 +15,7 @@ namespace AuditScaner
     public partial class ViewData : Form
     {
         private string key;
-        public string fileLocation = "C:\\PasswordManager\\Storage";
+        private string fileLocation = "C:\\PasswordManager\\Storage";
         public ViewData(string key)
         {
             InitializeComponent();
@@ -31,6 +31,8 @@ namespace AuditScaner
             Label[] serviceLabel = new Label[fileList.Length];
             Label[] usernamesLabel = new Label[fileList.Length];
             Label[] passwordsLabel = new Label[fileList.Length];
+            Label[] service = new Label[fileList.Length];
+
             for (int i = 0; i < fileList.Length; i++)
             {
                 usernames[i] = new TextBox();
@@ -44,24 +46,34 @@ namespace AuditScaner
                 serviceLabel[i] = new Label();
                 serviceLabel[i].Font = new Font("Arial", 24);
                 serviceLabel[i].AutoSize = true;
+                serviceLabel[i].ForeColor = Color.Gainsboro;
+
+                service[i] = new Label();
+                service[i].Text = "Service";
+                service[i].AutoSize = true;
+                service[i].Font = new Font("Arial", 24);
+                service[i].ForeColor = Color.Gainsboro;
 
                 usernamesLabel[i] = new Label();
                 usernamesLabel[i].Font = new Font("Arial", 24);
                 usernamesLabel[i].Text = "Username";
                 usernamesLabel[i].AutoSize = true;
+                usernamesLabel[i].ForeColor = Color.Gainsboro;
 
                 passwordsLabel[i] = new Label();
                 passwordsLabel[i].Font = new Font("Arial", 24);
                 passwordsLabel[i].Text = "Password";
+                passwordsLabel[i].ForeColor = Color.Gainsboro;
                 passwordsLabel[i].AutoSize = true;
             }
 
             flowPanel.SuspendLayout();
-            flowPanel.WrapContents = false;
 
             for (int i = 0; i < fileList.Length; i++)
             {
                 string[] data = File.ReadAllLines(fileList[i]);
+
+                flowPanel.Controls.Add(service[i]);
 
                 serviceLabel[i].Text = Decrypt(data[2], key);
                 flowPanel.Controls.Add(serviceLabel[i]);
@@ -73,6 +85,7 @@ namespace AuditScaner
                 flowPanel.Controls.Add(passwordsLabel[i]);
                 passwords[i].Text = Decrypt(data[1], key);
                 flowPanel.Controls.Add(passwords[i]);
+
             }
 
             flowPanel.ResumeLayout();

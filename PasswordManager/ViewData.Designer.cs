@@ -29,18 +29,23 @@ namespace AuditScaner
         /// </summary>
         private void InitializeComponent()
         {
-            this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowPanel = new System.Windows.Forms.TableLayoutPanel();
             this.SuspendLayout();
             // 
             // flowPanel
             // 
             this.flowPanel.AutoScroll = true;
+            this.flowPanel.ColumnCount = 2;
+            this.flowPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.flowPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.flowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowPanel.Location = new System.Drawing.Point(0, 0);
             this.flowPanel.Name = "flowPanel";
+            this.flowPanel.RowCount = 2;
+            this.flowPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.flowPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.flowPanel.Size = new System.Drawing.Size(924, 621);
-            this.flowPanel.TabIndex = 8;
+            this.flowPanel.TabIndex = 0;
             // 
             // ViewData
             // 
@@ -60,6 +65,6 @@ namespace AuditScaner
 
         #endregion
 
-        private System.Windows.Forms.FlowLayoutPanel flowPanel;
+        private System.Windows.Forms.TableLayoutPanel flowPanel;
     }
 }

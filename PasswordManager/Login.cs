@@ -200,9 +200,8 @@ namespace AuditScaner
                 writer.WriteLine(dataname[0]);
                 Thread.Sleep(100);
                 writer.WriteLine(dataname[1]);
+                writer.Close();
             }
-
-            
 
             SuccesDialog sc = new SuccesDialog("Login");
             sc.Show();
@@ -218,5 +217,12 @@ namespace AuditScaner
             checkHash(username,password);
         }
 
+        private void DeleteData_Click(object sender, EventArgs e)
+        {
+            DeleteUserLogin del = new DeleteUserLogin();
+            del.RefToForm1 = this;
+            del.Show();
+            this.Hide();
+        }
     }
 }
