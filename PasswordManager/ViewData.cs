@@ -26,69 +26,67 @@ namespace AuditScaner
         private void getData()
         {
             string[] fileList = Directory.GetFiles(fileLocation);
+
             TextBox[] usernames = new TextBox[fileList.Length];
             TextBox[] passwords = new TextBox[fileList.Length];
             Label[] serviceLabel = new Label[fileList.Length];
-            Label[] usernamesLabel = new Label[fileList.Length];
-            Label[] passwordsLabel = new Label[fileList.Length];
-            Label[] service = new Label[fileList.Length];
+
+            Label usernamesLabel = new Label();
+            Label passwordsLabel = new Label();
+            Label service = new Label();
+
+            service.Text = "Service";
+            service.AutoSize = true;
+            service.Font = new Font("Arial", 18);
+            service.ForeColor = Color.Gainsboro;
+
+            usernamesLabel.Font = new Font("Arial", 18);
+            usernamesLabel.Text = "Username";
+            usernamesLabel.AutoSize = true;
+            usernamesLabel.ForeColor = Color.Gainsboro;
+
+            passwordsLabel.Font = new Font("Arial", 18);
+            passwordsLabel.Text = "Password";
+            passwordsLabel.ForeColor = Color.Gainsboro;
+            passwordsLabel.AutoSize = true;
+
+
 
             for (int i = 0; i < fileList.Length; i++)
             {
                 usernames[i] = new TextBox();
-                usernames[i].Font = new Font("Arial", 24);
+                usernames[i].Font = new Font("Arial", 18);
                 usernames[i].AutoSize = true;
 
                 passwords[i] = new TextBox();
-                passwords[i].Font = new Font("Arial", 24);
+                passwords[i].Font = new Font("Arial", 18);
                 passwords[i].AutoSize = true;
 
                 serviceLabel[i] = new Label();
-                serviceLabel[i].Font = new Font("Arial", 24);
+                serviceLabel[i].Font = new Font("Arial", 18);
                 serviceLabel[i].AutoSize = true;
                 serviceLabel[i].ForeColor = Color.Gainsboro;
-
-                service[i] = new Label();
-                service[i].Text = "Service";
-                service[i].AutoSize = true;
-                service[i].Font = new Font("Arial", 24);
-                service[i].ForeColor = Color.Gainsboro;
-
-                usernamesLabel[i] = new Label();
-                usernamesLabel[i].Font = new Font("Arial", 24);
-                usernamesLabel[i].Text = "Username";
-                usernamesLabel[i].AutoSize = true;
-                usernamesLabel[i].ForeColor = Color.Gainsboro;
-
-                passwordsLabel[i] = new Label();
-                passwordsLabel[i].Font = new Font("Arial", 24);
-                passwordsLabel[i].Text = "Password";
-                passwordsLabel[i].ForeColor = Color.Gainsboro;
-                passwordsLabel[i].AutoSize = true;
             }
 
-            flowPanel.SuspendLayout();
+            flowPanel.Controls.Add(service);
+            flowPanel.Controls.Add(usernamesLabel);
+            flowPanel.Controls.Add(passwordsLabel);
 
             for (int i = 0; i < fileList.Length; i++)
             {
                 string[] data = File.ReadAllLines(fileList[i]);
 
-                flowPanel.Controls.Add(service[i]);
-
                 serviceLabel[i].Text = Decrypt(data[2], key);
                 flowPanel.Controls.Add(serviceLabel[i]);
 
-                flowPanel.Controls.Add(usernamesLabel[i]);
                 usernames[i].Text = Decrypt(data[0], key);
                 flowPanel.Controls.Add(usernames[i]);
                 
-                flowPanel.Controls.Add(passwordsLabel[i]);
                 passwords[i].Text = Decrypt(data[1], key);
                 flowPanel.Controls.Add(passwords[i]);
 
             }
 
-            flowPanel.ResumeLayout();
         }
 
         public string Decrypt(string cipherText, string EncryptionKey)
