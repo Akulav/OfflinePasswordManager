@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
@@ -39,6 +40,7 @@ namespace AuditScaner
             else if (user == 1)
             {
                 CreateUser.Visible = false;
+                importData.Visible = false;
             }
         }
 
@@ -122,7 +124,7 @@ namespace AuditScaner
             SendMessage(Handle, 0x112, 0xf012, 0);
         }
 
-        public void checkHash(string user,string pass)
+        public void checkHash(string user, string pass)
         {
             string curFile = @"c:\PasswordManager\user";
             string[] lines = File.ReadAllLines(curFile);
@@ -141,7 +143,7 @@ namespace AuditScaner
             }
 
             else { MessageBox.Show("Wrong Account"); }
-            
+
         }
 
         public string[] GenerateHash(string input, string salt)
@@ -189,7 +191,7 @@ namespace AuditScaner
                 goto end;
             }
 
-            string[] datapass = GenerateHash(password,GenerateRandomAlphanumericString());
+            string[] datapass = GenerateHash(password, GenerateRandomAlphanumericString());
             string[] dataname = GenerateHash(username, GenerateRandomAlphanumericString());
             using (StreamWriter writer = new StreamWriter(@"c:\\PasswordManager\\user"))
             {
@@ -205,16 +207,16 @@ namespace AuditScaner
 
             SuccesDialog sc = new SuccesDialog("Login");
             sc.Show();
-            end:
+        end:
             this.Close();
-            
+
         }
 
         private void LoginUser_Click(object sender, EventArgs e)
         {
             string password = Password.Text;
             string username = Username.Text;
-            checkHash(username,password);
+            checkHash(username, password);
         }
 
         private void DeleteData_Click(object sender, EventArgs e)
@@ -223,6 +225,45 @@ namespace AuditScaner
             del.RefToForm1 = this;
             del.Show();
             this.Hide();
+        }
+
+        private void importData_Click(object sender, EventArgs e)
+        {
+            import();
+        }
+
+        private void import()
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.InitialDirectory = "c:\\PasswordManager";
+            openFileDialog1.Filter = "Zip files (*.zip)|*.zip*";
+            openFileDialog1.FilterIndex = 0;
+            openFileDialog1.RestoreDirectory = true;
+            string selection;
+            string extractPath = @"c:\PasswordManager";
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                selection = openFileDialog1.FileName;
+                ZipFile.ExtractToDirectory(selection, extractPath);
+            }
+            try
+            {
+                selection = openFileDialog1.FileName;
+                ZipFile.ExtractToDirectory(selection, extractPath);
+            }
+            catch (IOException)
+            {
+                
+            }
+
+            catch (ArgumentNullException)
+            {
+
+            }
+
+            Application.Restart();
+
         }
     }
 }

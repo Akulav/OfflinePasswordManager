@@ -42,6 +42,12 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Messaging" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -65,6 +71,18 @@
     </Compile>
     <Compile Include="DeleteUserLogin.Designer.cs">
       <DependentUpon>DeleteUserLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportConfirm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportConfirm.Designer.cs">
+      <DependentUpon>ImportConfirm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportExport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportExport.Designer.cs">
+      <DependentUpon>ImportExport.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -103,6 +121,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DeleteUserLogin.resx">
       <DependentUpon>DeleteUserLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportConfirm.resx">
+      <DependentUpon>ImportConfirm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportExport.resx">
+      <DependentUpon>ImportExport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

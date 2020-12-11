@@ -169,6 +169,7 @@ namespace AuditScaner
         {
             ActivateButton(sender, RGBColors.color3);
             labelTitleOfChildForm.Text = "Export Tools";
+            OpenChildForm(new ImportExport());
         }
 
         private void ViewData_Click(object sender, EventArgs e)

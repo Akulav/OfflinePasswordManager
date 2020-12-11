@@ -39,6 +39,7 @@ namespace AuditScaner
             this.Password = new System.Windows.Forms.TextBox();
             this.user = new System.Windows.Forms.Label();
             this.pass = new System.Windows.Forms.Label();
+            this.importData = new FontAwesome.Sharp.IconButton();
             this.topPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -163,12 +164,28 @@ namespace AuditScaner
             this.pass.TabIndex = 9;
             this.pass.Text = "Password";
             // 
+            // importData
+            // 
+            this.importData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(30)))), ((int)(((byte)(68)))));
+            this.importData.ForeColor = System.Drawing.Color.Gainsboro;
+            this.importData.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.importData.IconColor = System.Drawing.Color.Black;
+            this.importData.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.importData.Location = new System.Drawing.Point(253, 215);
+            this.importData.Name = "importData";
+            this.importData.Size = new System.Drawing.Size(178, 55);
+            this.importData.TabIndex = 10;
+            this.importData.Text = "Import Data";
+            this.importData.UseVisualStyleBackColor = false;
+            this.importData.Click += new System.EventHandler(this.importData_Click);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(689, 398);
+            this.Controls.Add(this.importData);
             this.Controls.Add(this.pass);
             this.Controls.Add(this.user);
             this.Controls.Add(this.Password);
@@ -200,5 +217,6 @@ namespace AuditScaner
         private System.Windows.Forms.TextBox Password;
         private System.Windows.Forms.Label user;
         private System.Windows.Forms.Label pass;
+        private FontAwesome.Sharp.IconButton importData;
     }
 }

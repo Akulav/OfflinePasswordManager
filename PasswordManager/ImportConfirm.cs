@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,70 +13,74 @@ using System.Windows.Forms;
 
 namespace AuditScaner
 {
-    public partial class DeleteUserLogin : Form
+    public partial class ImportConfirm : Form
     {
-        private string fileLocation = "C:\\PasswordManager\\Storage";
-        string curFile = @"c:\PasswordManager\user";
-
-        public DeleteUserLogin()
+        public ImportConfirm()
         {
             InitializeComponent();
-            okButton.Hide();
         }
-
-        public Form RefToForm1 { get; set; }
 
         private void noButton_Click(object sender, EventArgs e)
         {
-            this.RefToForm1.Show();
             this.Close();
-        }
-
-        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
-        private extern static void ReleaseCapture();
-        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
-        private extern static void SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
-
-        private void topPanel_MouseDown(object sender, MouseEventArgs e)
-        {
-            ReleaseCapture();
-            SendMessage(Handle, 0x112, 0xf012, 0);
         }
 
         private void yesButton_Click(object sender, EventArgs e)
         {
-            yesButton.Hide();
-            noButton.Hide();
-            this.RefToForm1.Close();
+            erase();
+            import();
+            Application.Restart();
+        }
+
+        private void import()
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.InitialDirectory = "c:\\PasswordManager";
+            openFileDialog1.Filter = "Zip files (*.zip)|*.zip*";
+            openFileDialog1.FilterIndex = 0;
+            openFileDialog1.RestoreDirectory = true;
+            string selection;
+            string extractPath = @"c:\PasswordManager";
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                selection = openFileDialog1.FileName;
+                ZipFile.ExtractToDirectory(selection, extractPath);
+            }
             try
             {
-                deleteLabel.Text = "Secure erase started...";
-
-                string[] fileList = Directory.GetFiles(fileLocation);
-                for (int i = 0; i < fileList.Length; i++)
-                {
-                    string data = File.ReadAllText(fileList[i]);
-                    string newData = Encrypt(data, GenerateRandomAlphanumericString());
-                    File.WriteAllText(fileList[i], newData);
-                    File.Encrypt(fileList[i]);
-                    File.Delete(fileList[i]);
-                }
+                selection = openFileDialog1.FileName;
+                ZipFile.ExtractToDirectory(selection, extractPath);
             }
-
-            catch { }
-            try
+            catch (IOException)
             {
-                File.Delete(curFile);
+                
             }
 
-            catch { }
+            catch (ArgumentNullException)
+            {
 
-            deleteLabel.Text = "Success";
-            okButton.Show();
+            }
 
         }
 
+        private void erase()
+        {
+            string fileLocation = "C:\\PasswordManager\\Storage";
+            string curFile = @"c:\PasswordManager\user";
 
+            string[] fileList = Directory.GetFiles(fileLocation);
+            for (int i = 0; i < fileList.Length; i++)
+            {
+                string data = File.ReadAllText(fileList[i]);
+                string newData = Encrypt(data, GenerateRandomAlphanumericString());
+                File.WriteAllText(fileList[i], newData);
+                File.Encrypt(fileList[i]);
+                File.Delete(fileList[i]);
+            }
+
+            File.Delete(curFile);
+        }
 
         public string GenerateRandomAlphanumericString()
         {
@@ -113,13 +117,6 @@ namespace AuditScaner
                 }
             }
             return clearText;
-        }
-
-        private void okButton_Click(object sender, EventArgs e)
-        {
-            Login lg = new Login();
-            lg.Show();
-            this.Close();
         }
     }
 }
