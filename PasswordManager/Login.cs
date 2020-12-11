@@ -196,11 +196,8 @@ namespace AuditScaner
             using (StreamWriter writer = new StreamWriter(@"c:\\PasswordManager\\user"))
             {
                 writer.WriteLine(datapass[0]);
-                Thread.Sleep(100);
                 writer.WriteLine(datapass[1]);
-                Thread.Sleep(100);
                 writer.WriteLine(dataname[0]);
-                Thread.Sleep(100);
                 writer.WriteLine(dataname[1]);
                 writer.Close();
             }

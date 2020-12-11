@@ -23,6 +23,11 @@ namespace AuditScaner
             getData();
         }
 
+        private string[] getFileList()
+        {
+            return Directory.GetFiles(fileLocation);
+        }
+
         private void getData()
         {
             string[] fileList = Directory.GetFiles(fileLocation);
@@ -34,6 +39,8 @@ namespace AuditScaner
             Label usernamesLabel = new Label();
             Label passwordsLabel = new Label();
             Label service = new Label();
+            Label deleteLabel = new Label();
+            Label copyLabel = new Label();
 
             service.Text = "Service";
             service.AutoSize = true;
@@ -50,7 +57,15 @@ namespace AuditScaner
             passwordsLabel.ForeColor = Color.Gainsboro;
             passwordsLabel.AutoSize = true;
 
+            deleteLabel.Font = new Font("Arial", 18);
+            deleteLabel.Text = "Click to delete";
+            deleteLabel.ForeColor = Color.Gainsboro;
+            deleteLabel.AutoSize = true;
 
+            copyLabel.Font = new Font("Arial", 18);
+            copyLabel.Text = "Click to copy password";
+            copyLabel.ForeColor = Color.Gainsboro;
+            copyLabel.AutoSize = true;
 
             for (int i = 0; i < fileList.Length; i++)
             {
@@ -71,6 +86,7 @@ namespace AuditScaner
             flowPanel.Controls.Add(service);
             flowPanel.Controls.Add(usernamesLabel);
             flowPanel.Controls.Add(passwordsLabel);
+            flowPanel.Controls.Add(deleteLabel);
 
             for (int i = 0; i < fileList.Length; i++)
             {
@@ -85,6 +101,22 @@ namespace AuditScaner
                 passwords[i].Text = Decrypt(data[1], key);
                 flowPanel.Controls.Add(passwords[i]);
 
+                Button delete = new Button();
+                delete.Text = i.ToString();
+                delete.ForeColor = Color.Gainsboro;
+                delete.Font = new Font("Arial", 18);
+                delete.AutoSize = true;
+                delete.Click += new EventHandler(delegate (Object o, EventArgs a)
+                {
+                    int index = int.Parse(delete.Text);
+                    MessageBox.Show(index.ToString());
+                    string[] list = getFileList();
+                    File.Delete(list[index]);
+                    this.Controls.Clear();
+                    this.InitializeComponent();
+                    getData();
+                });
+                flowPanel.Controls.Add(delete);
             }
 
         }
