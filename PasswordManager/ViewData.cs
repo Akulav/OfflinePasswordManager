@@ -32,8 +32,6 @@ namespace AuditScaner
         {
             string[] fileList = Directory.GetFiles(fileLocation);
 
-            flowPanel.Anchor = AnchorStyles.None;
-
             TextBox[] usernames = new TextBox[fileList.Length];
             TextBox[] passwords = new TextBox[fileList.Length];
             Label[] serviceLabel = new Label[fileList.Length];
@@ -42,7 +40,6 @@ namespace AuditScaner
             Label passwordsLabel = new Label();
             Label service = new Label();
             Label deleteLabel = new Label();
-            Label copyLabel = new Label();
 
             service.Text = "Service";
             service.AutoSize = true;
@@ -60,27 +57,24 @@ namespace AuditScaner
             passwordsLabel.AutoSize = true;
 
             deleteLabel.Font = new Font("Arial", 18);
-            deleteLabel.Text = "Click to delete";
+            deleteLabel.Text = "Click to delete data";
             deleteLabel.ForeColor = Color.Gainsboro;
             deleteLabel.AutoSize = true;
-
-            copyLabel.Font = new Font("Arial", 18);
-            copyLabel.Text = "Click to copy password";
-            copyLabel.ForeColor = Color.Gainsboro;
-            copyLabel.AutoSize = true;
 
             for (int i = 0; i < fileList.Length; i++)
             {
                 usernames[i] = new TextBox();
-                usernames[i].Font = new Font("Arial", 18);
+                usernames[i].Font = new Font("Arial", 16);
+                usernames[i].Width = 500;
                 usernames[i].AutoSize = true;
 
                 passwords[i] = new TextBox();
-                passwords[i].Font = new Font("Arial", 18);
+                passwords[i].Font = new Font("Arial", 16);
+                passwords[i].Width = 500;
                 passwords[i].AutoSize = true;
 
                 serviceLabel[i] = new Label();
-                serviceLabel[i].Font = new Font("Arial", 18);
+                serviceLabel[i].Font = new Font("Arial", 17);
                 serviceLabel[i].AutoSize = true;
                 serviceLabel[i].ForeColor = Color.Gainsboro;
             }
@@ -106,7 +100,8 @@ namespace AuditScaner
                 Button delete = new Button();
                 delete.Text = i.ToString();
                 delete.ForeColor = Color.Gainsboro;
-                delete.Font = new Font("Arial", 18);
+                delete.Font = new Font("Arial", 16);
+                delete.Width = 500;
                 delete.AutoSize = true;
                 delete.Click += new EventHandler(delegate (Object o, EventArgs a)
                 {
