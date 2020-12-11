@@ -154,6 +154,11 @@ namespace AuditScaner
             }
         }
 
+        private void checkIntegrity()
+        {
+
+        }
+
         private void Dashboard_Click(object sender, EventArgs e)
         {
             if (currentChildForm != null)
