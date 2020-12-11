@@ -21,7 +21,6 @@ namespace AuditScaner
             InitializeComponent();
             passwordText.PasswordChar = '*';
             this.key = key;
-            MessageBox.Show(this.key);
         }
 
         private void create_Click(object sender, EventArgs e)

@@ -18,11 +18,28 @@ namespace AuditScaner
         {
             InitializeComponent();
             this.form = form;
+            if (form == "LoginFailUsername") { Succes.Text = "Username too short"; }
+            if (form == "LoginFailPassword") { Succes.Text = "Password must be at least 8 long"; }
         }
 
         private void DialogConfirm_Click(object sender, EventArgs e)
         {
             if (form == "Login")
+            {
+                Login lg = new Login();
+                lg.Show();
+                this.Close();
+            }
+
+            if (form == "LoginFailUsername")
+            {
+                
+                Login lg = new Login();
+                lg.Show();
+                this.Close();
+            }
+
+            if (form == "LoginFailPassword")
             {
                 Login lg = new Login();
                 lg.Show();

@@ -29,6 +29,7 @@ namespace AuditScaner
         /// </summary>
         private void InitializeComponent()
         {
+            this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.usernameLabel = new System.Windows.Forms.Label();
             this.passwordLabel = new System.Windows.Forms.Label();
             this.serviceLabel = new System.Windows.Forms.Label();
@@ -39,12 +40,21 @@ namespace AuditScaner
             this.deleteButton = new FontAwesome.Sharp.IconButton();
             this.SuspendLayout();
             // 
+            // flowPanel
+            // 
+            this.flowPanel.AutoScroll = true;
+            this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowPanel.Location = new System.Drawing.Point(12, 12);
+            this.flowPanel.Name = "flowPanel";
+            this.flowPanel.Size = new System.Drawing.Size(900, 597);
+            this.flowPanel.TabIndex = 8;
+            // 
             // usernameLabel
             // 
             this.usernameLabel.AutoSize = true;
             this.usernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.usernameLabel.ForeColor = System.Drawing.Color.Gainsboro;
-            this.usernameLabel.Location = new System.Drawing.Point(235, 215);
+            this.usernameLabel.Location = new System.Drawing.Point(484, 80);
             this.usernameLabel.Name = "usernameLabel";
             this.usernameLabel.Size = new System.Drawing.Size(164, 37);
             this.usernameLabel.TabIndex = 0;
@@ -55,7 +65,7 @@ namespace AuditScaner
             this.passwordLabel.AutoSize = true;
             this.passwordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passwordLabel.ForeColor = System.Drawing.Color.Gainsboro;
-            this.passwordLabel.Location = new System.Drawing.Point(235, 267);
+            this.passwordLabel.Location = new System.Drawing.Point(484, 132);
             this.passwordLabel.Name = "passwordLabel";
             this.passwordLabel.Size = new System.Drawing.Size(158, 37);
             this.passwordLabel.TabIndex = 1;
@@ -66,7 +76,7 @@ namespace AuditScaner
             this.serviceLabel.AutoSize = true;
             this.serviceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.serviceLabel.ForeColor = System.Drawing.Color.Gainsboro;
-            this.serviceLabel.Location = new System.Drawing.Point(235, 147);
+            this.serviceLabel.Location = new System.Drawing.Point(484, 12);
             this.serviceLabel.Name = "serviceLabel";
             this.serviceLabel.Size = new System.Drawing.Size(428, 37);
             this.serviceLabel.TabIndex = 2;
@@ -75,7 +85,7 @@ namespace AuditScaner
             // usernameText
             // 
             this.usernameText.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usernameText.Location = new System.Drawing.Point(415, 208);
+            this.usernameText.Location = new System.Drawing.Point(664, 73);
             this.usernameText.Name = "usernameText";
             this.usernameText.Size = new System.Drawing.Size(236, 44);
             this.usernameText.TabIndex = 3;
@@ -83,7 +93,7 @@ namespace AuditScaner
             // passwordText
             // 
             this.passwordText.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passwordText.Location = new System.Drawing.Point(415, 260);
+            this.passwordText.Location = new System.Drawing.Point(664, 125);
             this.passwordText.Name = "passwordText";
             this.passwordText.Size = new System.Drawing.Size(236, 44);
             this.passwordText.TabIndex = 4;
@@ -93,7 +103,7 @@ namespace AuditScaner
             this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.None;
             this.iconButton1.IconColor = System.Drawing.Color.Black;
             this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButton1.Location = new System.Drawing.Point(242, 320);
+            this.iconButton1.Location = new System.Drawing.Point(491, 185);
             this.iconButton1.Name = "iconButton1";
             this.iconButton1.Size = new System.Drawing.Size(140, 54);
             this.iconButton1.TabIndex = 5;
@@ -105,7 +115,7 @@ namespace AuditScaner
             this.iconButton2.IconChar = FontAwesome.Sharp.IconChar.None;
             this.iconButton2.IconColor = System.Drawing.Color.Black;
             this.iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButton2.Location = new System.Drawing.Point(388, 320);
+            this.iconButton2.Location = new System.Drawing.Point(637, 185);
             this.iconButton2.Name = "iconButton2";
             this.iconButton2.Size = new System.Drawing.Size(140, 54);
             this.iconButton2.TabIndex = 6;
@@ -117,7 +127,7 @@ namespace AuditScaner
             this.deleteButton.IconChar = FontAwesome.Sharp.IconChar.None;
             this.deleteButton.IconColor = System.Drawing.Color.Black;
             this.deleteButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.deleteButton.Location = new System.Drawing.Point(534, 320);
+            this.deleteButton.Location = new System.Drawing.Point(783, 185);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(117, 54);
             this.deleteButton.TabIndex = 7;
@@ -128,8 +138,11 @@ namespace AuditScaner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(924, 621);
+            this.Controls.Add(this.flowPanel);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.iconButton2);
             this.Controls.Add(this.iconButton1);
@@ -148,6 +161,7 @@ namespace AuditScaner
 
         #endregion
 
+        private System.Windows.Forms.FlowLayoutPanel flowPanel;
         private System.Windows.Forms.Label usernameLabel;
         private System.Windows.Forms.Label passwordLabel;
         private System.Windows.Forms.Label serviceLabel;

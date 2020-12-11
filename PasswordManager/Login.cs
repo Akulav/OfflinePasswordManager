@@ -149,7 +149,7 @@ namespace AuditScaner
             byte[] bytes = Encoding.ASCII.GetBytes(input + salt);
             SHA256Managed sHA256ManagedString = new SHA256Managed();
             byte[] hash = sHA256ManagedString.ComputeHash(bytes);
-            string[] data = { salt, Encoding.ASCII.GetString(hash) };
+            string[] data = { salt, BitConverter.ToString(hash) };
             return data;
         }
 
@@ -174,6 +174,21 @@ namespace AuditScaner
             Random rnd = new Random();
             string password = Password.Text;
             string username = Username.Text;
+
+            if (username == "")
+            {
+                SuccesDialog scFail = new SuccesDialog("LoginFailUsername");
+                scFail.Show();
+                goto end;
+            }
+
+            if (password.Length < 3)
+            {
+                SuccesDialog scFail = new SuccesDialog("LoginFailPassword");
+                scFail.Show();
+                goto end;
+            }
+
             string[] datapass = GenerateHash(password,GenerateRandomAlphanumericString());
             string[] dataname = GenerateHash(username, GenerateRandomAlphanumericString());
             using (StreamWriter writer = new StreamWriter(@"c:\\PasswordManager\\user"))
@@ -187,8 +202,11 @@ namespace AuditScaner
                 writer.WriteLine(dataname[1]);
             }
 
+            
+
             SuccesDialog sc = new SuccesDialog("Login");
             sc.Show();
+            end:
             this.Close();
             
         }
