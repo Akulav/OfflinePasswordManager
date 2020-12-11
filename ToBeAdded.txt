@@ -11,4 +11,7 @@ Check Sum Checker
 
 
 ----TO WORK ON
-View Data scrollable area (flow)
+Fix ViewData with a table layout
+CheckHash Remove MessageBox
+Delete Encryption
+Import Export
