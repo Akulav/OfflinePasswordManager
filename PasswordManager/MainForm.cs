@@ -1,5 +1,6 @@
 ﻿using FontAwesome.Sharp;
 using Microsoft.Win32;
+using PasswordManager;
 using System;
 using System.Drawing;
 using System.IO;
@@ -199,6 +200,7 @@ namespace AuditScaner
         {
             ActivateButton(sender, RGBColors.color5);
             labelTitleOfChildForm.Text = "Settings";
+            OpenChildForm(new About());
         }
 
         private void btnHome_Click(object sender, EventArgs e)

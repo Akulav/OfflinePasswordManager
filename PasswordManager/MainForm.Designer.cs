@@ -47,11 +47,11 @@
             this.iconCurrentChildForm = new FontAwesome.Sharp.IconPictureBox();
             this.panelShadow = new System.Windows.Forms.Panel();
             this.panelDesktop = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.clock = new System.Windows.Forms.Label();
             this.labelProgramStatus = new System.Windows.Forms.Label();
             this.labelProgramVersion = new System.Windows.Forms.Label();
             this.labelWindowsVersion = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MenuPanel.SuspendLayout();
             this.PanelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnHome)).BeginInit();
@@ -127,7 +127,7 @@
             this.Settings.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.Settings.Size = new System.Drawing.Size(220, 60);
             this.Settings.TabIndex = 5;
-            this.Settings.Text = "Settings";
+            this.Settings.Text = "About";
             this.Settings.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.Settings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.Settings.UseVisualStyleBackColor = true;
@@ -361,6 +361,16 @@
             this.panelDesktop.Size = new System.Drawing.Size(924, 621);
             this.panelDesktop.TabIndex = 3;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(361, 245);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(265, 230);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            // 
             // clock
             // 
             this.clock.Font = new System.Drawing.Font("Microsoft Sans Serif", 64F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -403,16 +413,6 @@
             this.labelWindowsVersion.Size = new System.Drawing.Size(133, 13);
             this.labelWindowsVersion.TabIndex = 3;
             this.labelWindowsVersion.Text = "PLACE_HOLDER_WIN_V";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(361, 245);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(265, 230);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
             // 
             // MainForm
             // 
