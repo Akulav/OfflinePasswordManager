@@ -1,9 +1,5 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -11,8 +7,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AuditScaner
@@ -89,7 +83,7 @@ namespace AuditScaner
         private void initializeDataSet()
         {
             string root = @"C:\";
-            string subdir = @"C:\PasswordManager";
+            string subdir = @"C:\PasswordManager\users";
             if (!Directory.Exists(root))
             {
                 Directory.CreateDirectory(root);
@@ -104,10 +98,10 @@ namespace AuditScaner
 
         private int checkIfUser()
         {
-            string curFile = @"c:\PasswordManager\user";
-            if (File.Exists(curFile))
+            string Folder = @"c:\PasswordManager\users";
+            if (Directory.EnumerateFiles(Folder).Count() > 0)
             {
-                return 1;
+                return 1;       
             }
 
             else
@@ -139,24 +133,31 @@ namespace AuditScaner
 
         public void checkHash(string user, string pass)
         {
-            string curFile = @"c:\PasswordManager\user";
-            string[] lines = File.ReadAllLines(curFile);
-            string[] hashUser = GenerateHash(user, lines[0]);
-            string[] hashPass = GenerateHash(pass, lines[2]);
-            if (hashUser[1] == lines[3])
+            string curfile = "c:\\PasswordManager\\users\\" + user;
+            try
             {
-                if (hashPass[1] == lines[1])
+                string[] lines = File.ReadAllLines(curfile);
+
+
+
+                string[] hashUser = GenerateHash(user, lines[0]);
+                string[] hashPass = GenerateHash(pass, lines[2]);
+                if (hashUser[1] == lines[3])
                 {
-                    MainForm mf = new MainForm(pass);
-                    mf.Show();
-                    this.Close();
+                    if (hashPass[1] == lines[1])
+                    {
+                        MainForm mf = new MainForm(pass, user);                        
+                        mf.Show();
+                        this.Close();
+                    }
+
+                    else { MessageBox.Show("Wrong Account"); }
                 }
 
                 else { MessageBox.Show("Wrong Account"); }
             }
 
-            else { MessageBox.Show("Wrong Account"); }
-
+            catch { }
         }
 
         public string[] GenerateHash(string input, string salt)
@@ -206,7 +207,10 @@ namespace AuditScaner
 
             string[] datapass = GenerateHash(password, GenerateRandomAlphanumericString());
             string[] dataname = GenerateHash(username, GenerateRandomAlphanumericString());
-            using (StreamWriter writer = new StreamWriter(@"c:\\PasswordManager\\user"))
+
+            string location = "c:\\PasswordManager\\users\\" + username;
+
+            using (StreamWriter writer = new StreamWriter(@location))
             {
                 writer.WriteLine(datapass[0]);
                 writer.WriteLine(datapass[1]);
@@ -222,9 +226,10 @@ namespace AuditScaner
 
         }
 
+        //Modify to enforce harder password
         static bool ValidatePassword(string password)
         {
-            const int MIN_LENGTH = 8;
+            const int MIN_LENGTH = 1;
             const int MAX_LENGTH = 15;
 
             if (password == null) throw new ArgumentNullException();
@@ -238,16 +243,16 @@ namespace AuditScaner
             {
                 foreach (char c in password)
                 {
-                    if (char.IsUpper(c)) hasUpperCaseLetter = true;
-                    else if (char.IsLower(c)) hasLowerCaseLetter = true;
-                    else if (char.IsDigit(c)) hasDecimalDigit = true;
+                    if (char.IsUpper(c)) hasUpperCaseLetter = false;
+                    else if (char.IsLower(c)) hasLowerCaseLetter = false;
+                    else if (char.IsDigit(c)) hasDecimalDigit = false;
                 }
             }
 
             bool isValid = meetsLengthRequirements
                         //&& hasUpperCaseLetter //dont wanna make it too strict
-                        && hasLowerCaseLetter
-                        && hasDecimalDigit
+                        //&& hasLowerCaseLetter
+                        //&& hasDecimalDigit
                         ;
             return isValid;
 
@@ -272,6 +277,7 @@ namespace AuditScaner
             import();
         }
 
+        //Import logic
         private void import()
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -306,6 +312,7 @@ namespace AuditScaner
 
         }
 
+        //Detect enter key on password
         private void Password_KeyDown(object sender, KeyEventArgs e)
         {
 

@@ -15,26 +15,28 @@ namespace AuditScaner
     public partial class ViewData : Form
     {
         private string key;
-        private string fileLocation = "C:\\PasswordManager\\Storage";
-        public ViewData(string key)
+        private string username;
+        private string fileLocation = "C:\\PasswordManager\\Storage\\";
+        public ViewData(string key, string username)
         {
             InitializeComponent();
             this.key = key;
+            this.username = username;
             getData();
         }
 
         private string[] getFileList()
         {
-            return Directory.GetFiles(fileLocation);
+            return Directory.GetFiles(fileLocation+username);
         }
 
         private void getData()
         {
-            string[] fileList = Directory.GetFiles(fileLocation);
+            var dataList = File.ReadAllLines(fileLocation+username).Count();
 
-            TextBox[] usernames = new TextBox[fileList.Length];
-            TextBox[] passwords = new TextBox[fileList.Length];
-            Label[] serviceLabel = new Label[fileList.Length];
+            TextBox[] usernames = new TextBox[dataList];
+            TextBox[] passwords = new TextBox[dataList];
+            Label[] serviceLabel = new Label[dataList];
 
             Label usernamesLabel = new Label();
             Label passwordsLabel = new Label();
@@ -61,7 +63,7 @@ namespace AuditScaner
             deleteLabel.ForeColor = Color.Gainsboro;
             deleteLabel.AutoSize = true;
 
-            for (int i = 0; i < fileList.Length; i++)
+            for (int i = 0; i < dataList / 3; i++)
             {
                 usernames[i] = new TextBox();
                 usernames[i].Font = new Font("Arial", 16);
@@ -84,18 +86,33 @@ namespace AuditScaner
             flowPanel.Controls.Add(passwordsLabel);
             flowPanel.Controls.Add(deleteLabel);
 
-            for (int i = 0; i < fileList.Length; i++)
+            for (int i = 0; i < dataList / 3; i++)
             {
-                string[] data = File.ReadAllLines(fileList[i]);
+                string[] data = File.ReadAllLines(fileLocation+username);
 
-                serviceLabel[i].Text = Decrypt(data[2], key);
-                flowPanel.Controls.Add(serviceLabel[i]);
+                if (i == 0) {
 
-                usernames[i].Text = Decrypt(data[0], key);
-                flowPanel.Controls.Add(usernames[i]);
-                
-                passwords[i].Text = Decrypt(data[1], key);
-                flowPanel.Controls.Add(passwords[i]);
+                    serviceLabel[i].Text = Decrypt(data[2], key);
+                    flowPanel.Controls.Add(serviceLabel[i]);
+
+                    usernames[i].Text = Decrypt(data[0], key);
+                    flowPanel.Controls.Add(usernames[i]);
+
+                    passwords[i].Text = Decrypt(data[1], key);
+                    flowPanel.Controls.Add(passwords[i]);
+                }
+
+                else
+                {
+                    serviceLabel[i].Text = Decrypt(data[i+5], key);
+                    flowPanel.Controls.Add(serviceLabel[i]);
+
+                    usernames[i].Text = Decrypt(data[i+3], key);
+                    flowPanel.Controls.Add(usernames[i]);
+
+                    passwords[i].Text = Decrypt(data[i+4], key);
+                    flowPanel.Controls.Add(passwords[i]);
+                }
 
                 Button delete = new Button();
                 delete.Text = i.ToString();
@@ -183,6 +200,7 @@ namespace AuditScaner
             }
             return clearText;
         }
+
     }
 
 }

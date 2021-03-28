@@ -16,10 +16,11 @@ namespace AuditScaner
         private IconButton currentBtn;
         private readonly Panel leftBorderBtn;
         public Form currentChildForm;
-        private readonly string currentVersion = "Program version 0.1.1";
+        private readonly string currentVersion = "Program version 1.0.0";
         private string key;
+        private string username;
         Timer t = new Timer();
-        public MainForm(string key)
+        public MainForm(string key, string username)
         {
             //Import the embedded .dll
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
@@ -58,7 +59,8 @@ namespace AuditScaner
             initializeDataSet();
             //Gets transfered the key for encryption / decryption
             this.key = key;
-
+            this.username = username;
+            MessageBox.Show(this.username);
             this.Visible = true;
 
         }
@@ -114,8 +116,9 @@ namespace AuditScaner
 
         private void initializeDataSet()
         {
-            string root = @"C:\PasswordManager";
-            string subdir = @"C:\PasswordManager\Storage";
+            string root = @"C:\PasswordManager\";
+            string subdir = @"C:\PasswordManager\Storage\";
+            MessageBox.Show(subdir);
             if (!Directory.Exists(root))
             {
                 Directory.CreateDirectory(root);
@@ -127,6 +130,7 @@ namespace AuditScaner
                 Directory.CreateDirectory(subdir);
             }
         }
+
         private void OpenChildForm(Form childForm)
         {
             if (currentChildForm != null)
@@ -158,10 +162,6 @@ namespace AuditScaner
             }
         }
 
-        private void checkIntegrity()
-        {
-
-        }
 
         private void Dashboard_Click(object sender, EventArgs e)
         {
@@ -179,7 +179,7 @@ namespace AuditScaner
         {
             ActivateButton(sender, RGBColors.color2);
             labelTitleOfChildForm.Text = "Create Data";
-            OpenChildForm(new CreateData(this.key));
+            OpenChildForm(new CreateData(this.key,this.username));
         }
 
         private void ExportTools_Click(object sender, EventArgs e)
@@ -193,7 +193,7 @@ namespace AuditScaner
         {
             ActivateButton(sender, RGBColors.color4);
             labelTitleOfChildForm.Text = "View Data";
-            OpenChildForm(new ViewData(this.key));
+            OpenChildForm(new ViewData(this.key,this.username));
         }
 
         private void Settings_Click(object sender, EventArgs e)

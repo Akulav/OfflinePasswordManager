@@ -15,12 +15,15 @@ namespace AuditScaner
     public partial class CreateData : Form
     {
         private string key;
+        private string username;
         private Form currentChildForm;
-        public CreateData(string key)
+        public CreateData(string key, string username)
         {
             InitializeComponent();
             passwordText.PasswordChar = '*';
             this.key = key;
+            this.username = username;
+            MessageBox.Show(this.username);
         }
 
         private void create_Click(object sender, EventArgs e)
@@ -29,15 +32,17 @@ namespace AuditScaner
             string username = usernameText.Text;
             string password = passwordText.Text;
             string domain = domainText.Text;
-            string filename = GenerateRandomAlphanumericString(rnd.Next(0,200));
-            string filepath = "c:\\PasswordManager\\Storage\\" + filename;
-            using (StreamWriter writer = new StreamWriter(@filepath))
+            //string filename = GenerateRandomAlphanumericString(rnd.Next(0,200));
+            string filepath = "c:\\PasswordManager\\Storage\\" + this.username;
+           
+            using (StreamWriter writer = new StreamWriter(@filepath,true))
             {
                 writer.Write(Encrypt(username, this.key));
                 writer.Write("\n");
                 writer.Write(Encrypt(password, this.key));
                 writer.Write("\n");
                 writer.Write(Encrypt(domain, this.key));
+                writer.Write("\n");
             }
             Reset();
             OpenChildForm(new SuccessWindow("CreateData"));
