@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PasswordManager;
+using System;
 using System.Windows.Forms;
 
 namespace AuditScaner
@@ -22,19 +14,7 @@ namespace AuditScaner
 
         private void exportButton_Click(object sender, EventArgs e)
         {
-            using (var fbd = new FolderBrowserDialog())
-            {
-                DialogResult result = fbd.ShowDialog();
-
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-                {
-                    string startPath = @"c:\PasswordManager";
-                    string zipPath = fbd.SelectedPath+@"\data.zip";
-
-                    ZipFile.CreateFromDirectory(startPath, zipPath);
-                   
-                }
-            }
+            ImportExportClass.export();
         }
 
         private void importButton_Click(object sender, EventArgs e)
@@ -56,7 +36,6 @@ namespace AuditScaner
             childForm.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
-
         }
     }
 }

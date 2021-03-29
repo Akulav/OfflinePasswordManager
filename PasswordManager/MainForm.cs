@@ -18,7 +18,7 @@ namespace AuditScaner
         public Form currentChildForm;
         private readonly string currentVersion = "Program version 1.0.0";
         private string key;
-        private string username;
+        public string username;
         Timer t = new Timer();
         public MainForm(string key, string username)
         {
@@ -60,8 +60,7 @@ namespace AuditScaner
             //Gets transfered the key for encryption / decryption
             this.key = key;
             this.username = username;
-            MessageBox.Show(this.username);
-            this.Visible = true;
+            Visible = true;
 
         }
         //Structs
@@ -118,17 +117,17 @@ namespace AuditScaner
         {
             string root = @"C:\PasswordManager\";
             string subdir = @"C:\PasswordManager\Storage\";
-            MessageBox.Show(subdir);
+
             if (!Directory.Exists(root))
             {
                 Directory.CreateDirectory(root);
             }
 
-
             if (!Directory.Exists(subdir))
             {
                 Directory.CreateDirectory(subdir);
             }
+
         }
 
         private void OpenChildForm(Form childForm)
