@@ -14,7 +14,7 @@ namespace AuditScaner
         //Will Execute on load
         //All initialization is done here
         //Things like importing DLLs and enforcing Admin are here
-
+        private string fileLocation = "C:\\PasswordManager\\";
         public Login()
         {
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
@@ -202,7 +202,7 @@ namespace AuditScaner
 
         private void importData_Click(object sender, EventArgs e)
         {
-            ImportExportClass.import();
+            ImportExportClass.import(fileLocation);
         }
         private void LoginUser_Click(object sender, EventArgs e)
         {

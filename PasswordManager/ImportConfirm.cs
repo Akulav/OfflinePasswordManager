@@ -19,8 +19,7 @@ namespace AuditScaner
 
         private void yesButton_Click(object sender, EventArgs e)
         {
-            Crypto.erase(fileLocation);
-            ImportExportClass.import();
+            ImportExportClass.import(fileLocation);
             Application.Restart();
         }
 

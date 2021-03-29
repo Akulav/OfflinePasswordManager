@@ -2,12 +2,13 @@
 using System.IO;
 using System.IO.Compression;
 using System.Windows.Forms;
+using PasswordManager;
 
 namespace PasswordManager
 {
     class ImportExportClass
     {
-        public static void import()
+        public static void import(string fileLocation)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.InitialDirectory = "c:\\PasswordManager";
@@ -20,21 +21,24 @@ namespace PasswordManager
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 selection = openFileDialog1.FileName;
-                ZipFile.ExtractToDirectory(selection, extractPath);
-            }
-            try
-            {
-                selection = openFileDialog1.FileName;
-                ZipFile.ExtractToDirectory(selection, extractPath);
-            }
-            catch (IOException)
-            {
+                if (selection != null)
+                {
+                    try
+                    {
+                        selection = openFileDialog1.FileName;
+                        Crypto.erase(fileLocation);
+                        ZipFile.ExtractToDirectory(selection, extractPath);
+                    }
+                    catch (IOException)
+                    {
 
-            }
+                    }
 
-            catch (ArgumentNullException)
-            {
+                    catch (ArgumentNullException)
+                    {
 
+                    }
+                }
             }
 
             Application.Restart();
