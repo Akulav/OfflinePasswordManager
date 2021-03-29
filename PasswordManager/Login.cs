@@ -27,27 +27,27 @@ namespace AuditScaner
                     return Assembly.Load(assemblyData);
                 }
             };
+
             InitializeComponent();
-            //Make sure program is ran as Admin
             enforceAdminPrivilegesWorkaround();
-            //Make sure to hide password
             Password.PasswordChar = '*';
+            DoubleBuffered = true;
         }
 
         private void Login_Load(object sender, EventArgs e)
         {
             initializeDataSet();
-            int user = checkIfUser();
-            if (user == 0)
-            {
-                LoginUser.Visible = false;
-                DeleteData.Visible = false;
-            }
-
-            else if (user == 1)
+            if (checkIfUser())
             {
                 CreateUser.Visible = false;
                 importData.Visible = false;
+            }
+
+            else
+            {
+                LoginUser.Visible = false;
+                DeleteData.Visible = false;
+
             }
         }
 
@@ -96,17 +96,17 @@ namespace AuditScaner
             }
         }
 
-        private int checkIfUser()
+        private bool checkIfUser()
         {
             string Folder = @"c:\PasswordManager\users";
             if (Directory.EnumerateFiles(Folder).Count() > 0)
             {
-                return 1;       
+                return true;       
             }
 
             else
             {
-                return 0;
+                return false;
             }
         }
 
@@ -315,19 +315,17 @@ namespace AuditScaner
         //Detect enter key on password
         private void Password_KeyDown(object sender, KeyEventArgs e)
         {
-
-            int user = checkIfUser();
-
             if (e.KeyCode == Keys.Return)
             {
-                if (user == 0)
-                {
-                    CreateUser_Click(null, null);
-                }
 
-                else if (user == 1)
+                if (checkIfUser())
                 {
                     LoginUser_Click(null, null);
+                }
+
+                else
+                {
+                    CreateUser_Click(null, null);
                 }
             }
         }
