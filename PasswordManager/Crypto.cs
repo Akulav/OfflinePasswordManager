@@ -53,22 +53,23 @@ namespace PasswordManager
             return data;
         }
 
-        public static void erase()
+        public static void erase(string fileLocation)
         {
-            string fileLocation = "C:\\PasswordManager\\Storage";
-            string curFile = @"c:\PasswordManager\user";
-
-            string[] fileList = Directory.GetFiles(fileLocation);
-            for (int i = 0; i < fileList.Length; i++)
+            try
             {
-                string data = File.ReadAllText(fileList[i]);
-                string newData = Crypto.Encrypt(data, Crypto.GenerateRandomAlphanumericString(64));
-                File.WriteAllText(fileList[i], newData);
-                File.Encrypt(fileList[i]);
-                File.Delete(fileList[i]);
+                DirectoryInfo di = new DirectoryInfo(fileLocation);
+
+                foreach (FileInfo file in di.GetFiles())
+                {
+                    file.Delete();
+                }
+                foreach (DirectoryInfo dir in di.GetDirectories())
+                {
+                    dir.Delete(true);
+                }
             }
 
-            File.Delete(curFile);
+            catch { }
         }
 
         public static bool checkHash(string user, string pass)

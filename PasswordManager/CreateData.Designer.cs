@@ -36,6 +36,7 @@ namespace AuditScaner
             this.pass = new System.Windows.Forms.Label();
             this.domainText = new System.Windows.Forms.TextBox();
             this.domain = new System.Windows.Forms.Label();
+            this.doneLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // create
@@ -105,12 +106,23 @@ namespace AuditScaner
             this.domain.TabIndex = 6;
             this.domain.Text = "Service";
             // 
+            // doneLabel
+            // 
+            this.doneLabel.AutoSize = true;
+            this.doneLabel.ForeColor = System.Drawing.Color.Gainsboro;
+            this.doneLabel.Location = new System.Drawing.Point(413, 397);
+            this.doneLabel.Name = "doneLabel";
+            this.doneLabel.Size = new System.Drawing.Size(80, 13);
+            this.doneLabel.TabIndex = 7;
+            this.doneLabel.Text = "Account added";
+            // 
             // CreateData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(908, 582);
+            this.Controls.Add(this.doneLabel);
             this.Controls.Add(this.domain);
             this.Controls.Add(this.domainText);
             this.Controls.Add(this.pass);
@@ -135,5 +147,6 @@ namespace AuditScaner
         private System.Windows.Forms.Label pass;
         private System.Windows.Forms.TextBox domainText;
         private System.Windows.Forms.Label domain;
+        private System.Windows.Forms.Label doneLabel;
     }
 }

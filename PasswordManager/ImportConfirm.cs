@@ -6,6 +6,7 @@ namespace AuditScaner
 {
     public partial class ImportConfirm : Form
     {
+        private string fileLocation = "C:\\PasswordManager\\";
         public ImportConfirm()
         {
             InitializeComponent();
@@ -13,15 +14,15 @@ namespace AuditScaner
 
         private void noButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void yesButton_Click(object sender, EventArgs e)
         {
-            Crypto.erase();
+            Crypto.erase(fileLocation);
             ImportExportClass.import();
             Application.Restart();
-        }      
-             
+        }
+
     }
 }

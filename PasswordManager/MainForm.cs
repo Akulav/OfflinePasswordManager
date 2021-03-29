@@ -1,9 +1,7 @@
 ﻿using FontAwesome.Sharp;
-using Microsoft.Win32;
 using PasswordManager;
 using System;
 using System.Drawing;
-using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -16,7 +14,7 @@ namespace AuditScaner
         private IconButton currentBtn;
         private readonly Panel leftBorderBtn;
         public Form currentChildForm;
-        private readonly string currentVersion = "Program version 1.0.0";
+        private readonly string currentVersion = "Program version 1.1.0";
         private string key;
         public string username;
         Timer t = new Timer();
@@ -35,7 +33,7 @@ namespace AuditScaner
                     return Assembly.Load(assemblyData);
                 }
             };
-            
+
 
             t.Interval = 1000;
             t.Tick += new EventHandler(this.t_Tick);
@@ -49,19 +47,10 @@ namespace AuditScaner
             MenuPanel.Controls.Add(leftBorderBtn);
             //Form
             MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
-            //Display Windows Version
-            getWindowsVersion();
-            //Display program version
-            labelProgramVersion.Text = currentVersion;
-            //Display end of initialization
-            labelProgramStatus.Text = "Program status: ok";
-            //Create directory
-            initializeDataSet();
             //Gets transfered the key for encryption / decryption
             this.key = key;
             this.username = username;
             Visible = true;
-
         }
         //Structs
         private struct RGBColors
@@ -75,21 +64,6 @@ namespace AuditScaner
         }
 
         //Methods
-
-        private void getWindowsVersion()
-        {
-            object os_version = Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", "ReleaseId", 1);
-
-            if (os_version != null)
-            {
-                labelWindowsVersion.Text = "Windows Build: " + os_version.ToString();
-            }
-
-            else
-            {
-                labelWindowsVersion.Text = "Could not read Windows Build";
-            }
-        }
 
         private void ActivateButton(object senderBtn, Color color)
         {
@@ -111,23 +85,6 @@ namespace AuditScaner
                 iconCurrentChildForm.IconChar = currentBtn.IconChar;
                 iconCurrentChildForm.IconColor = color;
             }
-        }
-
-        private void initializeDataSet()
-        {
-            string root = @"C:\PasswordManager\";
-            string subdir = @"C:\PasswordManager\Storage\";
-
-            if (!Directory.Exists(root))
-            {
-                Directory.CreateDirectory(root);
-            }
-
-            if (!Directory.Exists(subdir))
-            {
-                Directory.CreateDirectory(subdir);
-            }
-
         }
 
         private void OpenChildForm(Form childForm)
@@ -178,7 +135,7 @@ namespace AuditScaner
         {
             ActivateButton(sender, RGBColors.color2);
             labelTitleOfChildForm.Text = "Create Data";
-            OpenChildForm(new CreateData(this.key,this.username));
+            OpenChildForm(new CreateData(this.key, this.username));
         }
 
         private void ExportTools_Click(object sender, EventArgs e)
@@ -192,7 +149,7 @@ namespace AuditScaner
         {
             ActivateButton(sender, RGBColors.color4);
             labelTitleOfChildForm.Text = "View Data";
-            OpenChildForm(new ViewData(this.key,this.username));
+            OpenChildForm(new ViewData(this.key, this.username));
         }
 
         private void Settings_Click(object sender, EventArgs e)

@@ -34,5 +34,20 @@ namespace PasswordManager
                 MessageBox.Show(e.Message);
             }
         }
+
+        public static string getWindowsVersion()
+        {
+            object os_version = Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", "ReleaseId", 1);
+
+            if (os_version != null)
+            {
+                return "Windows Build: " + os_version.ToString();
+            }
+
+            else
+            {
+                return "Could not read Windows Build";
+            }
+        }
     }
 }

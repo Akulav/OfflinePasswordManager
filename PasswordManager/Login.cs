@@ -43,12 +43,10 @@ namespace AuditScaner
                 CreateUser.Visible = false;
                 importData.Visible = false;
             }
-
             else
             {
                 LoginUser.Visible = false;
                 DeleteData.Visible = false;
-
             }
         }
 
@@ -77,7 +75,8 @@ namespace AuditScaner
         }
 
         private bool checkIfUser()
-        {   try
+        {
+            try
             {
                 string Folder = @"c:\PasswordManager\users";
                 if (Directory.EnumerateFiles(Folder).Count() > 0)
@@ -107,7 +106,7 @@ namespace AuditScaner
                 mf.Show();
                 Close();
             }
-            else { MessageBox.Show("Wrong Account"); }           
+            else { MessageBox.Show("Wrong Account"); }
         }
 
         private void CreateUser_Click(object sender, EventArgs e)
@@ -155,7 +154,7 @@ namespace AuditScaner
         //Modify to enforce harder password
         static bool ValidatePassword(string password)
         {
-            const int MIN_LENGTH = 1;
+            const int MIN_LENGTH = 8;
             const int MAX_LENGTH = 15;
 
             if (password == null) throw new ArgumentNullException();
@@ -169,20 +168,20 @@ namespace AuditScaner
             {
                 foreach (char c in password)
                 {
-                    if (char.IsUpper(c)) hasUpperCaseLetter = false;
-                    else if (char.IsLower(c)) hasLowerCaseLetter = false;
-                    else if (char.IsDigit(c)) hasDecimalDigit = false;
+                    if (char.IsUpper(c)) hasUpperCaseLetter = true;
+                    else if (char.IsLower(c)) hasLowerCaseLetter = true;
+                    else if (char.IsDigit(c)) hasDecimalDigit = true;
                 }
             }
 
             bool isValid = meetsLengthRequirements
                         //&& hasUpperCaseLetter //dont wanna make it too strict
-                        //&& hasLowerCaseLetter
-                        //&& hasDecimalDigit
+                        && hasLowerCaseLetter
+                        && hasDecimalDigit
                         ;
             return isValid;
 
-        }    
+        }
 
         //UI Events
         private void Password_KeyDown(object sender, KeyEventArgs e)
