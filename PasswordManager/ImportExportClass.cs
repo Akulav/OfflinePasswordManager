@@ -2,7 +2,6 @@
 using System.IO;
 using System.IO.Compression;
 using System.Windows.Forms;
-using PasswordManager;
 
 namespace PasswordManager
 {
@@ -28,6 +27,7 @@ namespace PasswordManager
                         selection = openFileDialog1.FileName;
                         Crypto.erase(fileLocation);
                         ZipFile.ExtractToDirectory(selection, extractPath);
+                        Application.Restart();
                     }
                     catch (IOException)
                     {
@@ -37,11 +37,11 @@ namespace PasswordManager
                     catch (ArgumentNullException)
                     {
 
-                    }
+                    } 
                 }
             }
 
-            Application.Restart();
+            
         }
 
         public static void export()

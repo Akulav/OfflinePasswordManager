@@ -20,7 +20,6 @@ namespace AuditScaner
         private void yesButton_Click(object sender, EventArgs e)
         {
             ImportExportClass.import(fileLocation);
-            Application.Restart();
         }
 
     }
