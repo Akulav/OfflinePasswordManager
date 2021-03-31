@@ -1,8 +1,7 @@
 Program Update Checker
 Multiple users
 Save previous user
-Fix windows encrypt
 Add search
-Hide password on view data
 Add user photo in about
 Better UI
+Optimize view data performance
