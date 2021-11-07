@@ -29,15 +29,10 @@ namespace PasswordManager
                         ZipFile.ExtractToDirectory(selection, extractPath);
                         Application.Restart();
                     }
-                    catch (IOException)
+                    catch (Exception)
                     {
 
                     }
-
-                    catch (ArgumentNullException)
-                    {
-
-                    } 
                 }
             }
 

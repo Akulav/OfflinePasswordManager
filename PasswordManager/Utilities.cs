@@ -6,6 +6,7 @@ namespace PasswordManager
 {
     class Utilities
     {
+        private Form currentChildForm;
         public static void enforceAdminPrivilegesWorkaround()
         {
             RegistryKey rk;
@@ -48,6 +49,21 @@ namespace PasswordManager
             {
                 return "Could not read Windows Build";
             }
+        }
+        public void OpenChildForm(Form childForm, Form currentForm)
+        {
+            if (currentChildForm != null)
+            {
+                currentChildForm.Close();
+            }
+            currentChildForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            currentForm.Controls.Add(childForm);
+            childForm.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
         }
     }
 }

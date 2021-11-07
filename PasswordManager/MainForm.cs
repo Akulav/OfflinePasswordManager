@@ -14,10 +14,10 @@ namespace AuditScaner
         private IconButton currentBtn;
         private readonly Panel leftBorderBtn;
         public Form currentChildForm;
-        private readonly string currentVersion = "Program version 1.1.0";
-        private string key;
-        public string username;
+        private readonly string key;
+        private string username;
         Timer t = new Timer();
+
         public MainForm(string key, string username)
         {
             //Import the embedded .dll
@@ -40,17 +40,16 @@ namespace AuditScaner
             t.Start();
 
             InitializeComponent();
-            this.Visible = false;
 
             leftBorderBtn = new Panel();
             leftBorderBtn.Size = new Size(7, 60);
             MenuPanel.Controls.Add(leftBorderBtn);
             //Form
+            winVer.Text = Utilities.getWindowsVersion();
             MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
             //Gets transfered the key for encryption / decryption
             this.key = key;
             this.username = username;
-            Visible = true;
         }
         //Structs
         private struct RGBColors
@@ -127,8 +126,6 @@ namespace AuditScaner
                 currentChildForm.Close();
                 labelTitleOfChildForm.Text = "Home";
             }
-
-            Reset();
         }
 
         private void CreateData_Click(object sender, EventArgs e)
@@ -157,24 +154,6 @@ namespace AuditScaner
             ActivateButton(sender, RGBColors.color5);
             labelTitleOfChildForm.Text = "Settings";
             OpenChildForm(new About());
-        }
-
-        private void btnHome_Click(object sender, EventArgs e)
-        {
-            if (currentChildForm != null)
-            {
-                currentChildForm.Close();
-            }
-            Reset();
-        }
-
-        private void Reset()
-        {
-            DisableButton();
-            leftBorderBtn.Visible = false;
-            iconCurrentChildForm.IconChar = IconChar.Home;
-            iconCurrentChildForm.IconColor = Color.MediumPurple;
-            labelTitleOfChildForm.Text = "Home";
         }
         //Drag Form
 
