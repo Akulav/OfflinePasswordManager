@@ -29,8 +29,7 @@ namespace AuditScaner
         /// </summary>
         private void InitializeComponent()
         {
-            this.CreateUser = new FontAwesome.Sharp.IconButton();
-            this.LoginUser = new FontAwesome.Sharp.IconButton();
+            this.UserButton = new FontAwesome.Sharp.IconButton();
             this.DeleteData = new FontAwesome.Sharp.IconButton();
             this.Minimize = new FontAwesome.Sharp.IconButton();
             this.Exit = new FontAwesome.Sharp.IconButton();
@@ -40,38 +39,24 @@ namespace AuditScaner
             this.user = new System.Windows.Forms.Label();
             this.pass = new System.Windows.Forms.Label();
             this.importData = new FontAwesome.Sharp.IconButton();
+            this.statusText = new System.Windows.Forms.Label();
             this.topPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // CreateUser
+            // UserButton
             // 
-            this.CreateUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(30)))), ((int)(((byte)(68)))));
-            this.CreateUser.ForeColor = System.Drawing.Color.Gainsboro;
-            this.CreateUser.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.CreateUser.IconColor = System.Drawing.Color.Black;
-            this.CreateUser.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.CreateUser.Location = new System.Drawing.Point(253, 102);
-            this.CreateUser.Name = "CreateUser";
-            this.CreateUser.Size = new System.Drawing.Size(178, 55);
-            this.CreateUser.TabIndex = 0;
-            this.CreateUser.Text = "CreateUser";
-            this.CreateUser.UseVisualStyleBackColor = false;
-            this.CreateUser.Click += new System.EventHandler(this.CreateUser_Click);
-            // 
-            // LoginUser
-            // 
-            this.LoginUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(30)))), ((int)(((byte)(68)))));
-            this.LoginUser.ForeColor = System.Drawing.Color.Gainsboro;
-            this.LoginUser.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.LoginUser.IconColor = System.Drawing.Color.Black;
-            this.LoginUser.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.LoginUser.Location = new System.Drawing.Point(253, 102);
-            this.LoginUser.Name = "LoginUser";
-            this.LoginUser.Size = new System.Drawing.Size(178, 55);
-            this.LoginUser.TabIndex = 1;
-            this.LoginUser.Text = "LoginUser";
-            this.LoginUser.UseVisualStyleBackColor = false;
-            this.LoginUser.Click += new System.EventHandler(this.LoginUser_Click);
+            this.UserButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(30)))), ((int)(((byte)(68)))));
+            this.UserButton.ForeColor = System.Drawing.Color.Gainsboro;
+            this.UserButton.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.UserButton.IconColor = System.Drawing.Color.Black;
+            this.UserButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.UserButton.Location = new System.Drawing.Point(253, 102);
+            this.UserButton.Name = "UserButton";
+            this.UserButton.Size = new System.Drawing.Size(178, 55);
+            this.UserButton.TabIndex = 0;
+            this.UserButton.Text = "BUTTON";
+            this.UserButton.UseVisualStyleBackColor = false;
+            this.UserButton.Click += new System.EventHandler(this.CreateUser_Click);
             // 
             // DeleteData
             // 
@@ -180,12 +165,23 @@ namespace AuditScaner
             this.importData.UseVisualStyleBackColor = false;
             this.importData.Click += new System.EventHandler(this.importData_Click);
             // 
+            // statusText
+            // 
+            this.statusText.AutoSize = true;
+            this.statusText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusText.ForeColor = System.Drawing.Color.Gainsboro;
+            this.statusText.Location = new System.Drawing.Point(252, 273);
+            this.statusText.Name = "statusText";
+            this.statusText.Size = new System.Drawing.Size(0, 15);
+            this.statusText.TabIndex = 11;
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(689, 398);
+            this.Controls.Add(this.statusText);
             this.Controls.Add(this.importData);
             this.Controls.Add(this.pass);
             this.Controls.Add(this.user);
@@ -193,8 +189,7 @@ namespace AuditScaner
             this.Controls.Add(this.Username);
             this.Controls.Add(this.topPanel);
             this.Controls.Add(this.DeleteData);
-            this.Controls.Add(this.LoginUser);
-            this.Controls.Add(this.CreateUser);
+            this.Controls.Add(this.UserButton);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Login";
@@ -208,8 +203,7 @@ namespace AuditScaner
 
         #endregion
 
-        private FontAwesome.Sharp.IconButton CreateUser;
-        private FontAwesome.Sharp.IconButton LoginUser;
+        private FontAwesome.Sharp.IconButton UserButton;
         private FontAwesome.Sharp.IconButton DeleteData;
         private FontAwesome.Sharp.IconButton Minimize;
         private FontAwesome.Sharp.IconButton Exit;
@@ -219,5 +213,6 @@ namespace AuditScaner
         private System.Windows.Forms.Label user;
         private System.Windows.Forms.Label pass;
         private FontAwesome.Sharp.IconButton importData;
+        private System.Windows.Forms.Label statusText;
     }
 }

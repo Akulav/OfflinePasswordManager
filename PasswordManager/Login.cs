@@ -15,6 +15,7 @@ namespace AuditScaner
         //All initialization is done here
         //Things like importing DLLs and enforcing Admin are here
         private string fileLocation = "C:\\PasswordManager\\";
+        private bool userFlag = false;
         public Login()
         {
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
@@ -38,14 +39,16 @@ namespace AuditScaner
 
         private void Login_Load(object sender, EventArgs e)
         {
-            if (checkIfUser())
+            checkIfUser();
+
+            if (userFlag)
             {
-                CreateUser.Visible = false;
+                UserButton.Text = "Login";
                 importData.Visible = false;
             }
             else
             {
-                LoginUser.Visible = false;
+                UserButton.Text = "Create Account";
                 DeleteData.Visible = false;
             }
         }
@@ -74,23 +77,23 @@ namespace AuditScaner
 
         }
 
-        private bool checkIfUser()
+        private void checkIfUser()
         {
             try
             {
                 string Folder = @"c:\PasswordManager\users";
                 if (Directory.EnumerateFiles(Folder).Count() > 0)
                 {
-                    return true;
+                    userFlag = true;
                 }
 
                 else
                 {
-                    return false;
+                    userFlag = false;
                 }
             }
 
-            catch { return false; }
+            catch { userFlag = false; }
         }
 
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
@@ -106,56 +109,65 @@ namespace AuditScaner
                 mf.Show();
                 Close();
             }
-            else { MessageBox.Show("Wrong Account"); }
+            else { statusText.Text = "Wrong username / password combination"; }
         }
 
         private void CreateUser_Click(object sender, EventArgs e)
         {
-            Random rnd = new Random();
-            string password = Password.Text;
-            string username = Username.Text;
 
-            if (username == "")
-            {
-                SuccesDialog scFail = new SuccesDialog("LoginFailUsername");
-                scFail.Show();
-                goto end;
+            if (!userFlag) {
+                string password = Password.Text;
+                string username = Username.Text;
+                bool flag = true;
+
+                if (username == "")
+                {
+                    statusText.Text = "Username must not be null";
+                    flag = false;
+                }
+
+                if (!ValidatePassword(password))
+                {
+                    statusText.Text = "Password must be at least 12 characters\n long and contain alphanumeric chars";
+                    flag = false;
+                }
+
+                if (flag == true)
+                {
+
+                    string[] datapass = Crypto.GenerateHash(password, Crypto.GenerateRandomAlphanumericString(256));
+                    string[] dataname = Crypto.GenerateHash(username, Crypto.GenerateRandomAlphanumericString(256));
+
+                    initializeDataSet(username);
+                    string location = "c:\\PasswordManager\\users\\" + username;
+
+                    using (StreamWriter writer = new StreamWriter(@location))
+                    {
+                        writer.WriteLine(datapass[0]);
+                        writer.WriteLine(datapass[1]);
+                        writer.WriteLine(dataname[0]);
+                        writer.WriteLine(dataname[1]);
+                        writer.Close();
+                    }
+
+                    Application.Restart();
+                }
             }
 
-            if (!ValidatePassword(password))
+            else
             {
-                SuccesDialog scFail = new SuccesDialog("LoginFailPassword");
-                scFail.Show();
-                goto end;
+                string password = Password.Text;
+                string username = Username.Text;
+                checkLogin(username, password);
             }
-
-            string[] datapass = Crypto.GenerateHash(password, Crypto.GenerateRandomAlphanumericString(256));
-            string[] dataname = Crypto.GenerateHash(username, Crypto.GenerateRandomAlphanumericString(256));
-
-            initializeDataSet(username);
-            string location = "c:\\PasswordManager\\users\\" + username;
-
-            using (StreamWriter writer = new StreamWriter(@location))
-            {
-                writer.WriteLine(datapass[0]);
-                writer.WriteLine(datapass[1]);
-                writer.WriteLine(dataname[0]);
-                writer.WriteLine(dataname[1]);
-                writer.Close();
-            }
-
-            SuccesDialog sc = new SuccesDialog("Login");
-            sc.Show();
-        end:
-            this.Close();
-
         }
+
 
         //Modify to enforce harder password
         static bool ValidatePassword(string password)
         {
-            const int MIN_LENGTH = 8;
-            const int MAX_LENGTH = 15;
+            const int MIN_LENGTH = 12;
+            const int MAX_LENGTH = int.MaxValue-1;
 
             if (password == null) throw new ArgumentNullException();
 
@@ -188,15 +200,7 @@ namespace AuditScaner
         {
             if (e.KeyCode == Keys.Return)
             {
-                if (checkIfUser())
-                {
-                    LoginUser_Click(null, null);
-                }
-
-                else
-                {
-                    CreateUser_Click(null, null);
-                }
+                CreateUser_Click(null, null);
             }
         }
 
@@ -204,19 +208,13 @@ namespace AuditScaner
         {
             ImportExportClass.import(fileLocation);
         }
-        private void LoginUser_Click(object sender, EventArgs e)
-        {
-            string password = Password.Text;
-            string username = Username.Text;
-            checkLogin(username, password);
-        }
 
         private void DeleteData_Click(object sender, EventArgs e)
         {
             DeleteUserLogin del = new DeleteUserLogin();
             del.RefToForm1 = this;
-            del.Show();
             this.Hide();
+            del.Show();
         }
 
         private void topPanel_MouseDown(object sender, MouseEventArgs e)

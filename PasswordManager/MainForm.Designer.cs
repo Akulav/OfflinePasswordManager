@@ -47,8 +47,8 @@
             this.iconCurrentChildForm = new FontAwesome.Sharp.IconPictureBox();
             this.panelShadow = new System.Windows.Forms.Panel();
             this.panelDesktop = new System.Windows.Forms.Panel();
-            this.clock = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.clock = new System.Windows.Forms.Label();
             this.MenuPanel.SuspendLayout();
             this.PanelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnHome)).BeginInit();
@@ -355,16 +355,6 @@
             this.panelDesktop.Size = new System.Drawing.Size(924, 621);
             this.panelDesktop.TabIndex = 3;
             // 
-            // clock
-            // 
-            this.clock.Font = new System.Drawing.Font("Microsoft Sans Serif", 64F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clock.ForeColor = System.Drawing.Color.Gainsboro;
-            this.clock.Location = new System.Drawing.Point(305, 142);
-            this.clock.Name = "clock";
-            this.clock.Size = new System.Drawing.Size(681, 97);
-            this.clock.TabIndex = 6;
-            this.clock.Text = "PLACEHLD";
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
@@ -374,6 +364,16 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
+            // 
+            // clock
+            // 
+            this.clock.Font = new System.Drawing.Font("Microsoft Sans Serif", 64F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clock.ForeColor = System.Drawing.Color.Gainsboro;
+            this.clock.Location = new System.Drawing.Point(305, 142);
+            this.clock.Name = "clock";
+            this.clock.Size = new System.Drawing.Size(681, 97);
+            this.clock.TabIndex = 6;
+            this.clock.Text = "PLACEHLD";
             // 
             // MainForm
             // 
