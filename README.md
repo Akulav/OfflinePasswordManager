@@ -14,5 +14,7 @@
 5. Add Multi-Threading support for data viewing
 6. Add panic button
 7. Add fuzziness to the key kept in RAM
+8. Update Checker
+9. Application Integrity Checker
 
 Icons made by https://www.flaticon.com/authors/freepik from https://www.flaticon.com/
