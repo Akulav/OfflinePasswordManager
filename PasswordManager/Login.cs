@@ -134,6 +134,12 @@ namespace AuditScaner
                     flag = false;
                 }
 
+                if (!int.TryParse(PIMBox.Text, out _))
+                {
+                    statusText.Text = "PIM must be a number. Recommended above 1000";
+                    flag = false;
+                }
+
                 if (!ValidatePassword(password))
                 {
                     statusText.Text = "Password must be at least 12 characters\n long and contain alphanumeric chars";
