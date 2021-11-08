@@ -1,7 +1,0 @@
-Program Update Checker
-Multiple users
-Save previous user
-Add search
-Add user photo in about
-Better UI
-Optimize view data performance
