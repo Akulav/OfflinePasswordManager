@@ -8,13 +8,11 @@
 6. No Logs or any form of Telemetry (works completely offline) :heavy_check_mark:
 
 # Upcoming Features & Bug Fixes
-1. Fix username being shown inside folder names in plain text
-2. Add PIM system (N times of password encryption)
-3. Add even more entropy to salt generation
-4. Add Multi-Threading support for data viewing
-5. Add panic button
-6. Add fuzziness to the key kept in RAM
-7. Update Checker
-8. Application Integrity Checker
+1. Add Multi-Threading support for data viewing
+2. Update Checker
+3. Application Integrity Checker
+4. Fix User Input Errors
+5. Improve Data Viewing Experience
+6. Reduce Footprint
 
 Icons made by https://www.flaticon.com/authors/freepik from https://www.flaticon.com/
