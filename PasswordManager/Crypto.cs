@@ -2,25 +2,15 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web.Security;
 
 namespace PasswordManager
 {
     class Crypto
     {
-        public static string GenerateRandomAlphanumericString(int length)
-        {
-            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            var stringChars = new char[length];
-            Random rnd = new Random();
-
-            for (int i = 0; i < stringChars.Length; i++)
-            {
-                stringChars[i] = chars[rnd.Next(chars.Length)];
-            }
-
-            var finalString = new string(stringChars);
-
-            return finalString;
+        public static string GenerateRandomAlphanumericString(int length, int alphaNumericalChars = 16)
+        {      
+            return Membership.GeneratePassword(length, alphaNumericalChars);
         }
 
         public static string Encrypt(string clearText, string EncryptionKey)
@@ -49,7 +39,16 @@ namespace PasswordManager
             byte[] bytes = Encoding.ASCII.GetBytes(input + salt);
             SHA256Managed sHA256ManagedString = new SHA256Managed();
             byte[] hash = sHA256ManagedString.ComputeHash(bytes);
-            string[] data = { salt, BitConverter.ToString(hash) };
+            string[] data = { BitConverter.ToString(hash), salt };
+            return data;
+        }
+
+        public static string GenerateMasterKey(string input, string salt)
+        {
+            byte[] bytes = Encoding.ASCII.GetBytes(input + salt);
+            SHA256Managed sHA256ManagedString = new SHA256Managed();
+            byte[] hash = sHA256ManagedString.ComputeHash(bytes);
+            string data = BitConverter.ToString(hash);
             return data;
         }
 
@@ -72,22 +71,48 @@ namespace PasswordManager
             catch { }
         }
 
-        public static bool checkHash(string user, string pass)
+        public static string GenerateRandomFileName(int length)
         {
-            string curfile = "c:\\PasswordManager\\users\\" + user;
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var stringChars = new char[length];
+            Random rnd = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[rnd.Next(chars.Length)];
+            }
+
+            var finalString = new string(stringChars);
+
+            return finalString;
+        }
+
+
+        public static bool checkHash(string user, string pass, int PIM)
+        {
+            string curfile = "c:\\PasswordManager\\users\\localuser";
             try
             {
                 string[] lines = File.ReadAllLines(curfile);
-                string[] hashUser = Crypto.GenerateHash(user, lines[0]);
-                string[] hashPass = Crypto.GenerateHash(pass, lines[2]);
+                string[] hashUser = GenerateHash(user, lines[0]);
+                string[] hashPass = GenerateHash(pass, lines[2]);
+                string[] PIMRead = GenerateHash(pass+user, lines[5]);
 
+                for (int i = 0; i < PIM; i++)
+                {
+                    PIMRead = GenerateHash(PIMRead[0], PIMRead[1]);
+                }
 
-                if (hashUser[1] == lines[3])
+                if (hashUser[1] == lines[0])
                 {
                     
-                    if (hashPass[1] == lines[1])
+                    if (hashPass[1] == lines[2])
                     {
-                        return true;
+                        if (PIMRead[0] == lines[4])
+                        {
+                            return true;
+                        }
+                        else { return false; }
                     }
 
                     else { return false; }

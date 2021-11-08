@@ -44,20 +44,20 @@ namespace AuditScaner
             if (userFlag)
             {
                 UserButton.Text = "Login";
-                importData.Visible = false;
+                ConfigButton.Text = "Delete Account";
             }
             else
             {
                 UserButton.Text = "Create Account";
-                DeleteData.Visible = false;
+                ConfigButton.Text = "Import Data";
             }
         }
 
-        private void initializeDataSet(string user)
+        private void initializeDataSet()
         {
             string root = @"C:\";
             string subdir = @"C:\PasswordManager\users";
-            string storageDir = @"C:\PasswordManager\" + user;
+            string storageDir = @"C:\PasswordManager\localuser";
 
             if (!Directory.Exists(root))
             {
@@ -101,13 +101,21 @@ namespace AuditScaner
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
 
-        public void checkLogin(string user, string pass)
+        public void checkLogin(string user, string pass, int PIM)
         {
-            if (Crypto.checkHash(user, pass))
+            if (Crypto.checkHash(user, pass, PIM))
             {
-                MainForm mf = new MainForm(pass, user);
-                mf.Show();
-                Close();
+                try
+                {
+                    MainForm mf = new MainForm(pass, user, int.Parse(PIMBox.Text));
+                    mf.Show();
+                    Close();
+                }
+
+                catch 
+                {
+                    statusText.Text = "Input a number inside PIM";
+                }
             }
             else { statusText.Text = "Wrong username / password combination"; }
         }
@@ -134,12 +142,17 @@ namespace AuditScaner
 
                 if (flag == true)
                 {
+                    string[] datapass = Crypto.GenerateHash(password, Crypto.GenerateRandomAlphanumericString(128));                   
+                    string[] dataname = Crypto.GenerateHash(username, Crypto.GenerateRandomAlphanumericString(128));
+                    string[] PIMRead = Crypto.GenerateHash(password+username, Crypto.GenerateRandomAlphanumericString(128));
 
-                    string[] datapass = Crypto.GenerateHash(password, Crypto.GenerateRandomAlphanumericString(256));
-                    string[] dataname = Crypto.GenerateHash(username, Crypto.GenerateRandomAlphanumericString(256));
+                    for (int i = 0; i < int.Parse(PIMBox.Text); i++)
+                    {
+                        PIMRead = Crypto.GenerateHash(PIMRead[0], PIMRead[1]);
+                    }
 
-                    initializeDataSet(username);
-                    string location = "c:\\PasswordManager\\users\\" + username;
+                    initializeDataSet();
+                    string location = "c:\\PasswordManager\\users\\localuser";
 
                     using (StreamWriter writer = new StreamWriter(@location))
                     {
@@ -147,6 +160,8 @@ namespace AuditScaner
                         writer.WriteLine(datapass[1]);
                         writer.WriteLine(dataname[0]);
                         writer.WriteLine(dataname[1]);
+                        writer.WriteLine(PIMRead[0]);
+                        writer.WriteLine(PIMRead[1]);
                         writer.Close();
                     }
 
@@ -158,7 +173,7 @@ namespace AuditScaner
             {
                 string password = Password.Text;
                 string username = Username.Text;
-                checkLogin(username, password);
+                checkLogin(username, password, int.Parse(PIMBox.Text));
             }
         }
 
@@ -204,19 +219,6 @@ namespace AuditScaner
             }
         }
 
-        private void importData_Click(object sender, EventArgs e)
-        {
-            ImportExportClass.import(fileLocation);
-        }
-
-        private void DeleteData_Click(object sender, EventArgs e)
-        {
-            DeleteUserLogin del = new DeleteUserLogin();
-            del.RefToForm1 = this;
-            this.Hide();
-            del.Show();
-        }
-
         private void topPanel_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
@@ -231,6 +233,22 @@ namespace AuditScaner
         private void Exit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void ConfigButton_Click(object sender, EventArgs e)
+        {
+            if (!userFlag)
+            {
+                ImportExportClass.import(fileLocation);
+            }
+
+            else
+            {
+                DeleteUserLogin del = new DeleteUserLogin();
+                del.RefToForm1 = this;
+                this.Hide();
+                del.Show();
+            }
         }
     }
 }

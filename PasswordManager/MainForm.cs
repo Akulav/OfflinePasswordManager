@@ -14,11 +14,10 @@ namespace AuditScaner
         private IconButton currentBtn;
         private readonly Panel leftBorderBtn;
         public Form currentChildForm;
-        private readonly string key;
-        private string username;
+        private readonly string fullKey;
         Timer t = new Timer();
 
-        public MainForm(string key, string username)
+        public MainForm(string key, string username, int PIM)
         {
             //Import the embedded .dll
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
@@ -36,7 +35,7 @@ namespace AuditScaner
 
 
             t.Interval = 1000;
-            t.Tick += new EventHandler(this.t_Tick);
+            t.Tick += new EventHandler(t_Tick);
             t.Start();
 
             InitializeComponent();
@@ -48,8 +47,13 @@ namespace AuditScaner
             winVer.Text = Utilities.getWindowsVersion();
             MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
             //Gets transfered the key for encryption / decryption
-            this.key = key;
-            this.username = username;
+
+            fullKey = Crypto.GenerateMasterKey(key, username);
+            for (int i = 0; i < PIM; i++)
+            {
+                fullKey = Crypto.GenerateMasterKey(fullKey, key);
+            }
+
         }
         //Structs
         private struct RGBColors
@@ -132,7 +136,7 @@ namespace AuditScaner
         {
             ActivateButton(sender, RGBColors.color2);
             labelTitleOfChildForm.Text = "Create Data";
-            OpenChildForm(new CreateData(this.key, this.username));
+            OpenChildForm(new CreateData(fullKey));
         }
 
         private void ExportTools_Click(object sender, EventArgs e)
@@ -146,7 +150,7 @@ namespace AuditScaner
         {
             ActivateButton(sender, RGBColors.color4);
             labelTitleOfChildForm.Text = "View Data";
-            OpenChildForm(new ViewData(this.key, this.username));
+            OpenChildForm(new ViewData(fullKey));
         }
 
         private void Settings_Click(object sender, EventArgs e)

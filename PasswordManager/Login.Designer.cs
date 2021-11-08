@@ -30,7 +30,6 @@ namespace AuditScaner
         private void InitializeComponent()
         {
             this.UserButton = new FontAwesome.Sharp.IconButton();
-            this.DeleteData = new FontAwesome.Sharp.IconButton();
             this.Minimize = new FontAwesome.Sharp.IconButton();
             this.Exit = new FontAwesome.Sharp.IconButton();
             this.topPanel = new System.Windows.Forms.Panel();
@@ -38,8 +37,11 @@ namespace AuditScaner
             this.Password = new System.Windows.Forms.TextBox();
             this.user = new System.Windows.Forms.Label();
             this.pass = new System.Windows.Forms.Label();
-            this.importData = new FontAwesome.Sharp.IconButton();
             this.statusText = new System.Windows.Forms.Label();
+            this.PIMLabel = new System.Windows.Forms.Label();
+            this.PIMBox = new System.Windows.Forms.TextBox();
+            this.CLauseLabel = new System.Windows.Forms.Label();
+            this.ConfigButton = new FontAwesome.Sharp.IconButton();
             this.topPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,21 +59,6 @@ namespace AuditScaner
             this.UserButton.Text = "BUTTON";
             this.UserButton.UseVisualStyleBackColor = false;
             this.UserButton.Click += new System.EventHandler(this.CreateUser_Click);
-            // 
-            // DeleteData
-            // 
-            this.DeleteData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(30)))), ((int)(((byte)(68)))));
-            this.DeleteData.ForeColor = System.Drawing.Color.Gainsboro;
-            this.DeleteData.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.DeleteData.IconColor = System.Drawing.Color.Black;
-            this.DeleteData.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.DeleteData.Location = new System.Drawing.Point(253, 215);
-            this.DeleteData.Name = "DeleteData";
-            this.DeleteData.Size = new System.Drawing.Size(178, 55);
-            this.DeleteData.TabIndex = 2;
-            this.DeleteData.Text = "DeleteUser";
-            this.DeleteData.UseVisualStyleBackColor = false;
-            this.DeleteData.Click += new System.EventHandler(this.DeleteData_Click);
             // 
             // Minimize
             // 
@@ -134,7 +121,7 @@ namespace AuditScaner
             // 
             this.user.AutoSize = true;
             this.user.ForeColor = System.Drawing.Color.Gainsboro;
-            this.user.Location = new System.Drawing.Point(250, 170);
+            this.user.Location = new System.Drawing.Point(252, 166);
             this.user.Name = "user";
             this.user.Size = new System.Drawing.Size(55, 13);
             this.user.TabIndex = 8;
@@ -150,30 +137,61 @@ namespace AuditScaner
             this.pass.TabIndex = 9;
             this.pass.Text = "Password";
             // 
-            // importData
-            // 
-            this.importData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(30)))), ((int)(((byte)(68)))));
-            this.importData.ForeColor = System.Drawing.Color.Gainsboro;
-            this.importData.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.importData.IconColor = System.Drawing.Color.Black;
-            this.importData.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.importData.Location = new System.Drawing.Point(253, 215);
-            this.importData.Name = "importData";
-            this.importData.Size = new System.Drawing.Size(178, 55);
-            this.importData.TabIndex = 10;
-            this.importData.Text = "Import Data";
-            this.importData.UseVisualStyleBackColor = false;
-            this.importData.Click += new System.EventHandler(this.importData_Click);
-            // 
             // statusText
             // 
             this.statusText.AutoSize = true;
             this.statusText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.statusText.ForeColor = System.Drawing.Color.Gainsboro;
-            this.statusText.Location = new System.Drawing.Point(252, 273);
+            this.statusText.Location = new System.Drawing.Point(252, 299);
             this.statusText.Name = "statusText";
             this.statusText.Size = new System.Drawing.Size(0, 15);
             this.statusText.TabIndex = 11;
+            // 
+            // PIMLabel
+            // 
+            this.PIMLabel.AutoSize = true;
+            this.PIMLabel.ForeColor = System.Drawing.Color.Gainsboro;
+            this.PIMLabel.Location = new System.Drawing.Point(252, 218);
+            this.PIMLabel.Name = "PIMLabel";
+            this.PIMLabel.Size = new System.Drawing.Size(26, 13);
+            this.PIMLabel.TabIndex = 12;
+            this.PIMLabel.Text = "PIM";
+            // 
+            // PIMBox
+            // 
+            this.PIMBox.Location = new System.Drawing.Point(311, 215);
+            this.PIMBox.Name = "PIMBox";
+            this.PIMBox.Size = new System.Drawing.Size(120, 20);
+            this.PIMBox.TabIndex = 13;
+            this.PIMBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Password_KeyDown);
+            // 
+            // CLauseLabel
+            // 
+            this.CLauseLabel.AutoSize = true;
+            this.CLauseLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.CLauseLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CLauseLabel.ForeColor = System.Drawing.Color.Gainsboro;
+            this.CLauseLabel.Location = new System.Drawing.Point(0, 378);
+            this.CLauseLabel.Name = "CLauseLabel";
+            this.CLauseLabel.Size = new System.Drawing.Size(424, 20);
+            this.CLauseLabel.TabIndex = 14;
+            this.CLauseLabel.Text = "*An invalid PIM will let you  login, but data will be unviewable";
+            this.CLauseLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // ConfigButton
+            // 
+            this.ConfigButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(30)))), ((int)(((byte)(68)))));
+            this.ConfigButton.ForeColor = System.Drawing.Color.Gainsboro;
+            this.ConfigButton.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.ConfigButton.IconColor = System.Drawing.Color.Black;
+            this.ConfigButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ConfigButton.Location = new System.Drawing.Point(253, 241);
+            this.ConfigButton.Name = "ConfigButton";
+            this.ConfigButton.Size = new System.Drawing.Size(178, 55);
+            this.ConfigButton.TabIndex = 15;
+            this.ConfigButton.Text = "BUTTON";
+            this.ConfigButton.UseVisualStyleBackColor = false;
+            this.ConfigButton.Click += new System.EventHandler(this.ConfigButton_Click);
             // 
             // Login
             // 
@@ -181,14 +199,16 @@ namespace AuditScaner
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(689, 398);
+            this.Controls.Add(this.ConfigButton);
+            this.Controls.Add(this.CLauseLabel);
+            this.Controls.Add(this.PIMBox);
+            this.Controls.Add(this.PIMLabel);
             this.Controls.Add(this.statusText);
-            this.Controls.Add(this.importData);
             this.Controls.Add(this.pass);
             this.Controls.Add(this.user);
             this.Controls.Add(this.Password);
             this.Controls.Add(this.Username);
             this.Controls.Add(this.topPanel);
-            this.Controls.Add(this.DeleteData);
             this.Controls.Add(this.UserButton);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -204,7 +224,6 @@ namespace AuditScaner
         #endregion
 
         private FontAwesome.Sharp.IconButton UserButton;
-        private FontAwesome.Sharp.IconButton DeleteData;
         private FontAwesome.Sharp.IconButton Minimize;
         private FontAwesome.Sharp.IconButton Exit;
         private System.Windows.Forms.Panel topPanel;
@@ -212,7 +231,10 @@ namespace AuditScaner
         private System.Windows.Forms.TextBox Password;
         private System.Windows.Forms.Label user;
         private System.Windows.Forms.Label pass;
-        private FontAwesome.Sharp.IconButton importData;
         private System.Windows.Forms.Label statusText;
+        private System.Windows.Forms.Label PIMLabel;
+        private System.Windows.Forms.TextBox PIMBox;
+        private System.Windows.Forms.Label CLauseLabel;
+        private FontAwesome.Sharp.IconButton ConfigButton;
     }
 }

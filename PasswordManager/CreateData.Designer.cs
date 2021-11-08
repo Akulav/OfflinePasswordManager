@@ -61,6 +61,7 @@ namespace AuditScaner
             this.passwordText.Name = "passwordText";
             this.passwordText.Size = new System.Drawing.Size(119, 20);
             this.passwordText.TabIndex = 1;
+            this.passwordText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Enter_KeyDown);
             // 
             // usernameText
             // 
@@ -68,6 +69,7 @@ namespace AuditScaner
             this.usernameText.Name = "usernameText";
             this.usernameText.Size = new System.Drawing.Size(119, 20);
             this.usernameText.TabIndex = 2;
+            this.usernameText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Enter_KeyDown);
             // 
             // user
             // 
@@ -95,6 +97,7 @@ namespace AuditScaner
             this.domainText.Name = "domainText";
             this.domainText.Size = new System.Drawing.Size(119, 20);
             this.domainText.TabIndex = 5;
+            this.domainText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Enter_KeyDown);
             // 
             // domain
             // 

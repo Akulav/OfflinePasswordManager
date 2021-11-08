@@ -23,8 +23,8 @@ namespace AuditScaner
 
         private void noButton_Click(object sender, EventArgs e)
         {
-            this.RefToForm1.Show();
-            this.Close();
+            RefToForm1.Show();
+            Close();
         }
 
         private void topPanel_MouseDown(object sender, MouseEventArgs e)
@@ -48,7 +48,7 @@ namespace AuditScaner
         {
             Login lg = new Login();
             lg.Show();
-            this.Close();
+            Close();
         }
     }
 }

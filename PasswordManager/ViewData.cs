@@ -9,12 +9,11 @@ namespace AuditScaner
     public partial class ViewData : Form
     {
         private string key;
-        private string fileLocation = "C:\\PasswordManager\\";
-        public ViewData(string key, string username)
+        private string fileLocation = "C:\\PasswordManager\\localuser";
+        public ViewData(string key)
         {
             InitializeComponent();
             this.key = key;
-            fileLocation = fileLocation + username;
             getData();
         }
 
@@ -111,15 +110,14 @@ namespace AuditScaner
                     }
 
                     catch { }
-                    this.Controls.Clear();
-                    this.InitializeComponent();
+                    Controls.Clear();
+                    InitializeComponent();
                     getData();
                 });
                 flowPanel.Controls.Add(delete);
             }
 
         }
-
     }
 
 }
