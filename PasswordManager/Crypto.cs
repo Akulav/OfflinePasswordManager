@@ -12,7 +12,6 @@ namespace PasswordManager
         {      
             return Membership.GeneratePassword(length, alphaNumericalChars);
         }
-
         public static string Encrypt(string clearText, string EncryptionKey)
         {
             byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
@@ -52,7 +51,7 @@ namespace PasswordManager
             return data;
         }
 
-        public static void erase(string fileLocation)
+        public static void Erase(string fileLocation)
         {
             try
             {
@@ -88,12 +87,11 @@ namespace PasswordManager
         }
 
 
-        public static bool checkHash(string user, string pass, int PIM)
+        public static bool CheckHash(string user, string pass, int PIM)
         {
-            string curfile = "c:\\PasswordManager\\users\\localuser";
             try
             {
-                string[] lines = File.ReadAllLines(curfile);
+                string[] lines = File.ReadAllLines(Utilities.curfile);
                 string[] hashUser = GenerateHash(user, lines[0]);
                 string[] hashPass = GenerateHash(pass, lines[2]);
                 string[] PIMRead = GenerateHash(pass+user, lines[5]);

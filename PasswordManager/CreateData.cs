@@ -7,7 +7,7 @@ namespace AuditScaner
 {
     public partial class CreateData : Form
     {
-        private string key;
+        private readonly string key;
         public CreateData(string key)
         {
             InitializeComponent();
@@ -16,13 +16,12 @@ namespace AuditScaner
             doneLabel.Visible = false;
         }
 
-        private void create_Click(object sender, EventArgs e)
+        private void Create_Click(object sender, EventArgs e)
         {
-            Random rnd = new Random();
             string username = usernameText.Text;
             string password = passwordText.Text;
             string domain = domainText.Text;
-            string filename = Crypto.GenerateRandomFileName(rnd.Next(64, 256));
+            string filename = Crypto.GenerateRandomFileName(64);
             string filepath = "c:\\PasswordManager\\localuser" + "\\" + filename;
 
             using (StreamWriter writer = new StreamWriter(@filepath))
@@ -37,7 +36,7 @@ namespace AuditScaner
             doneLabel.Visible = true;
         }
 
-        public void Reset()
+        private void Reset()
         {
             usernameText.Text = null;
             passwordText.Text = null;
@@ -48,7 +47,7 @@ namespace AuditScaner
         {
             if (e.KeyCode == Keys.Return)
             {
-                create_Click(null, null);
+                Create_Click(null, null);
             }
         }
     }

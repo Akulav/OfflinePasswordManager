@@ -9,14 +9,16 @@ namespace AuditScaner
         public ImportExport()
         {
             InitializeComponent();
+            statusLabel.Visible = false;
         }
 
-        private void exportButton_Click(object sender, EventArgs e)
+        private void ExportButton_Click(object sender, EventArgs e)
         {
-            ImportExportClass.export();
+            ImportExportClass.Export();
+            statusLabel.Visible = true;
         }
 
-        private void importButton_Click(object sender, EventArgs e)
+        private void ImportButton_Click(object sender, EventArgs e)
         {
             Utilities ut = new Utilities();
             ut.OpenChildForm(new ImportConfirm(), this);      

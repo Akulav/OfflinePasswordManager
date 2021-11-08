@@ -29,6 +29,7 @@ namespace AuditScaner
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.UserButton = new FontAwesome.Sharp.IconButton();
             this.Minimize = new FontAwesome.Sharp.IconButton();
             this.Exit = new FontAwesome.Sharp.IconButton();
@@ -40,7 +41,6 @@ namespace AuditScaner
             this.statusText = new System.Windows.Forms.Label();
             this.PIMLabel = new System.Windows.Forms.Label();
             this.PIMBox = new System.Windows.Forms.TextBox();
-            this.CLauseLabel = new System.Windows.Forms.Label();
             this.ConfigButton = new FontAwesome.Sharp.IconButton();
             this.topPanel.SuspendLayout();
             this.SuspendLayout();
@@ -100,7 +100,7 @@ namespace AuditScaner
             this.topPanel.Name = "topPanel";
             this.topPanel.Size = new System.Drawing.Size(689, 33);
             this.topPanel.TabIndex = 5;
-            this.topPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.topPanel_MouseDown);
+            this.topPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TopPanel_MouseDown);
             // 
             // Username
             // 
@@ -165,19 +165,6 @@ namespace AuditScaner
             this.PIMBox.TabIndex = 13;
             this.PIMBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Password_KeyDown);
             // 
-            // CLauseLabel
-            // 
-            this.CLauseLabel.AutoSize = true;
-            this.CLauseLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.CLauseLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CLauseLabel.ForeColor = System.Drawing.Color.Gainsboro;
-            this.CLauseLabel.Location = new System.Drawing.Point(0, 378);
-            this.CLauseLabel.Name = "CLauseLabel";
-            this.CLauseLabel.Size = new System.Drawing.Size(424, 20);
-            this.CLauseLabel.TabIndex = 14;
-            this.CLauseLabel.Text = "*An invalid PIM will let you  login, but data will be unviewable";
-            this.CLauseLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
             // ConfigButton
             // 
             this.ConfigButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(30)))), ((int)(((byte)(68)))));
@@ -200,7 +187,6 @@ namespace AuditScaner
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(689, 398);
             this.Controls.Add(this.ConfigButton);
-            this.Controls.Add(this.CLauseLabel);
             this.Controls.Add(this.PIMBox);
             this.Controls.Add(this.PIMLabel);
             this.Controls.Add(this.statusText);
@@ -212,6 +198,7 @@ namespace AuditScaner
             this.Controls.Add(this.UserButton);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Login_Load);
@@ -234,7 +221,6 @@ namespace AuditScaner
         private System.Windows.Forms.Label statusText;
         private System.Windows.Forms.Label PIMLabel;
         private System.Windows.Forms.TextBox PIMBox;
-        private System.Windows.Forms.Label CLauseLabel;
         private FontAwesome.Sharp.IconButton ConfigButton;
     }
 }

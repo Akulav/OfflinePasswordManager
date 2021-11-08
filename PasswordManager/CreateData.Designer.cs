@@ -53,7 +53,7 @@ namespace AuditScaner
             this.create.TabIndex = 0;
             this.create.Text = "Add account";
             this.create.UseVisualStyleBackColor = false;
-            this.create.Click += new System.EventHandler(this.create_Click);
+            this.create.Click += new System.EventHandler(this.Create_Click);
             // 
             // passwordText
             // 

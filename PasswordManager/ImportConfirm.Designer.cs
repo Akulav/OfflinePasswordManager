@@ -59,7 +59,7 @@ namespace AuditScaner
             this.yesButton.TabIndex = 1;
             this.yesButton.Text = "Yes";
             this.yesButton.UseVisualStyleBackColor = false;
-            this.yesButton.Click += new System.EventHandler(this.yesButton_Click);
+            this.yesButton.Click += new System.EventHandler(this.YesButton_Click);
             // 
             // noButton
             // 
@@ -75,7 +75,7 @@ namespace AuditScaner
             this.noButton.TabIndex = 2;
             this.noButton.Text = "No";
             this.noButton.UseVisualStyleBackColor = false;
-            this.noButton.Click += new System.EventHandler(this.noButton_Click);
+            this.noButton.Click += new System.EventHandler(this.NoButton_Click);
             // 
             // ImportConfirm
             // 

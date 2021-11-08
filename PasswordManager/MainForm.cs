@@ -15,7 +15,7 @@ namespace AuditScaner
         private readonly Panel leftBorderBtn;
         public Form currentChildForm;
         private readonly string fullKey;
-        Timer t = new Timer();
+        readonly Timer t = new Timer();
 
         public MainForm(string key, string username, int PIM)
         {
@@ -35,16 +35,18 @@ namespace AuditScaner
 
 
             t.Interval = 1000;
-            t.Tick += new EventHandler(t_Tick);
+            t.Tick += new EventHandler(Tick);
             t.Start();
 
             InitializeComponent();
 
-            leftBorderBtn = new Panel();
-            leftBorderBtn.Size = new Size(7, 60);
+            leftBorderBtn = new Panel
+            {
+                Size = new Size(7, 60)
+            };
             MenuPanel.Controls.Add(leftBorderBtn);
             //Form
-            winVer.Text = Utilities.getWindowsVersion();
+            winVer.Text = Utilities.GetWindowsVersion();
             MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
             //Gets transfered the key for encryption / decryption
 
@@ -166,7 +168,7 @@ namespace AuditScaner
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
 
-        private void panelTitleBar_MouseDown(object sender, MouseEventArgs e)
+        private void PanelTitleBar_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
             SendMessage(Handle, 0x112, 0xf012, 0);
@@ -198,7 +200,7 @@ namespace AuditScaner
             Application.Exit();
         }
 
-        private void t_Tick(object sender, EventArgs e)
+        private void Tick(object sender, EventArgs e)
         {
             //get current time
             int hh = DateTime.Now.Hour;

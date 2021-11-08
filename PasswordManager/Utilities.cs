@@ -7,7 +7,10 @@ namespace PasswordManager
     class Utilities
     {
         private Form currentChildForm;
-        public static void enforceAdminPrivilegesWorkaround()
+        public static readonly string fileLocation = "C:\\PasswordManager\\";
+        public static readonly string viewDataLocation = "C:\\PasswordManager\\localuser";
+        public static readonly string curfile = "c:\\PasswordManager\\users\\localuser";
+        public static void EnforceAdminPrivilegesWorkaround()
         {
             RegistryKey rk;
             string registryPath = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\";
@@ -36,7 +39,7 @@ namespace PasswordManager
             }
         }
 
-        public static string getWindowsVersion()
+        public static string GetWindowsVersion()
         {
             object os_version = Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", "ReleaseId", 1);
 

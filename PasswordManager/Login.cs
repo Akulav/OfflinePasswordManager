@@ -14,7 +14,6 @@ namespace AuditScaner
         //Will Execute on load
         //All initialization is done here
         //Things like importing DLLs and enforcing Admin are here
-        private string fileLocation = "C:\\PasswordManager\\";
         private bool userFlag = false;
         public Login()
         {
@@ -32,14 +31,14 @@ namespace AuditScaner
             };
 
             InitializeComponent();
-            Utilities.enforceAdminPrivilegesWorkaround();
+            Utilities.EnforceAdminPrivilegesWorkaround();
             Password.PasswordChar = '*';
             DoubleBuffered = true;
         }
 
         private void Login_Load(object sender, EventArgs e)
         {
-            checkIfUser();
+            CheckIfUser();
 
             if (userFlag)
             {
@@ -53,7 +52,7 @@ namespace AuditScaner
             }
         }
 
-        private void initializeDataSet()
+        private void InitializeDataSet()
         {
             string root = @"C:\";
             string subdir = @"C:\PasswordManager\users";
@@ -77,7 +76,7 @@ namespace AuditScaner
 
         }
 
-        private void checkIfUser()
+        private void CheckIfUser()
         {
             try
             {
@@ -101,9 +100,9 @@ namespace AuditScaner
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
 
-        public void checkLogin(string user, string pass, int PIM)
+        public void CheckLogin(string user, string pass, int PIM)
         {
-            if (Crypto.checkHash(user, pass, PIM))
+            if (Crypto.CheckHash(user, pass, PIM))
             {
                 try
                 {
@@ -157,7 +156,7 @@ namespace AuditScaner
                         PIMRead = Crypto.GenerateHash(PIMRead[0], PIMRead[1]);
                     }
 
-                    initializeDataSet();
+                    InitializeDataSet();
                     string location = "c:\\PasswordManager\\users\\localuser";
 
                     using (StreamWriter writer = new StreamWriter(@location))
@@ -179,7 +178,7 @@ namespace AuditScaner
             {
                 string password = Password.Text;
                 string username = Username.Text;
-                checkLogin(username, password, int.Parse(PIMBox.Text));
+                CheckLogin(username, password, int.Parse(PIMBox.Text));
             }
         }
 
@@ -208,7 +207,7 @@ namespace AuditScaner
             }
 
             bool isValid = meetsLengthRequirements
-                        //&& hasUpperCaseLetter //dont wanna make it too strict
+                        && hasUpperCaseLetter
                         && hasLowerCaseLetter
                         && hasDecimalDigit
                         ;
@@ -225,7 +224,7 @@ namespace AuditScaner
             }
         }
 
-        private void topPanel_MouseDown(object sender, MouseEventArgs e)
+        private void TopPanel_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
             SendMessage(Handle, 0x112, 0xf012, 0);
@@ -245,14 +244,16 @@ namespace AuditScaner
         {
             if (!userFlag)
             {
-                ImportExportClass.import(fileLocation);
+                ImportExportClass.Import(Utilities.fileLocation);
             }
 
             else
             {
-                DeleteUserLogin del = new DeleteUserLogin();
-                del.RefToForm1 = this;
-                this.Hide();
+                DeleteUserLogin del = new DeleteUserLogin
+                {
+                    RefToForm1 = this
+                };
+                Hide();
                 del.Show();
             }
         }

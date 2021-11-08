@@ -61,7 +61,7 @@ namespace AuditScaner
             this.yesButton.TabIndex = 1;
             this.yesButton.Text = "Yes";
             this.yesButton.UseVisualStyleBackColor = false;
-            this.yesButton.Click += new System.EventHandler(this.yesButton_Click);
+            this.yesButton.Click += new System.EventHandler(this.YesButton_Click);
             // 
             // noButton
             // 
@@ -77,7 +77,7 @@ namespace AuditScaner
             this.noButton.TabIndex = 2;
             this.noButton.Text = "No";
             this.noButton.UseVisualStyleBackColor = false;
-            this.noButton.Click += new System.EventHandler(this.noButton_Click);
+            this.noButton.Click += new System.EventHandler(this.NoButton_Click);
             // 
             // topPanel
             // 
@@ -87,7 +87,7 @@ namespace AuditScaner
             this.topPanel.Name = "topPanel";
             this.topPanel.Size = new System.Drawing.Size(571, 50);
             this.topPanel.TabIndex = 3;
-            this.topPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.topPanel_MouseDown);
+            this.topPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TopPanel_MouseDown);
             // 
             // okButton
             // 
@@ -103,7 +103,7 @@ namespace AuditScaner
             this.okButton.TabIndex = 4;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = false;
-            this.okButton.Click += new System.EventHandler(this.okButton_Click);
+            this.okButton.Click += new System.EventHandler(this.OkButton_Click);
             // 
             // DeleteUserLogin
             // 
