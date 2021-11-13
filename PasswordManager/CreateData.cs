@@ -21,7 +21,7 @@ namespace AuditScaner
             string username = usernameText.Text;
             string password = passwordText.Text;
             string domain = domainText.Text;
-            string filename = Crypto.GenerateRandomFileName(64);
+            string filename = Crypto.GenerateRandomFileName(128);
             string filepath = "c:\\PasswordManager\\localuser" + "\\" + filename;
 
             using (StreamWriter writer = new StreamWriter(@filepath))

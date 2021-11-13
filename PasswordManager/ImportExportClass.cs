@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO.Compression;
+﻿using System.IO.Compression;
 using System.Windows.Forms;
 
 namespace PasswordManager
@@ -8,7 +7,7 @@ namespace PasswordManager
     {
         public static void Import()
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            OpenFileDialog fileSelectionDialog = new OpenFileDialog
             {
                 InitialDirectory = Utilities.fileLocation,
                 Filter = "Zip files (*.zip)|*.zip*",
@@ -17,19 +16,19 @@ namespace PasswordManager
             };
             string selection;
 
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            if (fileSelectionDialog.ShowDialog() == DialogResult.OK)
             {
-                selection = openFileDialog1.FileName;
+                selection = fileSelectionDialog.FileName;
                 if (selection != null)
                 {
                     try
                     {
-                        selection = openFileDialog1.FileName;
+                        selection = fileSelectionDialog.FileName;
                         Crypto.Erase();
                         ZipFile.ExtractToDirectory(selection, Utilities.fileLocation);
                         Application.Restart();
                     }
-                    catch (Exception)
+                    catch
                     {
 
                     }

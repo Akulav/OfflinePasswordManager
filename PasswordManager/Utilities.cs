@@ -7,11 +7,12 @@ namespace PasswordManager
 {
     class Utilities
     {
-        private Form currentChildForm;
         public static readonly string fileLocation = "C:\\PasswordManager\\";
         public static readonly string viewDataLocation = "C:\\PasswordManager\\localuser";
         public static readonly string curfile = "c:\\PasswordManager\\users\\localuser";
+        public static readonly string users = "c:\\PasswordManager\\users\\";
         public static readonly string defaultFolder = "c:\\PasswordManager\\";
+        public static readonly string root = @"C:\";
         public static void EnforceAdminPrivilegesWorkaround()
         {
             RegistryKey rk;
@@ -42,10 +43,12 @@ namespace PasswordManager
         }
         public static void SetFileReadAccess(string FileName, bool SetReadOnly)
         {
-            FileInfo fInfo = new FileInfo(FileName);
+            _ = new FileInfo(FileName)
+            {
 
-            // Set the IsReadOnly property.
-            fInfo.IsReadOnly = SetReadOnly;
+                // Set the IsReadOnly property.
+                IsReadOnly = SetReadOnly
+            };
 
         }
 
@@ -62,21 +65,6 @@ namespace PasswordManager
             {
                 return "Could not read Windows Build";
             }
-        }
-        public void OpenChildForm(Form childForm, Form currentForm)
-        {
-            if (currentChildForm != null)
-            {
-                currentChildForm.Close();
-            }
-            currentChildForm = childForm;
-            childForm.TopLevel = false;
-            childForm.FormBorderStyle = FormBorderStyle.None;
-            childForm.Dock = DockStyle.Fill;
-            currentForm.Controls.Add(childForm);
-            childForm.Tag = childForm;
-            childForm.BringToFront();
-            childForm.Show();
         }
     }
 }

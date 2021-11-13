@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace AuditScaner
@@ -11,10 +12,16 @@ namespace AuditScaner
     public partial class Login : Form
     {
 
-        //Will Execute on load
-        //All initialization is done here
-        //Things like importing DLLs and enforcing Admin are here
+        //Flag if a user already exists or not
         private bool userFlag = false;
+
+        //UI dll functionality
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
+
+        //Adds dependencies inside .exe, makes sure password is masked and doublebuffered
         public Login()
         {
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
@@ -29,17 +36,16 @@ namespace AuditScaner
                     return Assembly.Load(assemblyData);
                 }
             };
-
-            InitializeComponent();
+            CheckIfUserAsync();
             Utilities.EnforceAdminPrivilegesWorkaround();
+            InitializeComponent();
             Password.PasswordChar = '*';
             DoubleBuffered = true;
         }
 
+        //On Load check is a user is already created. If exists, login, else sign up.
         private void Login_Load(object sender, EventArgs e)
         {
-            CheckIfUser();
-
             if (userFlag)
             {
                 UserButton.Text = "Login";
@@ -47,59 +53,59 @@ namespace AuditScaner
             }
             else
             {
+                InitializeDataSetAsync();
                 UserButton.Text = "Create Account";
                 ConfigButton.Text = "Import Data";
             }
         }
 
-        private void InitializeDataSet()
+        //Create all necessary folders for the program.
+        private void InitializeDataSetAsync()
         {
-            string root = @"C:\";
-            string subdir = @"C:\PasswordManager\users";
-            string storageDir = @"C:\PasswordManager\localuser";
-
-            if (!Directory.Exists(root))
-            {
-                Directory.CreateDirectory(root);
-            }
-
-
-            if (!Directory.Exists(subdir))
-            {
-                Directory.CreateDirectory(subdir);
-            }
-
-            if (!Directory.Exists(storageDir))
-            {
-                Directory.CreateDirectory(storageDir);
-            }
-
+            Thread thread = new Thread(() => {
+                try
+                {
+                    if (!Directory.Exists(Utilities.root))
+                    {
+                        Directory.CreateDirectory(Utilities.root);
+                    }
+                    if (!Directory.Exists(Utilities.users))
+                    {
+                        Directory.CreateDirectory(Utilities.users);
+                    }
+                    if (!Directory.Exists(Utilities.viewDataLocation))
+                    {
+                        Directory.CreateDirectory(Utilities.viewDataLocation);
+                    }
+                }
+                catch { userFlag = false; }
+            });
+            thread.Start();
         }
 
-        private void CheckIfUser()
+        //Checks if user exists
+        private void CheckIfUserAsync()
         {
-            try
-            {
-                string Folder = @"c:\PasswordManager\users";
-                if (Directory.EnumerateFiles(Folder).Count() > 0)
+            Thread thread = new Thread(() => {
+                try
                 {
-                    userFlag = true;
+                    if (Directory.EnumerateFiles(Utilities.users).Count() > 0)
+                    {
+                        userFlag = true;
+                    }
+
+                    else
+                    {
+                        userFlag = false;
+                    }
                 }
 
-                else
-                {
-                    userFlag = false;
-                }
-            }
-
-            catch { userFlag = false; }
+                catch { userFlag = false; }
+            });
+            thread.Start();
         }
 
-        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
-        private extern static void ReleaseCapture();
-        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
-        private extern static void SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
-
+        //Verify login information
         public void CheckLogin(string user, string pass, int PIM)
         {
             if (Crypto.CheckHash(user, pass, PIM))
@@ -119,6 +125,7 @@ namespace AuditScaner
             else { statusText.Text = "Wrong username / password combination"; }
         }
 
+        //Sign ups the user
         private void CreateUser_Click(object sender, EventArgs e)
         {
             if (!userFlag) {
@@ -132,13 +139,23 @@ namespace AuditScaner
                     flag = false;
                 }
 
-                if (!int.TryParse(PIMBox.Text, out _))
+                if (int.TryParse(PIMBox.Text, out _))
                 {
-                    statusText.Text = "PIM must be a number. Recommended above 1000";
-                    flag = false;
+                    int PIM = int.Parse(PIMBox.Text);
+                    if (PIM > 100000 || PIM < 100)
+                    {
+                        statusText.Text = "PIM must be between 100 and 100000";
+                        flag = false;
+                    }
                 }
 
-                if (!ValidatePassword(password))
+                if (!int.TryParse(PIMBox.Text, out _))
+                {
+                    statusText.Text = "PIM must be a number";
+                    flag = false;
+                }            
+
+                if (!Crypto.ValidatePassword(password))
                 {
                     statusText.Text = "Password must be at least 12 characters\n long and contain alphanumeric chars";
                     flag = false;
@@ -153,9 +170,7 @@ namespace AuditScaner
                     for (int i = 0; i < int.Parse(PIMBox.Text); i++)
                     {
                         PIMRead = Crypto.GenerateHash(PIMRead[0], PIMRead[1]);
-                    }
-
-                    InitializeDataSet();
+                    }             
 
                     using (StreamWriter writer = new StreamWriter(Utilities.curfile))
                     {
@@ -185,40 +200,7 @@ namespace AuditScaner
 
                 catch { statusText.Text = "Input a valid number for PIM"; }
             }
-        }
-
-
-        //Modify to enforce harder password
-        static bool ValidatePassword(string password)
-        {
-            const int MIN_LENGTH = 12;
-            const int MAX_LENGTH = int.MaxValue-1;
-
-            if (password == null) throw new ArgumentNullException();
-
-            bool meetsLengthRequirements = password.Length >= MIN_LENGTH && password.Length <= MAX_LENGTH;
-            bool hasUpperCaseLetter = false;
-            bool hasLowerCaseLetter = false;
-            bool hasDecimalDigit = false;
-
-            if (meetsLengthRequirements)
-            {
-                foreach (char c in password)
-                {
-                    if (char.IsUpper(c)) hasUpperCaseLetter = true;
-                    else if (char.IsLower(c)) hasLowerCaseLetter = true;
-                    else if (char.IsDigit(c)) hasDecimalDigit = true;
-                }
-            }
-
-            bool isValid = meetsLengthRequirements
-                        && hasUpperCaseLetter
-                        && hasLowerCaseLetter
-                        && hasDecimalDigit
-                        ;
-            return isValid;
-
-        }
+        }      
 
         //UI Events
         private void Password_KeyDown(object sender, KeyEventArgs e)

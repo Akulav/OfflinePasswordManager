@@ -8,8 +8,10 @@ namespace PasswordManager
 {
     class Crypto
     {
-        public static string GenerateRandomAlphanumericString(int length, int alphaNumericalChars = 16)
-        {      
+        public static string GenerateRandomAlphanumericString(int length)
+        {
+            Random rnd = new Random();
+            int alphaNumericalChars = rnd.Next(128);
             return Membership.GeneratePassword(length, alphaNumericalChars);
         }
         public static string Encrypt(string clearText, string EncryptionKey)
@@ -65,23 +67,50 @@ namespace PasswordManager
         {
 
             ForceDeleteDirectory(Utilities.defaultFolder);
-                DirectoryInfo di = new DirectoryInfo(Utilities.fileLocation);
+            DirectoryInfo di = new DirectoryInfo(Utilities.fileLocation);
 
-                foreach (FileInfo file in di.GetFiles())
-                {
-                    //Utilities.SetFileReadAccess(Utilities.fileLocation + file.ToString(), false);
-                    string oldData = File.ReadAllText(@file.ToString());
-                    string newData = Encrypt(oldData, GenerateRandomAlphanumericString(20));
-                    File.WriteAllText(file.ToString(), newData);
-                    file.Delete();
-                }
-                foreach (DirectoryInfo dir in di.GetDirectories())
-                {
-                    dir.Delete(true);
-                }
-           
+            foreach (FileInfo file in di.GetFiles())
+            {
+                //Utilities.SetFileReadAccess(Utilities.fileLocation + file.ToString(), false);
+                string oldData = File.ReadAllText(@file.ToString());
+                string newData = Encrypt(oldData, GenerateRandomAlphanumericString(20));
+                File.WriteAllText(file.ToString(), newData);
+                file.Delete();
+            }
+            foreach (DirectoryInfo dir in di.GetDirectories())
+            {
+                dir.Delete(true);
+            }
+        }
+        public static bool ValidatePassword(string password)
+        {
+            const int MIN_LENGTH = 12;
+            const int MAX_LENGTH = int.MaxValue - 1;
 
-            
+            if (password == null) throw new ArgumentNullException();
+
+            bool meetsLengthRequirements = password.Length >= MIN_LENGTH && password.Length <= MAX_LENGTH;
+            bool hasUpperCaseLetter = false;
+            bool hasLowerCaseLetter = false;
+            bool hasDecimalDigit = false;
+
+            if (meetsLengthRequirements)
+            {
+                foreach (char c in password)
+                {
+                    if (char.IsUpper(c)) hasUpperCaseLetter = true;
+                    else if (char.IsLower(c)) hasLowerCaseLetter = true;
+                    else if (char.IsDigit(c)) hasDecimalDigit = true;
+                }
+            }
+
+            bool isValid = meetsLengthRequirements
+                        && hasUpperCaseLetter
+                        && hasLowerCaseLetter
+                        && hasDecimalDigit
+                        ;
+            return isValid;
+
         }
 
         public static void ForceDeleteDirectory(string path)
@@ -92,7 +121,6 @@ namespace PasswordManager
             {
                 info.Attributes = FileAttributes.Normal;
             }
-
         }
 
         public static string GenerateRandomFileName(int length)
@@ -111,7 +139,6 @@ namespace PasswordManager
             return finalString;
         }
 
-
         public static bool CheckHash(string user, string pass, int PIM)
         {
             try
@@ -119,7 +146,7 @@ namespace PasswordManager
                 string[] lines = File.ReadAllLines(Utilities.curfile);
                 string[] hashUser = GenerateHash(user, lines[0]);
                 string[] hashPass = GenerateHash(pass, lines[2]);
-                string[] PIMRead = GenerateHash(pass+user, lines[5]);
+                string[] PIMRead = GenerateHash(pass + user, lines[5]);
 
                 for (int i = 0; i < PIM; i++)
                 {
@@ -128,7 +155,7 @@ namespace PasswordManager
 
                 if (hashUser[1] == lines[0])
                 {
-                    
+
                     if (hashPass[1] == lines[2])
                     {
                         if (PIMRead[0] == lines[4])
@@ -168,6 +195,5 @@ namespace PasswordManager
             }
             return cipherText;
         }
-
     }
 }
