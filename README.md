@@ -6,6 +6,8 @@
 4. Easy to import / export data. :heavy_check_mark:
 5. Low system requirements. :heavy_check_mark:
 6. No Logs or any form of Telemetry (works completely offline) :heavy_check_mark:
+7. Read Only Attributes helps protect data from corruption or unintended modifications :heavy_check_mark:
+8. Encryption / Decryption keys are derived from username, password and PIM, which are never stored :heavy_check_mark:
 
 # Upcoming Features & Bug Fixes
 1. Add Multi-Threading support for data viewing
