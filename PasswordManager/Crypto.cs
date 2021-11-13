@@ -63,13 +63,14 @@ namespace PasswordManager
 
         public static void Erase()
         {
-            try
-            {
+
+            ForceDeleteDirectory(Utilities.defaultFolder);
                 DirectoryInfo di = new DirectoryInfo(Utilities.fileLocation);
 
                 foreach (FileInfo file in di.GetFiles())
                 {
-                    string oldData = File.ReadAllText(file.ToString());
+                    //Utilities.SetFileReadAccess(Utilities.fileLocation + file.ToString(), false);
+                    string oldData = File.ReadAllText(@file.ToString());
                     string newData = Encrypt(oldData, GenerateRandomAlphanumericString(20));
                     File.WriteAllText(file.ToString(), newData);
                     file.Delete();
@@ -78,9 +79,20 @@ namespace PasswordManager
                 {
                     dir.Delete(true);
                 }
+           
+
+            
+        }
+
+        public static void ForceDeleteDirectory(string path)
+        {
+            var directory = new DirectoryInfo(path) { Attributes = FileAttributes.Normal };
+
+            foreach (var info in directory.GetFileSystemInfos("*", SearchOption.AllDirectories))
+            {
+                info.Attributes = FileAttributes.Normal;
             }
 
-            catch { }
         }
 
         public static string GenerateRandomFileName(int length)

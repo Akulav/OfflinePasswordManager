@@ -32,6 +32,7 @@ namespace AuditScaner
                 writer.Write("\n");
                 writer.Write(Crypto.Encrypt(domain, key));
             }
+            Utilities.SetFileReadAccess(filepath, true);
             Reset();
             doneLabel.Visible = true;
         }

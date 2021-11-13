@@ -113,6 +113,7 @@ namespace AuditScaner
                     string[] list = GetFileList();
                     try
                     {
+                        Utilities.SetFileReadAccess(list[index], false);
                         string oldData = File.ReadAllText(list[index]);
                         string newData = Crypto.Encrypt(oldData, Crypto.GenerateRandomAlphanumericString(20));
                         File.WriteAllText(list[index], newData);

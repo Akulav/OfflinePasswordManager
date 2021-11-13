@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace PasswordManager
@@ -10,6 +11,7 @@ namespace PasswordManager
         public static readonly string fileLocation = "C:\\PasswordManager\\";
         public static readonly string viewDataLocation = "C:\\PasswordManager\\localuser";
         public static readonly string curfile = "c:\\PasswordManager\\users\\localuser";
+        public static readonly string defaultFolder = "c:\\PasswordManager\\";
         public static void EnforceAdminPrivilegesWorkaround()
         {
             RegistryKey rk;
@@ -37,6 +39,14 @@ namespace PasswordManager
             {
                 MessageBox.Show(e.Message);
             }
+        }
+        public static void SetFileReadAccess(string FileName, bool SetReadOnly)
+        {
+            FileInfo fInfo = new FileInfo(FileName);
+
+            // Set the IsReadOnly property.
+            fInfo.IsReadOnly = SetReadOnly;
+
         }
 
         public static string GetWindowsVersion()

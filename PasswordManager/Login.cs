@@ -167,6 +167,7 @@ namespace AuditScaner
                         writer.WriteLine(PIMRead[1]);
                         writer.Close();
                     }
+                    Utilities.SetFileReadAccess(Utilities.curfile, true);
                     Application.Restart();
                 }
             }
