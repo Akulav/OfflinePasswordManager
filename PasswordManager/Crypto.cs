@@ -51,14 +51,27 @@ namespace PasswordManager
             return data;
         }
 
-        public static void Erase(string fileLocation)
+        public static string FinalKey(string input, string salt, int PIM)
+        {
+            for (int i = 0; i < PIM; i++)
+            {
+                input = GenerateMasterKey(input, salt);
+            }
+
+            return input;
+        }
+
+        public static void Erase()
         {
             try
             {
-                DirectoryInfo di = new DirectoryInfo(fileLocation);
+                DirectoryInfo di = new DirectoryInfo(Utilities.fileLocation);
 
                 foreach (FileInfo file in di.GetFiles())
                 {
+                    string oldData = File.ReadAllText(file.ToString());
+                    string newData = Encrypt(oldData, GenerateRandomAlphanumericString(20));
+                    File.WriteAllText(file.ToString(), newData);
                     file.Delete();
                 }
                 foreach (DirectoryInfo dir in di.GetDirectories())

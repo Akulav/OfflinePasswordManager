@@ -121,7 +121,6 @@ namespace AuditScaner
 
         private void CreateUser_Click(object sender, EventArgs e)
         {
-
             if (!userFlag) {
                 string password = Password.Text;
                 string username = Username.Text;
@@ -157,9 +156,8 @@ namespace AuditScaner
                     }
 
                     InitializeDataSet();
-                    string location = "c:\\PasswordManager\\users\\localuser";
 
-                    using (StreamWriter writer = new StreamWriter(@location))
+                    using (StreamWriter writer = new StreamWriter(Utilities.curfile))
                     {
                         writer.WriteLine(datapass[0]);
                         writer.WriteLine(datapass[1]);
@@ -169,7 +167,6 @@ namespace AuditScaner
                         writer.WriteLine(PIMRead[1]);
                         writer.Close();
                     }
-
                     Application.Restart();
                 }
             }
@@ -178,7 +175,14 @@ namespace AuditScaner
             {
                 string password = Password.Text;
                 string username = Username.Text;
-                CheckLogin(username, password, int.Parse(PIMBox.Text));
+
+                try
+                {
+                    int PIM = int.Parse(PIMBox.Text);
+                    CheckLogin(username, password, PIM);
+                }
+
+                catch { statusText.Text = "Input a valid number for PIM"; }
             }
         }
 
@@ -244,17 +248,14 @@ namespace AuditScaner
         {
             if (!userFlag)
             {
-                ImportExportClass.Import(Utilities.fileLocation);
+                ImportExportClass.Import();
             }
 
             else
             {
-                DeleteUserLogin del = new DeleteUserLogin
-                {
-                    RefToForm1 = this
-                };
-                Hide();
+                DeleteUserLogin del = new DeleteUserLogin();
                 del.Show();
+                Close();
             }
         }
     }

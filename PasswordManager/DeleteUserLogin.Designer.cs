@@ -29,11 +29,11 @@ namespace AuditScaner
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeleteUserLogin));
             this.deleteLabel = new System.Windows.Forms.Label();
             this.yesButton = new FontAwesome.Sharp.IconButton();
             this.noButton = new FontAwesome.Sharp.IconButton();
             this.topPanel = new System.Windows.Forms.Panel();
-            this.okButton = new FontAwesome.Sharp.IconButton();
             this.SuspendLayout();
             // 
             // deleteLabel
@@ -89,35 +89,19 @@ namespace AuditScaner
             this.topPanel.TabIndex = 3;
             this.topPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TopPanel_MouseDown);
             // 
-            // okButton
-            // 
-            this.okButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
-            this.okButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.okButton.ForeColor = System.Drawing.Color.Gainsboro;
-            this.okButton.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.okButton.IconColor = System.Drawing.Color.Black;
-            this.okButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.okButton.Location = new System.Drawing.Point(101, 169);
-            this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(378, 41);
-            this.okButton.TabIndex = 4;
-            this.okButton.Text = "OK";
-            this.okButton.UseVisualStyleBackColor = false;
-            this.okButton.Click += new System.EventHandler(this.OkButton_Click);
-            // 
             // DeleteUserLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(571, 253);
-            this.Controls.Add(this.okButton);
             this.Controls.Add(this.topPanel);
             this.Controls.Add(this.noButton);
             this.Controls.Add(this.yesButton);
             this.Controls.Add(this.deleteLabel);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DeleteUserLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DeleteUserLogin";
@@ -132,6 +116,5 @@ namespace AuditScaner
         private FontAwesome.Sharp.IconButton yesButton;
         private FontAwesome.Sharp.IconButton noButton;
         private System.Windows.Forms.Panel topPanel;
-        private FontAwesome.Sharp.IconButton okButton;
     }
 }

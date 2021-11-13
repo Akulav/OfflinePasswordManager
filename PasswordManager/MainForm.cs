@@ -50,11 +50,8 @@ namespace AuditScaner
             MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
             //Gets transfered the key for encryption / decryption
 
-            fullKey = Crypto.GenerateMasterKey(key, username);
-            for (int i = 0; i < PIM; i++)
-            {
-                fullKey = Crypto.GenerateMasterKey(fullKey, key);
-            }
+            fullKey = Crypto.FinalKey(Crypto.GenerateMasterKey(key, username), key ,PIM);
+            
 
         }
         //Structs

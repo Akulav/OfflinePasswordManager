@@ -15,14 +15,12 @@ namespace AuditScaner
         public DeleteUserLogin()
         {
             InitializeComponent();
-            okButton.Hide();
         }
-
-        public Form RefToForm1 { get; set; }
 
         private void NoButton_Click(object sender, EventArgs e)
         {
-            RefToForm1.Show();
+            Login lg = new Login();
+            lg.Show();
             Close();
         }
 
@@ -36,18 +34,8 @@ namespace AuditScaner
         {
             yesButton.Hide();
             noButton.Hide();
-            RefToForm1.Close();
-            Crypto.Erase(Utilities.fileLocation);
-            deleteLabel.Text = "Success";
-            okButton.Show();
-
-        }
-
-        private void OkButton_Click(object sender, EventArgs e)
-        {
-            Login lg = new Login();
-            lg.Show();
-            Close();
+            Crypto.Erase();
+            Application.Restart();
         }
     }
 }

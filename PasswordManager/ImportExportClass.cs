@@ -6,7 +6,7 @@ namespace PasswordManager
 {
     class ImportExportClass
     {
-        public static void Import(string fileLocation)
+        public static void Import()
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
@@ -25,7 +25,7 @@ namespace PasswordManager
                     try
                     {
                         selection = openFileDialog1.FileName;
-                        Crypto.Erase(fileLocation);
+                        Crypto.Erase();
                         ZipFile.ExtractToDirectory(selection, Utilities.fileLocation);
                         Application.Restart();
                     }
@@ -35,24 +35,26 @@ namespace PasswordManager
                     }
                 }
             }
-
-
         }
 
-        public static void Export()
+        public static bool Export()
         {
             using (var fbd = new FolderBrowserDialog())
             {
                 DialogResult result = fbd.ShowDialog();
-
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                try
                 {
-                    string startPath = Utilities.fileLocation;
-                    string zipPath = fbd.SelectedPath + @"\data.zip";
+                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                    {
+                        string startPath = Utilities.fileLocation;
+                        string zipPath = fbd.SelectedPath + @"\data.zip";
+                        ZipFile.CreateFromDirectory(startPath, zipPath);
+                        return true;
+                    }
 
-                    ZipFile.CreateFromDirectory(startPath, zipPath);
-
+                    else { return false; }
                 }
+                catch { return false; }
             }
         }
     }
