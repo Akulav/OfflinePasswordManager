@@ -11,7 +11,7 @@ namespace PasswordManager
         public static string GenerateRandomAlphanumericString(int length)
         {
             Random rnd = new Random();
-            int alphaNumericalChars = rnd.Next(128);
+            int alphaNumericalChars = rnd.Next(32);
             return Membership.GeneratePassword(length, alphaNumericalChars);
         }
         public static string Encrypt(string clearText, string EncryptionKey)
