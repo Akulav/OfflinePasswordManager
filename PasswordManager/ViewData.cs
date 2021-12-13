@@ -21,7 +21,7 @@ namespace AuditScaner
 
         private void GetData()
         {
-            string[] fileList = Directory.GetFiles(Utilities.viewDataLocation);
+            string[] fileList = GetFileList();
 
             for (int i = 0; i < fileList.Length; i++)
             {
@@ -34,7 +34,8 @@ namespace AuditScaner
                 this.data.Rows[indexC].Cells[3].Value = "Delete";
             }
         }
-        private void deleteRow(int currentRow)
+
+        private void DeleteRow(int currentRow)
         {
             string[] list = GetFileList();
             Utilities.SetFileReadAccess(list[currentRow], false);
@@ -47,14 +48,11 @@ namespace AuditScaner
             GetData();
         }
 
-        private void data_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void Data_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex == data.NewRowIndex || e.RowIndex < 0)
-                return;
-
             if (e.ColumnIndex == data.Columns["Delete"].Index)
             {
-                deleteRow(e.RowIndex);
+                DeleteRow(e.RowIndex);
             }
         }
     }

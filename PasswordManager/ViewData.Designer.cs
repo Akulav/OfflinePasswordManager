@@ -91,7 +91,7 @@ namespace AuditScaner
             this.data.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.data.Size = new System.Drawing.Size(924, 621);
             this.data.TabIndex = 1;
-            this.data.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.data_CellContentClick);
+            this.data.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Data_CellContentClick);
             // 
             // Service
             // 
