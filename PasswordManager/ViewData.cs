@@ -26,7 +26,6 @@ namespace AuditScaner
             for (int i = 0; i < fileList.Length; i++)
             {
                 string[] data = File.ReadAllLines(fileList[i]);
-
                 var indexC = this.data.Rows.Add();
                 this.data.Rows[indexC].Cells[0].Value = Crypto.Decrypt(data[2], key);
                 this.data.Rows[indexC].Cells[1].Value = Crypto.Decrypt(data[0], key);
@@ -35,28 +34,21 @@ namespace AuditScaner
             }
         }
 
-        private void DeleteRow(int currentRow)
-        {
-            string[] list = GetFileList();
-            Utilities.SetFileReadAccess(list[currentRow], false);
-            string oldData = File.ReadAllText(list[currentRow]);
-            string newData = Crypto.Encrypt(oldData, Crypto.GenerateRandomFileName(100));
-            File.WriteAllText(list[currentRow], newData);
-            File.Delete(list[currentRow]);
-            Controls.Clear();
-            InitializeComponent();
-            GetData();
-        }
-
         private void Data_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            string[] list = GetFileList();
             if (e.ColumnIndex == data.Columns["Delete"].Index)
             {
-                DeleteRow(e.RowIndex);
+                int currentRow = e.RowIndex;
+                Utilities.SetFileReadAccess(list[currentRow], false);
+                string oldData = File.ReadAllText(list[currentRow]);
+                string newData = Crypto.Encrypt(oldData, Crypto.GenerateRandomFileName(100));
+                File.WriteAllText(list[currentRow], newData);
+                File.Delete(list[currentRow]);
+                Controls.Clear();
+                InitializeComponent();
+                GetData();
             }
         }
     }
-
-
-
 }
