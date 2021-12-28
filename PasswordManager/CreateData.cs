@@ -1,6 +1,6 @@
 ﻿using PasswordManager;
 using System;
-using System.IO;
+using System.Data.SQLite;
 using System.Windows.Forms;
 
 namespace AuditScaner
@@ -21,18 +21,20 @@ namespace AuditScaner
             string username = usernameText.Text;
             string password = passwordText.Text;
             string domain = domainText.Text;
-            string filename = Crypto.GenerateRandomFileName(128);
-            string filepath = Utilities.viewDataLocation + "\\" + filename;
 
-            using (StreamWriter writer = new StreamWriter(@filepath))
+            Utilities.SetFileReadAccess(Utilities.user_data, false);
+
+            var con = new SQLiteConnection(Utilities.user_data_connection);
+            con.Open();
+            var cmd = new SQLiteCommand(con)
             {
-                writer.Write(Crypto.Encrypt(username, key));
-                writer.Write("\n");
-                writer.Write(Crypto.Encrypt(password, key));
-                writer.Write("\n");
-                writer.Write(Crypto.Encrypt(domain, key));
-            }
-            Utilities.SetFileReadAccess(filepath, true);
+                CommandText = "INSERT INTO data(username, pass, domain) VALUES(@user,@pass,@domain)"
+            };
+            cmd.Parameters.AddWithValue("@user", Crypto.Encrypt(username, key));
+            cmd.Parameters.AddWithValue("@pass", Crypto.Encrypt(password, key));
+            cmd.Parameters.AddWithValue("@domain", Crypto.Encrypt(domain, key));
+            cmd.ExecuteNonQuery();
+            con.Close();
             Reset();
             doneLabel.Visible = true;
         }

@@ -70,7 +70,6 @@ namespace AuditScaner
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.data.DefaultCellStyle = dataGridViewCellStyle2;
-            this.data.Dock = System.Windows.Forms.DockStyle.Fill;
             this.data.EnableHeadersVisualStyles = false;
             this.data.GridColor = System.Drawing.Color.Gainsboro;
             this.data.Location = new System.Drawing.Point(0, 0);

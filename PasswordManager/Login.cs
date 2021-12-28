@@ -61,13 +61,10 @@ namespace AuditScaner
         //Create all necessary folders for the program.
         private void InitializeDataSetAsync()
         {
-            Thread thread = new Thread(() => {
+            Thread thread = new Thread(() =>
+            {
                 try
                 {
-                    if (!Directory.Exists(Utilities.root))
-                    {
-                        Directory.CreateDirectory(Utilities.root);
-                    }
                     if (!Directory.Exists(Utilities.users))
                     {
                         Directory.CreateDirectory(Utilities.users);
@@ -80,16 +77,21 @@ namespace AuditScaner
                     {
                         File.WriteAllText(Utilities.database, null);
                     }
+                    if (!File.Exists(Utilities.user_data))
+                    {
+                        File.WriteAllText(Utilities.user_data, null);
+                    }
                 }
                 catch { userFlag = false; }
             });
-            thread.Start();           
+            thread.Start();
         }
 
         //Checks if user exists
         private void CheckIfUserAsync()
         {
-            Thread thread = new Thread(() => {
+            Thread thread = new Thread(() =>
+            {
                 try
                 {
                     if (Directory.EnumerateFiles(Utilities.users).Count() > 0)
@@ -110,7 +112,7 @@ namespace AuditScaner
 
         //Verify login information
         public void CheckLogin(string user, string pass, int PIM)
-        {         
+        {
             if (Crypto.CheckHash(user, pass, PIM))
             {
                 try
@@ -120,7 +122,7 @@ namespace AuditScaner
                     Close();
                 }
 
-                catch 
+                catch
                 {
                     statusText.Text = "Input a number inside PIM";
                 }
@@ -131,7 +133,8 @@ namespace AuditScaner
         //Sign ups the user
         private void CreateUser_Click(object sender, EventArgs e)
         {
-            if (!userFlag) {
+            if (!userFlag)
+            {
                 string password = Password.Text;
                 string username = Username.Text;
                 bool flag = true;
@@ -156,7 +159,7 @@ namespace AuditScaner
                 {
                     statusText.Text = "PIM must be a number";
                     flag = false;
-                }            
+                }
 
                 if (!Crypto.ValidatePassword(password))
                 {
@@ -166,25 +169,39 @@ namespace AuditScaner
 
                 if (flag == true)
                 {
-                    string[] datapass = Crypto.GenerateHash(password, Crypto.GenerateRandomAlphanumericString(128));                   
+                    string[] datapass = Crypto.GenerateHash(password, Crypto.GenerateRandomAlphanumericString(128));
                     string[] dataname = Crypto.GenerateHash(username, Crypto.GenerateRandomAlphanumericString(128));
-                    string[] PIMRead = Crypto.GenerateHash(password+username, Crypto.GenerateRandomAlphanumericString(128));
+                    string[] PIMRead = Crypto.GenerateHash(password + username, Crypto.GenerateRandomAlphanumericString(128));
 
                     for (int i = 0; i < int.Parse(PIMBox.Text); i++)
                     {
                         PIMRead = Crypto.GenerateHash(PIMRead[0], PIMRead[1]);
-                    }             
+                    }
 
                     //Insert data into database user and pass actually switch places
                     var con = new SQLiteConnection(Utilities.database_connection);
                     con.Open();
-                    var cmd = new SQLiteCommand(con);
-                    cmd.CommandText = @"CREATE TABLE user(id INTEGER PRIMARY KEY, username VARCRHAR(250), user_salt VARCRHAR(250), pass VARCRHAR(250), pass_salt VARCRHAR(250), pim VARCRHAR(250), pim_salt VARCRHAR(250))";
+                    var cmd = new SQLiteCommand(con)
+                    {
+                        CommandText = @"CREATE TABLE user(id INTEGER PRIMARY KEY, username VARCRHAR(250), user_salt VARCRHAR(250), pass VARCRHAR(250), pass_salt VARCRHAR(250), pim VARCRHAR(250), pim_salt VARCRHAR(250))"
+                    };
                     cmd.ExecuteNonQuery();
                     cmd.CommandText = $"INSERT INTO user(username, user_salt, pass, pass_salt, pim, pim_salt) VALUES('{datapass[0]}', '{datapass[1]}', '{dataname[0]}', '{dataname[1]}', '{PIMRead[0]}', '{PIMRead[1]}')";
                     cmd.ExecuteNonQuery();
+                    con.Close();
+
+                    //User Data Database initialization
+                    var data_con = new SQLiteConnection(Utilities.user_data_connection);
+                    data_con.Open();
+                    var data_cmd = new SQLiteCommand(data_con)
+                    {
+                        CommandText = @"CREATE TABLE data(username VARCRHAR(250), pass VARCRHAR(250),domain VARCRHAR(250))"
+                    };
+                    data_cmd.ExecuteNonQuery();
+                    data_con.Close();
 
                     Utilities.SetFileReadAccess(Utilities.database, true);
+                    Utilities.SetFileReadAccess(Utilities.user_data, true);
                     Application.Restart();
                 }
             }
@@ -202,7 +219,7 @@ namespace AuditScaner
 
                 catch { statusText.Text = "Input a valid number for PIM"; }
             }
-        }      
+        }
 
         //UI Events
         private void Password_KeyDown(object sender, KeyEventArgs e)

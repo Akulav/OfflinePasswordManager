@@ -1,5 +1,5 @@
 ﻿using PasswordManager;
-using System.IO;
+using System.Data.SQLite;
 using System.Windows.Forms;
 
 namespace AuditScaner
@@ -14,37 +14,40 @@ namespace AuditScaner
             GetData();
         }
 
-        private string[] GetFileList()
-        {
-            return Directory.GetFiles(Utilities.viewDataLocation);
-        }
-
         private void GetData()
         {
-            string[] fileList = GetFileList();
-
-            for (int i = 0; i < fileList.Length; i++)
+            var con = new SQLiteConnection(Utilities.user_data_connection);
+            con.Open();
+            var cmd = new SQLiteCommand(con)
             {
-                string[] data = File.ReadAllLines(fileList[i]);
-                var indexC = this.data.Rows.Add();
-                this.data.Rows[indexC].Cells[0].Value = Crypto.Decrypt(data[2], key);
-                this.data.Rows[indexC].Cells[1].Value = Crypto.Decrypt(data[0], key);
-                this.data.Rows[indexC].Cells[2].Value = Crypto.Decrypt(data[1], key);
-                this.data.Rows[indexC].Cells[3].Value = "Delete";
+                CommandText = @"SELECT * FROM data"
+            };
+            var Table = cmd.ExecuteReader();
+            while (Table.Read())
+            {
+                var indexC = data.Rows.Add();
+                data.Rows[indexC].Cells[0].Value = Crypto.Decrypt(Table[2].ToString(), key);
+                data.Rows[indexC].Cells[1].Value = Crypto.Decrypt(Table[0].ToString(), key);
+                data.Rows[indexC].Cells[2].Value = Crypto.Decrypt(Table[1].ToString(), key);
+                data.Rows[indexC].Cells[3].Value = "Delete";
             }
+            Table.Close();
         }
 
         private void Data_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            string[] list = GetFileList();
             if (e.ColumnIndex == data.Columns["Delete"].Index)
             {
                 int currentRow = e.RowIndex;
-                Utilities.SetFileReadAccess(list[currentRow], false);
-                string oldData = File.ReadAllText(list[currentRow]);
-                string newData = Crypto.Encrypt(oldData, Crypto.GenerateRandomFileName(100));
-                File.WriteAllText(list[currentRow], newData);
-                File.Delete(list[currentRow]);
+                var con = new SQLiteConnection(Utilities.user_data_connection);
+                con.Open();
+                var cmd = new SQLiteCommand(con)
+                {
+                    CommandText = $"DELETE FROM data WHERE username = '{Crypto.Encrypt(data.Rows[currentRow].Cells[1].Value.ToString(), key)}' AND " +
+                    $"pass = '{Crypto.Encrypt(data.Rows[currentRow].Cells[2].Value.ToString(), key)}' AND " +
+                    $"domain = '{Crypto.Encrypt(data.Rows[currentRow].Cells[0].Value.ToString(), key)}'"
+                };
+                cmd.ExecuteNonQuery();
                 Controls.Clear();
                 InitializeComponent();
                 GetData();

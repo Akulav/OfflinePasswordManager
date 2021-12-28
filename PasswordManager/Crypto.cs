@@ -67,7 +67,7 @@ namespace PasswordManager
         public static void Erase()
         {
 
-            ForceDeleteDirectory(Utilities.defaultFolder);
+            ForceDeleteDirectory(Utilities.fileLocation);
             DirectoryInfo di = new DirectoryInfo(Utilities.fileLocation);
 
             foreach (FileInfo file in di.GetFiles())
@@ -124,22 +124,6 @@ namespace PasswordManager
             }
         }
 
-        public static string GenerateRandomFileName(int length)
-        {
-            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            var stringChars = new char[length];
-            Random rnd = new Random();
-
-            for (int i = 0; i < stringChars.Length; i++)
-            {
-                stringChars[i] = chars[rnd.Next(chars.Length)];
-            }
-
-            var finalString = new string(stringChars);
-
-            return finalString;
-        }
-
         public static bool CheckHash(string user, string pass, int PIM)
         {
             try
@@ -167,6 +151,8 @@ namespace PasswordManager
                 lines[3] = pass_salt.ExecuteScalar().ToString();
                 lines[4] = pim.ExecuteScalar().ToString();
                 lines[5] = pim_read.ExecuteScalar().ToString();
+
+                con.Close();
 
                 //string[] lines = File.ReadAllLines(Utilities.curfile);
                 string[] hashUser = GenerateHash(user, lines[0]);

@@ -9,12 +9,11 @@ namespace PasswordManager
     {
         public static readonly string fileLocation = "C:\\PasswordManager\\";
         public static readonly string viewDataLocation = "C:\\PasswordManager\\localuser";
-        public static readonly string curfile = "c:\\PasswordManager\\users\\localuser";
         public static readonly string users = "c:\\PasswordManager\\users\\";
         public static readonly string database = "c:\\PasswordManager\\users\\data.db";
         public static readonly string database_connection = @"URI=file:C:\PasswordManager\users\data.db";
-        public static readonly string defaultFolder = "c:\\PasswordManager\\";
-        public static readonly string root = @"C:\";
+        public static readonly string user_data = "c:\\PasswordManager\\localuser\\user_data.db";
+        public static readonly string user_data_connection = @"URI=file:C:\PasswordManager\localuser\user_data.db";
         public static void EnforceAdminPrivilegesWorkaround()
         {
             RegistryKey rk;
