@@ -72,7 +72,6 @@ namespace PasswordManager
 
             foreach (FileInfo file in di.GetFiles())
             {
-                //Utilities.SetFileReadAccess(Utilities.fileLocation + file.ToString(), false);
                 string oldData = File.ReadAllText(@file.ToString());
                 string newData = Encrypt(oldData, GenerateRandomAlphanumericString(20));
                 File.WriteAllText(file.ToString(), newData);

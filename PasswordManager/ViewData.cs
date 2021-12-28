@@ -38,14 +38,13 @@ namespace AuditScaner
         {
             if (e.ColumnIndex == data.Columns["Delete"].Index)
             {
-                int currentRow = e.RowIndex;
                 var con = new SQLiteConnection(Utilities.user_data_connection);
                 con.Open();
                 var cmd = new SQLiteCommand(con)
                 {
-                    CommandText = $"DELETE FROM data WHERE username = '{Crypto.Encrypt(data.Rows[currentRow].Cells[1].Value.ToString(), key)}' AND " +
-                    $"pass = '{Crypto.Encrypt(data.Rows[currentRow].Cells[2].Value.ToString(), key)}' AND " +
-                    $"domain = '{Crypto.Encrypt(data.Rows[currentRow].Cells[0].Value.ToString(), key)}'"
+                    CommandText = $"DELETE FROM data WHERE username = '{Crypto.Encrypt(data.Rows[e.RowIndex].Cells[1].Value.ToString(), key)}' AND " +
+                    $"pass = '{Crypto.Encrypt(data.Rows[e.RowIndex].Cells[2].Value.ToString(), key)}' AND " +
+                    $"domain = '{Crypto.Encrypt(data.Rows[e.RowIndex].Cells[0].Value.ToString(), key)}'"
                 };
                 cmd.ExecuteNonQuery();
                 Controls.Clear();

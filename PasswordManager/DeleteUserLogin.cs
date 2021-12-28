@@ -32,8 +32,6 @@ namespace AuditScaner
 
         private void YesButton_Click(object sender, EventArgs e)
         {
-            yesButton.Hide();
-            noButton.Hide();
             Crypto.Erase();
             Application.Restart();
         }
