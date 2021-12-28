@@ -11,6 +11,8 @@ namespace PasswordManager
         public static readonly string viewDataLocation = "C:\\PasswordManager\\localuser";
         public static readonly string curfile = "c:\\PasswordManager\\users\\localuser";
         public static readonly string users = "c:\\PasswordManager\\users\\";
+        public static readonly string database = "c:\\PasswordManager\\users\\data.db";
+        public static readonly string database_connection = @"URI=file:C:\PasswordManager\users\data.db";
         public static readonly string defaultFolder = "c:\\PasswordManager\\";
         public static readonly string root = @"C:\";
         public static void EnforceAdminPrivilegesWorkaround()
@@ -45,7 +47,6 @@ namespace PasswordManager
         {
             _ = new FileInfo(FileName)
             {
-
                 // Set the IsReadOnly property.
                 IsReadOnly = SetReadOnly
             };

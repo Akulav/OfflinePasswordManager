@@ -1,5 +1,6 @@
 ﻿using PasswordManager;
 using System;
+using System.Data.SQLite;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -11,10 +12,8 @@ namespace AuditScaner
 {
     public partial class Login : Form
     {
-
         //Flag if a user already exists or not
         private bool userFlag = false;
-
         //UI dll functionality
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
@@ -77,10 +76,14 @@ namespace AuditScaner
                     {
                         Directory.CreateDirectory(Utilities.viewDataLocation);
                     }
+                    if (!File.Exists(Utilities.database))
+                    {
+                        File.WriteAllText(Utilities.database, null);
+                    }
                 }
                 catch { userFlag = false; }
             });
-            thread.Start();
+            thread.Start();           
         }
 
         //Checks if user exists
@@ -107,7 +110,7 @@ namespace AuditScaner
 
         //Verify login information
         public void CheckLogin(string user, string pass, int PIM)
-        {
+        {         
             if (Crypto.CheckHash(user, pass, PIM))
             {
                 try
@@ -172,17 +175,16 @@ namespace AuditScaner
                         PIMRead = Crypto.GenerateHash(PIMRead[0], PIMRead[1]);
                     }             
 
-                    using (StreamWriter writer = new StreamWriter(Utilities.curfile))
-                    {
-                        writer.WriteLine(datapass[0]);
-                        writer.WriteLine(datapass[1]);
-                        writer.WriteLine(dataname[0]);
-                        writer.WriteLine(dataname[1]);
-                        writer.WriteLine(PIMRead[0]);
-                        writer.WriteLine(PIMRead[1]);
-                        writer.Close();
-                    }
-                    Utilities.SetFileReadAccess(Utilities.curfile, true);
+                    //Insert data into database user and pass actually switch places
+                    var con = new SQLiteConnection(Utilities.database_connection);
+                    con.Open();
+                    var cmd = new SQLiteCommand(con);
+                    cmd.CommandText = @"CREATE TABLE user(id INTEGER PRIMARY KEY, username VARCRHAR(250), user_salt VARCRHAR(250), pass VARCRHAR(250), pass_salt VARCRHAR(250), pim VARCRHAR(250), pim_salt VARCRHAR(250))";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = $"INSERT INTO user(username, user_salt, pass, pass_salt, pim, pim_salt) VALUES('{datapass[0]}', '{datapass[1]}', '{dataname[0]}', '{dataname[1]}', '{PIMRead[0]}', '{PIMRead[1]}')";
+                    cmd.ExecuteNonQuery();
+
+                    Utilities.SetFileReadAccess(Utilities.database, true);
                     Application.Restart();
                 }
             }
