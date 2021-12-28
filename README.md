@@ -13,6 +13,5 @@
 1. Add Multi-Threading support for data viewing
 2. Update Checker
 3. Application Integrity Checker
-4. Improve Data Viewing Experience
 
 Icons made by https://www.flaticon.com/authors/freepik from https://www.flaticon.com/
