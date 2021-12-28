@@ -2,7 +2,6 @@
 using System;
 using System.Data.SQLite;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -76,10 +75,26 @@ namespace AuditScaner
                     if (!File.Exists(Utilities.database))
                     {
                         File.WriteAllText(Utilities.database, null);
+                        var con = new SQLiteConnection(Utilities.database_connection);
+                        con.Open();
+                        var cmd = new SQLiteCommand(con)
+                        {
+                            CommandText = @"CREATE TABLE user(id INTEGER PRIMARY KEY, username VARCRHAR(250), user_salt VARCRHAR(250), pass VARCRHAR(250), pass_salt VARCRHAR(250), pim VARCRHAR(250), pim_salt VARCRHAR(250))"
+                        };
+                        cmd.ExecuteNonQuery();
                     }
                     if (!File.Exists(Utilities.user_data))
                     {
                         File.WriteAllText(Utilities.user_data, null);
+                        //User Data Database initialization
+                        var data_con = new SQLiteConnection(Utilities.user_data_connection);
+                        data_con.Open();
+                        var data_cmd = new SQLiteCommand(data_con)
+                        {
+                            CommandText = @"CREATE TABLE data(username VARCRHAR(250), pass VARCRHAR(250),domain VARCRHAR(250))"
+                        };
+                        data_cmd.ExecuteNonQuery();
+                        data_con.Close();
                     }
                 }
                 catch { userFlag = false; }
@@ -94,7 +109,7 @@ namespace AuditScaner
             {
                 try
                 {
-                    if (Directory.EnumerateFiles(Utilities.users).Count() > 0)
+                    if (File.Exists(Utilities.database))
                     {
                         userFlag = true;
                     }
@@ -183,22 +198,11 @@ namespace AuditScaner
                     con.Open();
                     var cmd = new SQLiteCommand(con)
                     {
-                        CommandText = @"CREATE TABLE user(id INTEGER PRIMARY KEY, username VARCRHAR(250), user_salt VARCRHAR(250), pass VARCRHAR(250), pass_salt VARCRHAR(250), pim VARCRHAR(250), pim_salt VARCRHAR(250))"
+                        CommandText = $"INSERT INTO user(username, user_salt, pass, pass_salt, pim, pim_salt) VALUES('{datapass[0]}', '{datapass[1]}', '{dataname[0]}', '{dataname[1]}', '{PIMRead[0]}', '{PIMRead[1]}')"
                     };
-                    cmd.ExecuteNonQuery();
-                    cmd.CommandText = $"INSERT INTO user(username, user_salt, pass, pass_salt, pim, pim_salt) VALUES('{datapass[0]}', '{datapass[1]}', '{dataname[0]}', '{dataname[1]}', '{PIMRead[0]}', '{PIMRead[1]}')";
+
                     cmd.ExecuteNonQuery();
                     con.Close();
-
-                    //User Data Database initialization
-                    var data_con = new SQLiteConnection(Utilities.user_data_connection);
-                    data_con.Open();
-                    var data_cmd = new SQLiteCommand(data_con)
-                    {
-                        CommandText = @"CREATE TABLE data(username VARCRHAR(250), pass VARCRHAR(250),domain VARCRHAR(250))"
-                    };
-                    data_cmd.ExecuteNonQuery();
-                    data_con.Close();
 
                     Utilities.SetFileReadAccess(Utilities.database, true);
                     Utilities.SetFileReadAccess(Utilities.user_data, true);
