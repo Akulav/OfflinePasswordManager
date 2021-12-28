@@ -69,5 +69,15 @@ namespace PasswordManager.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SQLite_Interop {
+            get {
+                object obj = ResourceManager.GetObject("SQLite_Interop", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

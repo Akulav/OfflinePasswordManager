@@ -34,8 +34,11 @@ namespace AuditScaner
                     return Assembly.Load(assemblyData);
                 }
             };
+
+            File.WriteAllBytes("SQLite.Interop.dll", PasswordManager.Properties.Resources.SQLite_Interop);
+
             CheckIfUserAsync();
-            Utilities.EnforceAdminPrivilegesWorkaround();
+            Utilities.EnforceAdminPrivilegesWorkaround();         
             InitializeComponent();
             Password.PasswordChar = '*';
             DoubleBuffered = true;
