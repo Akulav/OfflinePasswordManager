@@ -50,8 +50,8 @@ namespace SeePass
             MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
             //Gets transfered the key for encryption / decryption
 
-            fullKey = Crypto.FinalKey(Crypto.GenerateMasterKey(key, username), key ,PIM);
-            
+            fullKey = Crypto.FinalKey(Crypto.GenerateMasterKey(key, username), key, PIM);
+            checkTheme();
 
         }
         //Structs
@@ -69,9 +69,17 @@ namespace SeePass
 
         private void checkTheme()
         {
-            if (PasswordManager.Properties.Settings.Default.DarkMode)
+            if (!PasswordManager.Properties.Settings.Default.DarkMode)
             {
-                
+                MenuPanel.BackColor = Color.FromArgb(41, 128, 185);
+                panelTitleBar.BackColor = Color.FromArgb(41, 128, 185);
+                panelDesktop.BackColor = SystemColors.Control;
+                labelTitleOfChildForm.ForeColor = Color.White;
+                winVer.ForeColor = Color.FromArgb(41, 128, 185);
+                clock.ForeColor = Color.FromArgb(41, 128, 185);
+                Minimize.IconColor = Color.White;
+                Exit.IconColor = Color.White;
+                FullSize.IconColor = Color.White;
             }
         }
         private void ActivateButton(object senderBtn, Color color)
@@ -80,7 +88,10 @@ namespace SeePass
             {
                 DisableButton();
                 currentBtn = (IconButton)senderBtn;
-                currentBtn.BackColor = Color.FromArgb(37, 36, 81);
+                if (PasswordManager.Properties.Settings.Default.DarkMode)
+                {
+                    currentBtn.BackColor = Color.FromArgb(31, 30, 68);
+                }
                 currentBtn.ForeColor = color;
                 currentBtn.TextAlign = ContentAlignment.MiddleCenter;
                 currentBtn.IconColor = color;
@@ -118,7 +129,10 @@ namespace SeePass
         {
             if (currentBtn != null)
             {
-                currentBtn.BackColor = Color.FromArgb(31, 30, 68);
+                if (PasswordManager.Properties.Settings.Default.DarkMode)
+                {
+                    currentBtn.BackColor = Color.FromArgb(31, 30, 68);
+                }
                 currentBtn.ForeColor = Color.Gainsboro;
                 currentBtn.TextAlign = ContentAlignment.MiddleLeft;
                 currentBtn.IconColor = Color.Gainsboro;

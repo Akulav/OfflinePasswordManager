@@ -1,6 +1,7 @@
 ﻿using PasswordManager;
 using System;
 using System.Data.SQLite;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace SeePass
@@ -11,6 +12,7 @@ namespace SeePass
         public CreateData(string key)
         {
             InitializeComponent();
+            CheckTheme();
             passwordText.PasswordChar = '*';
             this.key = key;
             doneLabel.Visible = false;
@@ -51,6 +53,20 @@ namespace SeePass
             if (e.KeyCode == Keys.Return)
             {
                 Create_Click(null, null);
+            }
+        }
+
+        private void CheckTheme()
+        {
+            if (!PasswordManager.Properties.Settings.Default.DarkMode)
+            {
+                BackColor = SystemColors.Control;
+                doneLabel.ForeColor = Color.FromArgb(41, 128, 185);
+                user.ForeColor = Color.FromArgb(41, 128, 185);
+                pass.ForeColor = Color.FromArgb(41, 128, 185);
+                domain.ForeColor = Color.FromArgb(41, 128, 185);
+                create.ForeColor = Color.FromArgb(41, 128, 185);
+                create.BackColor = SystemColors.Control;
             }
         }
     }

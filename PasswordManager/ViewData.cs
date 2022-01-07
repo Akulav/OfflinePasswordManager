@@ -1,5 +1,6 @@
 ﻿using PasswordManager;
 using System.Data.SQLite;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace SeePass
@@ -11,6 +12,7 @@ namespace SeePass
         {
             InitializeComponent();
             this.key = key;
+            CheckTheme();
             GetData();
         }
 
@@ -50,6 +52,19 @@ namespace SeePass
                 Controls.Clear();
                 InitializeComponent();
                 GetData();
+            }
+        }
+
+        private void CheckTheme()
+        {
+            if (!PasswordManager.Properties.Settings.Default.DarkMode)
+            {
+                DataGridViewCellStyle style = new DataGridViewCellStyle();
+                style.BackColor = SystemColors.Control;
+                style.ForeColor = Color.FromArgb(41, 128, 185);
+                data.RowsDefaultCellStyle = style;
+                data.BackgroundColor = SystemColors.Control;
+                data.ColumnHeadersDefaultCellStyle = style;
             }
         }
     }
