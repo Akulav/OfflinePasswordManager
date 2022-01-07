@@ -39,25 +39,25 @@ namespace AuditScaner
             // deleteLabel
             // 
             this.deleteLabel.AutoSize = true;
-            this.deleteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteLabel.ForeColor = System.Drawing.Color.Gainsboro;
-            this.deleteLabel.Location = new System.Drawing.Point(94, 81);
+            this.deleteLabel.Font = new System.Drawing.Font("Yu Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deleteLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.deleteLabel.Location = new System.Drawing.Point(75, 89);
             this.deleteLabel.Name = "deleteLabel";
-            this.deleteLabel.Size = new System.Drawing.Size(395, 37);
+            this.deleteLabel.Size = new System.Drawing.Size(415, 42);
             this.deleteLabel.TabIndex = 0;
             this.deleteLabel.Text = "Proceed to delete all data?";
             // 
             // yesButton
             // 
-            this.yesButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
-            this.yesButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.yesButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.yesButton.Font = new System.Drawing.Font("Yu Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.yesButton.ForeColor = System.Drawing.Color.Gainsboro;
             this.yesButton.IconChar = FontAwesome.Sharp.IconChar.None;
             this.yesButton.IconColor = System.Drawing.Color.Black;
             this.yesButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.yesButton.Location = new System.Drawing.Point(310, 169);
+            this.yesButton.Location = new System.Drawing.Point(298, 144);
             this.yesButton.Name = "yesButton";
-            this.yesButton.Size = new System.Drawing.Size(169, 41);
+            this.yesButton.Size = new System.Drawing.Size(192, 41);
             this.yesButton.TabIndex = 1;
             this.yesButton.Text = "Yes";
             this.yesButton.UseVisualStyleBackColor = false;
@@ -65,15 +65,15 @@ namespace AuditScaner
             // 
             // noButton
             // 
-            this.noButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
-            this.noButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.noButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.noButton.Font = new System.Drawing.Font("Yu Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.noButton.ForeColor = System.Drawing.Color.Gainsboro;
             this.noButton.IconChar = FontAwesome.Sharp.IconChar.None;
             this.noButton.IconColor = System.Drawing.Color.Black;
             this.noButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.noButton.Location = new System.Drawing.Point(101, 169);
+            this.noButton.Location = new System.Drawing.Point(82, 144);
             this.noButton.Name = "noButton";
-            this.noButton.Size = new System.Drawing.Size(169, 41);
+            this.noButton.Size = new System.Drawing.Size(192, 41);
             this.noButton.TabIndex = 2;
             this.noButton.Text = "No";
             this.noButton.UseVisualStyleBackColor = false;
@@ -81,7 +81,7 @@ namespace AuditScaner
             // 
             // topPanel
             // 
-            this.topPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(25)))), ((int)(((byte)(62)))));
+            this.topPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
             this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topPanel.Location = new System.Drawing.Point(0, 0);
             this.topPanel.Name = "topPanel";
@@ -93,7 +93,7 @@ namespace AuditScaner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(571, 253);
             this.Controls.Add(this.topPanel);
             this.Controls.Add(this.noButton);

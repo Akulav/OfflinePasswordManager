@@ -1,18 +1,19 @@
 ﻿using PasswordManager;
 using System;
 using System.Data.SQLite;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace AuditScaner
 {
     public partial class Login : Form
     {
-        //Flag if a user already exists or not
-        private bool userFlag = false;
+        //Flags
+        private static bool userFlag = false;
+        private static bool darkFlag = false;
         //UI dll functionality
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
@@ -36,9 +37,7 @@ namespace AuditScaner
             };
 
             File.WriteAllBytes("SQLite.Interop.dll", PasswordManager.Properties.Resources.SQLite_Interop);
-
-            CheckIfUserAsync();
-            Utilities.EnforceAdminPrivilegesWorkaround();         
+            Utilities.EnforceAdminPrivilegesWorkaround();
             InitializeComponent();
             Password.PasswordChar = '*';
             DoubleBuffered = true;
@@ -47,24 +46,24 @@ namespace AuditScaner
         //On Load check is a user is already created. If exists, login, else sign up.
         private void Login_Load(object sender, EventArgs e)
         {
+            CheckIfUser();
             if (userFlag)
             {
                 UserButton.Text = "Login";
+                welcomeLabel.Text = "Login to your account";
                 ConfigButton.Text = "Delete Account";
             }
             else
             {
-                InitializeDataSetAsync();
                 UserButton.Text = "Create Account";
+                welcomeLabel.Text = "Create an account";
                 ConfigButton.Text = "Import Data";
             }
         }
 
         //Create all necessary folders for the program.
-        private void InitializeDataSetAsync()
+        private void InitializeDataSet()
         {
-            Thread thread = new Thread(() =>
-            {
                 try
                 {
                     if (!Directory.Exists(Utilities.users))
@@ -82,7 +81,7 @@ namespace AuditScaner
                         con.Open();
                         var cmd = new SQLiteCommand(con)
                         {
-                            CommandText = @"CREATE TABLE user(id INTEGER PRIMARY KEY, username VARCRHAR(250), user_salt VARCRHAR(250), pass VARCRHAR(250), pass_salt VARCRHAR(250), pim VARCRHAR(250), pim_salt VARCRHAR(250))"
+                            CommandText = @"CREATE TABLE user(username VARCRHAR(250), user_salt VARCRHAR(250), pass VARCRHAR(250), pass_salt VARCRHAR(250), pim VARCRHAR(250), pim_salt VARCRHAR(250))"
                         };
                         cmd.ExecuteNonQuery();
                     }
@@ -101,31 +100,25 @@ namespace AuditScaner
                     }
                 }
                 catch { userFlag = false; }
-            });
-            thread.Start();
         }
 
         //Checks if user exists
-        private void CheckIfUserAsync()
+        private void CheckIfUser()
         {
-            Thread thread = new Thread(() =>
+            try
             {
-                try
+                if (File.Exists(Utilities.database))
                 {
-                    if (File.Exists(Utilities.database))
-                    {
-                        userFlag = true;
-                    }
-
-                    else
-                    {
-                        userFlag = false;
-                    }
+                    userFlag = true;
                 }
 
-                catch { userFlag = false; }
-            });
-            thread.Start();
+                else
+                {
+                    userFlag = false;
+                }
+            }
+
+            catch { userFlag = false; }
         }
 
         //Verify login information
@@ -187,6 +180,7 @@ namespace AuditScaner
 
                 if (flag == true)
                 {
+                    InitializeDataSet();
                     string[] datapass = Crypto.GenerateHash(password, Crypto.GenerateRandomAlphanumericString(128));
                     string[] dataname = Crypto.GenerateHash(username, Crypto.GenerateRandomAlphanumericString(128));
                     string[] PIMRead = Crypto.GenerateHash(password + username, Crypto.GenerateRandomAlphanumericString(128));
@@ -236,23 +230,6 @@ namespace AuditScaner
                 CreateUser_Click(null, null);
             }
         }
-
-        private void TopPanel_MouseDown(object sender, MouseEventArgs e)
-        {
-            ReleaseCapture();
-            SendMessage(Handle, 0x112, 0xf012, 0);
-        }
-
-        private void Minimize_Click(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Minimized;
-        }
-
-        private void Exit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
         private void ConfigButton_Click(object sender, EventArgs e)
         {
             if (!userFlag)
@@ -265,6 +242,67 @@ namespace AuditScaner
                 DeleteUserLogin del = new DeleteUserLogin();
                 del.Show();
                 Close();
+            }
+        }
+
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void leftTopPanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(Handle, 0x112, 0xf012, 0);
+        }
+
+        private void topPanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(Handle, 0x112, 0xf012, 0);
+        }
+
+        private void themChange_Click(object sender, EventArgs e)
+        {
+            darkFlag = !darkFlag;
+            if (darkFlag)
+            {
+                leftpanel.BackColor = Color.FromArgb(31, 30, 68);
+                rightpanel.BackColor = Color.FromArgb(34, 33, 74);
+                UserButton.BackColor = Color.FromArgb(34, 33, 74);
+                ConfigButton.ForeColor = Color.Gainsboro;
+                UserButton.ForeColor = Color.Gainsboro;
+                ConfigButton.BackColor = Color.FromArgb(34, 33, 74);
+                welcomeLabel.ForeColor = Color.Gainsboro;
+                PIMLabel.ForeColor = Color.Gainsboro;
+                userLabel.ForeColor = Color.Gainsboro;
+                passLabel.ForeColor = Color.Gainsboro;
+                themChange.BackColor = Color.FromArgb(34, 33, 74);
+                CloseButton.BackColor = Color.FromArgb(34, 33, 74);
+                themChange.IconColor = Color.Gainsboro;
+                CloseButton.ForeColor = Color.Gainsboro;
+                themChange.IconChar = FontAwesome.Sharp.IconChar.Sun;
+                devLabel.ForeColor = Color.Gainsboro;
+            }
+
+            else
+            {
+                leftpanel.BackColor = Color.FromArgb(41, 128, 185);
+                rightpanel.BackColor = Color.White;
+                UserButton.BackColor = Color.FromArgb(41, 128, 185);
+                ConfigButton.BackColor = Color.FromArgb(41, 128, 185);
+                ConfigButton.ForeColor = Color.Gainsboro;
+                UserButton.ForeColor = Color.Gainsboro;
+                welcomeLabel.ForeColor = Color.FromArgb(41, 128, 185);
+                PIMLabel.ForeColor = Color.FromArgb(41, 128, 185);
+                userLabel.ForeColor = Color.FromArgb(41, 128, 185);
+                passLabel.ForeColor = Color.FromArgb(41, 128, 185);
+                themChange.BackColor = Color.Transparent;
+                CloseButton.BackColor = Color.White;
+                themChange.IconColor = Color.FromArgb(41, 128, 185);
+                CloseButton.ForeColor = Color.FromArgb(41, 128, 185);
+                themChange.IconChar = FontAwesome.Sharp.IconChar.Moon;
+                devLabel.ForeColor = Color.White;
             }
         }
     }

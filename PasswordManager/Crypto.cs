@@ -130,30 +130,19 @@ namespace PasswordManager
                 string[] lines = new string[6];
                 var con = new SQLiteConnection(Utilities.database_connection);
                 con.Open();
-                string userQuery = "SELECT username FROM user WHERE id = '1'";
-                string usersaltQuery = "SELECT user_salt FROM user WHERE id = '1'";
-                string passQuery = "SELECT pass FROM user WHERE id = '1'";
-                string passsaltQuery = "SELECT pass_salt FROM user WHERE id = '1'";
-                string pimQuery = "SELECT pim FROM user WHERE id = '1'";
-                string pimsaltQuery = "SELECT pim_salt FROM user WHERE id = '1'";
 
-                var username = new SQLiteCommand(userQuery, con);
-                var user_salt = new SQLiteCommand(usersaltQuery, con);
-                var password = new SQLiteCommand(passQuery, con);
-                var pass_salt = new SQLiteCommand(passsaltQuery, con);
-                var pim = new SQLiteCommand(pimQuery, con);
-                var pim_read = new SQLiteCommand(pimsaltQuery, con);
+                string dataQuery = "SELECT * from user";
+                var data = new SQLiteCommand(dataQuery, con);
+                var Table = data.ExecuteReader();
+                Table.Read();
 
-                lines[0] = username.ExecuteScalar().ToString();
-                lines[1] = user_salt.ExecuteScalar().ToString();
-                lines[2] = password.ExecuteScalar().ToString();
-                lines[3] = pass_salt.ExecuteScalar().ToString();
-                lines[4] = pim.ExecuteScalar().ToString();
-                lines[5] = pim_read.ExecuteScalar().ToString();
+                for (int i = 0; i < lines.Length; i++)
+                {;
+                    lines[i] = Table[i].ToString();
+                }
 
-                con.Close();
+                con.Dispose();
 
-                //string[] lines = File.ReadAllLines(Utilities.curfile);
                 string[] hashUser = GenerateHash(user, lines[0]);
                 string[] hashPass = GenerateHash(pass, lines[2]);
                 string[] PIMRead = GenerateHash(pass + user, lines[5]);

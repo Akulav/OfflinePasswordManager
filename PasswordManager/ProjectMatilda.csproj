@@ -203,6 +203,7 @@
     <EmbeddedResource Include="lib\System.Data.SQLite.EF6.dll" />
     <EmbeddedResource Include="lib\System.Data.SQLite.Linq.dll" />
     <EmbeddedResource Include="lib\SQLite.Interop.dll" />
+    <None Include="Resources\leftimage.png" />
     <Content Include="shield.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

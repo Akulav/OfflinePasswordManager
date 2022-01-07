@@ -81,6 +81,7 @@
             this.ExitButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.ExitButton.FlatAppearance.BorderSize = 0;
             this.ExitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExitButton.Font = new System.Drawing.Font("Yu Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ExitButton.ForeColor = System.Drawing.Color.Gainsboro;
             this.ExitButton.IconChar = FontAwesome.Sharp.IconChar.SignOutAlt;
             this.ExitButton.IconColor = System.Drawing.Color.Gainsboro;
@@ -114,6 +115,7 @@
             this.Settings.Dock = System.Windows.Forms.DockStyle.Top;
             this.Settings.FlatAppearance.BorderSize = 0;
             this.Settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Settings.Font = new System.Drawing.Font("Yu Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Settings.ForeColor = System.Drawing.Color.Gainsboro;
             this.Settings.IconChar = FontAwesome.Sharp.IconChar.UserCog;
             this.Settings.IconColor = System.Drawing.Color.Gainsboro;
@@ -136,6 +138,7 @@
             this.ViewData.Dock = System.Windows.Forms.DockStyle.Top;
             this.ViewData.FlatAppearance.BorderSize = 0;
             this.ViewData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ViewData.Font = new System.Drawing.Font("Yu Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ViewData.ForeColor = System.Drawing.Color.Gainsboro;
             this.ViewData.IconChar = FontAwesome.Sharp.IconChar.ShieldVirus;
             this.ViewData.IconColor = System.Drawing.Color.Gainsboro;
@@ -158,6 +161,7 @@
             this.ExportTools.Dock = System.Windows.Forms.DockStyle.Top;
             this.ExportTools.FlatAppearance.BorderSize = 0;
             this.ExportTools.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExportTools.Font = new System.Drawing.Font("Yu Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ExportTools.ForeColor = System.Drawing.Color.Gainsboro;
             this.ExportTools.IconChar = FontAwesome.Sharp.IconChar.FileExport;
             this.ExportTools.IconColor = System.Drawing.Color.Gainsboro;
@@ -180,6 +184,7 @@
             this.CreateData.Dock = System.Windows.Forms.DockStyle.Top;
             this.CreateData.FlatAppearance.BorderSize = 0;
             this.CreateData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CreateData.Font = new System.Drawing.Font("Yu Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CreateData.ForeColor = System.Drawing.Color.Gainsboro;
             this.CreateData.IconChar = FontAwesome.Sharp.IconChar.ChartBar;
             this.CreateData.IconColor = System.Drawing.Color.Gainsboro;
@@ -202,6 +207,7 @@
             this.Dashboard.Dock = System.Windows.Forms.DockStyle.Top;
             this.Dashboard.FlatAppearance.BorderSize = 0;
             this.Dashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Dashboard.Font = new System.Drawing.Font("Yu Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Dashboard.ForeColor = System.Drawing.Color.Gainsboro;
             this.Dashboard.IconChar = FontAwesome.Sharp.IconChar.Home;
             this.Dashboard.IconColor = System.Drawing.Color.Gainsboro;
@@ -316,10 +322,11 @@
             // labelTitleOfChildForm
             // 
             this.labelTitleOfChildForm.AutoSize = true;
+            this.labelTitleOfChildForm.Font = new System.Drawing.Font("Yu Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitleOfChildForm.ForeColor = System.Drawing.Color.Gainsboro;
             this.labelTitleOfChildForm.Location = new System.Drawing.Point(44, 36);
             this.labelTitleOfChildForm.Name = "labelTitleOfChildForm";
-            this.labelTitleOfChildForm.Size = new System.Drawing.Size(35, 13);
+            this.labelTitleOfChildForm.Size = new System.Drawing.Size(36, 14);
             this.labelTitleOfChildForm.TabIndex = 1;
             this.labelTitleOfChildForm.Text = "Home";
             // 
@@ -359,11 +366,11 @@
             // winVer
             // 
             this.winVer.AutoSize = true;
-            this.winVer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.winVer.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.winVer.ForeColor = System.Drawing.Color.Gainsboro;
             this.winVer.Location = new System.Drawing.Point(417, 478);
             this.winVer.Name = "winVer";
-            this.winVer.Size = new System.Drawing.Size(129, 20);
+            this.winVer.Size = new System.Drawing.Size(115, 21);
             this.winVer.TabIndex = 7;
             this.winVer.Text = "PLACEHOLDER";
             // 
@@ -379,7 +386,7 @@
             // 
             // clock
             // 
-            this.clock.Font = new System.Drawing.Font("Microsoft Sans Serif", 64F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clock.Font = new System.Drawing.Font("Yu Gothic", 63.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clock.ForeColor = System.Drawing.Color.Gainsboro;
             this.clock.Location = new System.Drawing.Point(305, 142);
             this.clock.Name = "clock";
