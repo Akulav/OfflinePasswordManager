@@ -2,7 +2,7 @@
 using System.Data.SQLite;
 using System.Windows.Forms;
 
-namespace AuditScaner
+namespace SeePass
 {
     public partial class ViewData : Form
     {

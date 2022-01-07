@@ -10,8 +10,12 @@
 8. Encryption / Decryption keys are derived from username, password and PIM, which are never stored :heavy_check_mark:
 
 # Upcoming Features & Bug Fixes
-1. Add Multi-Threading support for data viewing
+1. Persistent settings
 2. Update Checker
 3. Application Integrity Checker
+4. Dark / Light Modes
+5. Make the required DLLs Hidden
+6. Password / Username / PIM Change
+7. Significantlly reduce memory footprint
 
 Icons made by https://www.flaticon.com/authors/freepik from https://www.flaticon.com/

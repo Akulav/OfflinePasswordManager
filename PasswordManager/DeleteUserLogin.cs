@@ -1,9 +1,10 @@
 ﻿using PasswordManager;
 using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace AuditScaner
+namespace SeePass
 {
     public partial class DeleteUserLogin : Form
     {
@@ -15,6 +16,22 @@ namespace AuditScaner
         public DeleteUserLogin()
         {
             InitializeComponent();
+            checkTheme();
+        }
+
+        private void checkTheme()
+        {
+            if (PasswordManager.Properties.Settings.Default.DarkMode)
+            {
+                topPanel.BackColor = Color.FromArgb(31, 30, 68);
+                deleteLabel.BackColor = Color.FromArgb(34, 33, 74);
+                deleteLabel.ForeColor = Color.Gainsboro;
+                noButton.BackColor = Color.FromArgb(34, 33, 74); 
+                yesButton.BackColor = Color.FromArgb(34, 33, 74);
+                noButton.ForeColor = Color.Gainsboro;
+                yesButton.ForeColor = Color.Gainsboro;
+                BackColor = Color.FromArgb(34, 33, 74);
+            }
         }
 
         private void NoButton_Click(object sender, EventArgs e)

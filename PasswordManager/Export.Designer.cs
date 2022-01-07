@@ -1,5 +1,5 @@
 ﻿
-namespace AuditScaner
+namespace SeePass
 {
     partial class ImportExport
     {
@@ -36,6 +36,7 @@ namespace AuditScaner
             // exportButton
             // 
             this.exportButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
+            this.exportButton.Font = new System.Drawing.Font("Yu Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exportButton.ForeColor = System.Drawing.Color.Gainsboro;
             this.exportButton.IconChar = FontAwesome.Sharp.IconChar.None;
             this.exportButton.IconColor = System.Drawing.Color.Black;
@@ -51,11 +52,11 @@ namespace AuditScaner
             // statusLabel
             // 
             this.statusLabel.AutoSize = true;
-            this.statusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabel.Font = new System.Drawing.Font("Yu Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.statusLabel.ForeColor = System.Drawing.Color.Gainsboro;
-            this.statusLabel.Location = new System.Drawing.Point(384, 255);
+            this.statusLabel.Location = new System.Drawing.Point(390, 255);
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(144, 20);
+            this.statusLabel.Size = new System.Drawing.Size(141, 21);
             this.statusLabel.TabIndex = 2;
             this.statusLabel.Text = "DATA EXPORTED";
             // 

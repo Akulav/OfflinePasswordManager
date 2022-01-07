@@ -1,4 +1,4 @@
-﻿namespace AuditScaner
+﻿namespace SeePass
 {
     partial class MainForm
     {
@@ -127,7 +127,7 @@
             this.Settings.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.Settings.Size = new System.Drawing.Size(220, 60);
             this.Settings.TabIndex = 5;
-            this.Settings.Text = "About";
+            this.Settings.Text = "Configuration";
             this.Settings.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.Settings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.Settings.UseVisualStyleBackColor = true;

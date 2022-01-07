@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace AuditScaner
+namespace SeePass
 {
     public partial class MainForm : Form
     {
@@ -67,6 +67,13 @@ namespace AuditScaner
 
         //Methods
 
+        private void checkTheme()
+        {
+            if (PasswordManager.Properties.Settings.Default.DarkMode)
+            {
+                
+            }
+        }
         private void ActivateButton(object senderBtn, Color color)
         {
             if (senderBtn != null)
@@ -156,7 +163,7 @@ namespace AuditScaner
         {
             ActivateButton(sender, RGBColors.color5);
             labelTitleOfChildForm.Text = "Settings";
-            OpenChildForm(new About());
+            OpenChildForm(new Config());
         }
         //Drag Form
 

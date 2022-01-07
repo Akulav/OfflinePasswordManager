@@ -1,5 +1,5 @@
 ﻿
-namespace AuditScaner
+namespace SeePass
 {
     partial class CreateData
     {
@@ -42,7 +42,7 @@ namespace AuditScaner
             // create
             // 
             this.create.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
-            this.create.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.create.Font = new System.Drawing.Font("Yu Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.create.ForeColor = System.Drawing.Color.Gainsboro;
             this.create.IconChar = FontAwesome.Sharp.IconChar.None;
             this.create.IconColor = System.Drawing.Color.Black;
@@ -74,20 +74,22 @@ namespace AuditScaner
             // user
             // 
             this.user.AutoSize = true;
+            this.user.Font = new System.Drawing.Font("Yu Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.user.ForeColor = System.Drawing.Color.Gainsboro;
             this.user.Location = new System.Drawing.Point(352, 226);
             this.user.Name = "user";
-            this.user.Size = new System.Drawing.Size(55, 13);
+            this.user.Size = new System.Drawing.Size(58, 14);
             this.user.TabIndex = 3;
             this.user.Text = "Username";
             // 
             // pass
             // 
             this.pass.AutoSize = true;
+            this.pass.Font = new System.Drawing.Font("Yu Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pass.ForeColor = System.Drawing.Color.Gainsboro;
             this.pass.Location = new System.Drawing.Point(352, 249);
             this.pass.Name = "pass";
-            this.pass.Size = new System.Drawing.Size(53, 13);
+            this.pass.Size = new System.Drawing.Size(57, 14);
             this.pass.TabIndex = 4;
             this.pass.Text = "Password";
             // 
@@ -102,20 +104,22 @@ namespace AuditScaner
             // domain
             // 
             this.domain.AutoSize = true;
+            this.domain.Font = new System.Drawing.Font("Yu Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.domain.ForeColor = System.Drawing.Color.Gainsboro;
             this.domain.Location = new System.Drawing.Point(352, 275);
             this.domain.Name = "domain";
-            this.domain.Size = new System.Drawing.Size(43, 13);
+            this.domain.Size = new System.Drawing.Size(44, 14);
             this.domain.TabIndex = 6;
             this.domain.Text = "Service";
             // 
             // doneLabel
             // 
             this.doneLabel.AutoSize = true;
+            this.doneLabel.Font = new System.Drawing.Font("Yu Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.doneLabel.ForeColor = System.Drawing.Color.Gainsboro;
             this.doneLabel.Location = new System.Drawing.Point(413, 397);
             this.doneLabel.Name = "doneLabel";
-            this.doneLabel.Size = new System.Drawing.Size(80, 13);
+            this.doneLabel.Size = new System.Drawing.Size(81, 14);
             this.doneLabel.TabIndex = 7;
             this.doneLabel.Text = "Account added";
             // 

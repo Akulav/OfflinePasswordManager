@@ -7,13 +7,12 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace AuditScaner
+namespace SeePass
 {
     public partial class Login : Form
     {
         //Flags
         private static bool userFlag = false;
-        private static bool darkFlag = false;
         //UI dll functionality
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
@@ -39,6 +38,7 @@ namespace AuditScaner
             File.WriteAllBytes("SQLite.Interop.dll", PasswordManager.Properties.Resources.SQLite_Interop);
             Utilities.EnforceAdminPrivilegesWorkaround();
             InitializeComponent();
+            checkTheme();
             Password.PasswordChar = '*';
             DoubleBuffered = true;
         }
@@ -64,42 +64,42 @@ namespace AuditScaner
         //Create all necessary folders for the program.
         private void InitializeDataSet()
         {
-                try
+            try
+            {
+                if (!Directory.Exists(Utilities.users))
                 {
-                    if (!Directory.Exists(Utilities.users))
-                    {
-                        Directory.CreateDirectory(Utilities.users);
-                    }
-                    if (!Directory.Exists(Utilities.viewDataLocation))
-                    {
-                        Directory.CreateDirectory(Utilities.viewDataLocation);
-                    }
-                    if (!File.Exists(Utilities.database))
-                    {
-                        File.WriteAllText(Utilities.database, null);
-                        var con = new SQLiteConnection(Utilities.database_connection);
-                        con.Open();
-                        var cmd = new SQLiteCommand(con)
-                        {
-                            CommandText = @"CREATE TABLE user(username VARCRHAR(250), user_salt VARCRHAR(250), pass VARCRHAR(250), pass_salt VARCRHAR(250), pim VARCRHAR(250), pim_salt VARCRHAR(250))"
-                        };
-                        cmd.ExecuteNonQuery();
-                    }
-                    if (!File.Exists(Utilities.user_data))
-                    {
-                        File.WriteAllText(Utilities.user_data, null);
-                        //User Data Database initialization
-                        var data_con = new SQLiteConnection(Utilities.user_data_connection);
-                        data_con.Open();
-                        var data_cmd = new SQLiteCommand(data_con)
-                        {
-                            CommandText = @"CREATE TABLE data(username VARCRHAR(250), pass VARCRHAR(250),domain VARCRHAR(250))"
-                        };
-                        data_cmd.ExecuteNonQuery();
-                        data_con.Close();
-                    }
+                    Directory.CreateDirectory(Utilities.users);
                 }
-                catch { userFlag = false; }
+                if (!Directory.Exists(Utilities.viewDataLocation))
+                {
+                    Directory.CreateDirectory(Utilities.viewDataLocation);
+                }
+                if (!File.Exists(Utilities.database))
+                {
+                    File.WriteAllText(Utilities.database, null);
+                    var con = new SQLiteConnection(Utilities.database_connection);
+                    con.Open();
+                    var cmd = new SQLiteCommand(con)
+                    {
+                        CommandText = @"CREATE TABLE user(username VARCRHAR(250), user_salt VARCRHAR(250), pass VARCRHAR(250), pass_salt VARCRHAR(250), pim VARCRHAR(250), pim_salt VARCRHAR(250))"
+                    };
+                    cmd.ExecuteNonQuery();
+                }
+                if (!File.Exists(Utilities.user_data))
+                {
+                    File.WriteAllText(Utilities.user_data, null);
+                    //User Data Database initialization
+                    var data_con = new SQLiteConnection(Utilities.user_data_connection);
+                    data_con.Open();
+                    var data_cmd = new SQLiteCommand(data_con)
+                    {
+                        CommandText = @"CREATE TABLE data(username VARCRHAR(250), pass VARCRHAR(250),domain VARCRHAR(250))"
+                    };
+                    data_cmd.ExecuteNonQuery();
+                    data_con.Close();
+                }
+            }
+            catch { userFlag = false; }
         }
 
         //Checks if user exists
@@ -129,6 +129,7 @@ namespace AuditScaner
                 try
                 {
                     MainForm mf = new MainForm(pass, user, int.Parse(PIMBox.Text));
+                    mf.StartPosition = FormStartPosition.CenterScreen;
                     mf.Show();
                     Close();
                 }
@@ -250,6 +251,8 @@ namespace AuditScaner
             Application.Exit();
         }
 
+
+        //UI ELEMENTS
         private void leftTopPanel_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
@@ -264,9 +267,12 @@ namespace AuditScaner
 
         private void themChange_Click(object sender, EventArgs e)
         {
-            darkFlag = !darkFlag;
-            if (darkFlag)
+            PasswordManager.Properties.Settings.Default.DarkMode = !PasswordManager.Properties.Settings.Default.DarkMode;
+            PasswordManager.Properties.Settings.Default.Save();
+
+            if (PasswordManager.Properties.Settings.Default.DarkMode)
             {
+
                 leftpanel.BackColor = Color.FromArgb(31, 30, 68);
                 rightpanel.BackColor = Color.FromArgb(34, 33, 74);
                 UserButton.BackColor = Color.FromArgb(34, 33, 74);
@@ -288,7 +294,7 @@ namespace AuditScaner
             else
             {
                 leftpanel.BackColor = Color.FromArgb(41, 128, 185);
-                rightpanel.BackColor = Color.White;
+                rightpanel.BackColor = SystemColors.Control;
                 UserButton.BackColor = Color.FromArgb(41, 128, 185);
                 ConfigButton.BackColor = Color.FromArgb(41, 128, 185);
                 ConfigButton.ForeColor = Color.Gainsboro;
@@ -298,11 +304,55 @@ namespace AuditScaner
                 userLabel.ForeColor = Color.FromArgb(41, 128, 185);
                 passLabel.ForeColor = Color.FromArgb(41, 128, 185);
                 themChange.BackColor = Color.Transparent;
-                CloseButton.BackColor = Color.White;
+                CloseButton.BackColor = SystemColors.Control;
                 themChange.IconColor = Color.FromArgb(41, 128, 185);
                 CloseButton.ForeColor = Color.FromArgb(41, 128, 185);
                 themChange.IconChar = FontAwesome.Sharp.IconChar.Moon;
-                devLabel.ForeColor = Color.White;
+                devLabel.ForeColor = SystemColors.Control;
+            }
+        }
+
+        private void checkTheme()
+        {
+            if (PasswordManager.Properties.Settings.Default.DarkMode)
+            {
+
+                leftpanel.BackColor = Color.FromArgb(31, 30, 68);
+                rightpanel.BackColor = Color.FromArgb(34, 33, 74);
+                UserButton.BackColor = Color.FromArgb(34, 33, 74);
+                ConfigButton.ForeColor = Color.Gainsboro;
+                UserButton.ForeColor = Color.Gainsboro;
+                ConfigButton.BackColor = Color.FromArgb(34, 33, 74);
+                welcomeLabel.ForeColor = Color.Gainsboro;
+                PIMLabel.ForeColor = Color.Gainsboro;
+                userLabel.ForeColor = Color.Gainsboro;
+                passLabel.ForeColor = Color.Gainsboro;
+                themChange.BackColor = Color.FromArgb(34, 33, 74);
+                CloseButton.BackColor = Color.FromArgb(34, 33, 74);
+                themChange.IconColor = Color.Gainsboro;
+                CloseButton.ForeColor = Color.Gainsboro;
+                themChange.IconChar = FontAwesome.Sharp.IconChar.Sun;
+                devLabel.ForeColor = Color.Gainsboro;
+            }
+
+            else
+            {
+                leftpanel.BackColor = Color.FromArgb(41, 128, 185);
+                rightpanel.BackColor = SystemColors.Control;
+                UserButton.BackColor = Color.FromArgb(41, 128, 185);
+                ConfigButton.BackColor = Color.FromArgb(41, 128, 185);
+                ConfigButton.ForeColor = Color.Gainsboro;
+                UserButton.ForeColor = Color.Gainsboro;
+                welcomeLabel.ForeColor = Color.FromArgb(41, 128, 185);
+                PIMLabel.ForeColor = Color.FromArgb(41, 128, 185);
+                userLabel.ForeColor = Color.FromArgb(41, 128, 185);
+                passLabel.ForeColor = Color.FromArgb(41, 128, 185);
+                themChange.BackColor = Color.Transparent;
+                CloseButton.BackColor = SystemColors.Control;
+                themChange.IconColor = Color.FromArgb(41, 128, 185);
+                CloseButton.ForeColor = Color.FromArgb(41, 128, 185);
+                themChange.IconChar = FontAwesome.Sharp.IconChar.Moon;
+                devLabel.ForeColor = SystemColors.Control;
             }
         }
     }

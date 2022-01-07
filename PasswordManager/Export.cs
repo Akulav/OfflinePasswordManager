@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace AuditScaner
+namespace SeePass
 {
     public partial class ImportExport : Form
     {

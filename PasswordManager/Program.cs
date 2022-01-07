@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace AuditScaner
+namespace SeePass
 {
     static class Program
     {

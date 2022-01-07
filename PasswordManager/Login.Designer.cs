@@ -1,5 +1,5 @@
 ﻿
-namespace AuditScaner
+namespace SeePass
 {
     partial class Login
     {
@@ -44,11 +44,11 @@ namespace AuditScaner
             this.leftPictureBox = new System.Windows.Forms.PictureBox();
             this.rightpanel = new System.Windows.Forms.Panel();
             this.topPanel = new System.Windows.Forms.Panel();
+            this.themChange = new FontAwesome.Sharp.IconButton();
             this.CloseButton = new System.Windows.Forms.Button();
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.UserButton = new FontAwesome.Sharp.IconButton();
             this.ConfigButton = new FontAwesome.Sharp.IconButton();
-            this.themChange = new FontAwesome.Sharp.IconButton();
             this.leftpanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.leftPictureBox)).BeginInit();
             this.rightpanel.SuspendLayout();
@@ -208,6 +208,22 @@ namespace AuditScaner
             this.topPanel.TabIndex = 19;
             this.topPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.topPanel_MouseDown);
             // 
+            // themChange
+            // 
+            this.themChange.BackColor = System.Drawing.Color.Transparent;
+            this.themChange.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.themChange.IconChar = FontAwesome.Sharp.IconChar.Moon;
+            this.themChange.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.themChange.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.themChange.IconSize = 35;
+            this.themChange.Location = new System.Drawing.Point(344, -1);
+            this.themChange.Name = "themChange";
+            this.themChange.Size = new System.Drawing.Size(40, 40);
+            this.themChange.TabIndex = 17;
+            this.themChange.Text = "X";
+            this.themChange.UseVisualStyleBackColor = false;
+            this.themChange.Click += new System.EventHandler(this.themChange_Click);
+            // 
             // CloseButton
             // 
             this.CloseButton.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -264,20 +280,6 @@ namespace AuditScaner
             this.ConfigButton.Text = "BUTTON";
             this.ConfigButton.UseVisualStyleBackColor = false;
             this.ConfigButton.Click += new System.EventHandler(this.ConfigButton_Click);
-            // 
-            // themChange
-            // 
-            this.themChange.BackColor = System.Drawing.Color.Transparent;
-            this.themChange.IconChar = FontAwesome.Sharp.IconChar.Moon;
-            this.themChange.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.themChange.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.themChange.Location = new System.Drawing.Point(344, -1);
-            this.themChange.Name = "themChange";
-            this.themChange.Size = new System.Drawing.Size(40, 40);
-            this.themChange.TabIndex = 17;
-            this.themChange.Text = "X";
-            this.themChange.UseVisualStyleBackColor = false;
-            this.themChange.Click += new System.EventHandler(this.themChange_Click);
             // 
             // Login
             // 

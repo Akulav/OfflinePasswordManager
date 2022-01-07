@@ -1,6 +1,6 @@
 ﻿namespace PasswordManager
 {
-    partial class About
+    partial class Config
     {
         /// <summary>
         /// Required designer variable.

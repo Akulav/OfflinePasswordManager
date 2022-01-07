@@ -2,9 +2,9 @@
 
 namespace PasswordManager
 {
-    public partial class About : Form
+    public partial class Config : Form
     {
-        public About()
+        public Config()
         {
             InitializeComponent();
         }

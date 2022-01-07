@@ -1,5 +1,5 @@
 ﻿
-namespace AuditScaner
+namespace SeePass
 {
     partial class DeleteUserLogin
     {
