@@ -8,14 +8,13 @@
 6. No Logs or any form of Telemetry (works completely offline) :heavy_check_mark:
 7. Read Only Attributes helps protect data from corruption or unintended modifications :heavy_check_mark:
 8. Encryption / Decryption keys are derived from username, password and PIM, which are never stored :heavy_check_mark:
+9. Light / Dark Modes :heavy_check_mark:
 
 # Upcoming Features & Bug Fixes
-1. Persistent settings
-2. Update Checker
-3. Application Integrity Checker
-4. Dark / Light Modes
-5. Make the required DLLs Hidden
-6. Password / Username / PIM Change
-7. Significantlly reduce memory footprint
+1. Update Checker
+2. Application Integrity Checker
+3. Password / Username / PIM Change
+4. Significantlly reduce memory footprint
+5. Import / Export Encryption
 
 Icons made by https://www.flaticon.com/authors/freepik from https://www.flaticon.com/

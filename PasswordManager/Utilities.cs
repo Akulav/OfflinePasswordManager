@@ -1,7 +1,9 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace PasswordManager
 {
@@ -50,6 +52,28 @@ namespace PasswordManager
                 IsReadOnly = SetReadOnly
             };
 
+        }
+
+        public static void MarkHidden(string Filename)
+        {
+            FileInfo myFile = new FileInfo(Environment.CurrentDirectory + $@"\{Filename}");
+            myFile.Attributes |= FileAttributes.Hidden;
+        }
+
+        public void ImportDLL()
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
+            {
+                string resourceName = new AssemblyName(args.Name).Name + ".dll";
+                string resource = Array.Find(GetType().Assembly.GetManifestResourceNames(), element => element.EndsWith(resourceName));
+
+                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resource))
+                {
+                    byte[] assemblyData = new byte[stream.Length];
+                    stream.Read(assemblyData, 0, assemblyData.Length);
+                    return Assembly.Load(assemblyData);
+                }
+            };
         }
 
         public static string GetWindowsVersion()

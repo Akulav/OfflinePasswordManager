@@ -3,7 +3,6 @@ using System;
 using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -19,40 +18,48 @@ namespace SeePass
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
 
-        //Adds dependencies inside .exe, makes sure password is masked and doublebuffered
         public Login()
         {
-            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
+            //Loads all dependencies
+            Utilities ut = new Utilities();
+            ut.ImportDLL();
+            try
             {
-                string resourceName = new AssemblyName(args.Name).Name + ".dll";
-                string resource = Array.Find(GetType().Assembly.GetManifestResourceNames(), element => element.EndsWith(resourceName));
+                File.WriteAllBytes("SQLite.Interop.dll", PasswordManager.Properties.Resources.SQLite_Interop);
+            }
+            catch { }
+            Utilities.MarkHidden("SQLite.Interop.dll");
 
-                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resource))
-                {
-                    byte[] assemblyData = new byte[stream.Length];
-                    stream.Read(assemblyData, 0, assemblyData.Length);
-                    return Assembly.Load(assemblyData);
-                }
-            };
-
-            File.WriteAllBytes("SQLite.Interop.dll", PasswordManager.Properties.Resources.SQLite_Interop);
+            //Makes sure the app is started as ADMIN
             Utilities.EnforceAdminPrivilegesWorkaround();
+
+            //Loads the form
             InitializeComponent();
-            checkTheme();
+
+            //Checks user settings for dark mode
+            CheckTheme();
+
+            //Hides Password Chars
             Password.PasswordChar = '*';
+
+            //More responsive on high-refresh rate screens
             DoubleBuffered = true;
         }
 
-        //On Load check is a user is already created. If exists, login, else sign up.
         private void Login_Load(object sender, EventArgs e)
         {
+            //Checks if there is already a user 
             CheckIfUser();
+
+            //If there is user, allow login
             if (userFlag)
             {
                 UserButton.Text = "Login";
                 welcomeLabel.Text = "Login to your account";
                 ConfigButton.Text = "Delete Account";
             }
+
+            //If no user, allow sign up
             else
             {
                 UserButton.Text = "Create Account";
@@ -61,11 +68,11 @@ namespace SeePass
             }
         }
 
-        //Create all necessary folders for the program.
         private void InitializeDataSet()
         {
             try
             {
+                //Creates the folders for the app
                 if (!Directory.Exists(Utilities.users))
                 {
                     Directory.CreateDirectory(Utilities.users);
@@ -74,6 +81,8 @@ namespace SeePass
                 {
                     Directory.CreateDirectory(Utilities.viewDataLocation);
                 }
+
+                //Creates the DB that stores the data for login
                 if (!File.Exists(Utilities.database))
                 {
                     File.WriteAllText(Utilities.database, null);
@@ -85,6 +94,8 @@ namespace SeePass
                     };
                     cmd.ExecuteNonQuery();
                 }
+
+                //Creates the DB that stores user data
                 if (!File.Exists(Utilities.user_data))
                 {
                     File.WriteAllText(Utilities.user_data, null);
@@ -128,8 +139,10 @@ namespace SeePass
             {
                 try
                 {
-                    MainForm mf = new MainForm(pass, user, int.Parse(PIMBox.Text));
-                    mf.StartPosition = FormStartPosition.CenterScreen;
+                    MainForm mf = new MainForm(pass, user, int.Parse(PIMBox.Text))
+                    {
+                        StartPosition = FormStartPosition.CenterScreen
+                    };
                     mf.Show();
                     Close();
                 }
@@ -253,66 +266,26 @@ namespace SeePass
 
 
         //UI ELEMENTS
-        private void leftTopPanel_MouseDown(object sender, MouseEventArgs e)
+        private void LeftTopPanel_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
             SendMessage(Handle, 0x112, 0xf012, 0);
         }
 
-        private void topPanel_MouseDown(object sender, MouseEventArgs e)
+        private void TopPanel_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
             SendMessage(Handle, 0x112, 0xf012, 0);
         }
 
-        private void themChange_Click(object sender, EventArgs e)
+        private void ThemChange_Click(object sender, EventArgs e)
         {
             PasswordManager.Properties.Settings.Default.DarkMode = !PasswordManager.Properties.Settings.Default.DarkMode;
             PasswordManager.Properties.Settings.Default.Save();
-
-            if (PasswordManager.Properties.Settings.Default.DarkMode)
-            {
-
-                leftpanel.BackColor = Color.FromArgb(31, 30, 68);
-                rightpanel.BackColor = Color.FromArgb(34, 33, 74);
-                UserButton.BackColor = Color.FromArgb(34, 33, 74);
-                ConfigButton.ForeColor = Color.Gainsboro;
-                UserButton.ForeColor = Color.Gainsboro;
-                ConfigButton.BackColor = Color.FromArgb(34, 33, 74);
-                welcomeLabel.ForeColor = Color.Gainsboro;
-                PIMLabel.ForeColor = Color.Gainsboro;
-                userLabel.ForeColor = Color.Gainsboro;
-                passLabel.ForeColor = Color.Gainsboro;
-                themChange.BackColor = Color.FromArgb(34, 33, 74);
-                CloseButton.BackColor = Color.FromArgb(34, 33, 74);
-                themChange.IconColor = Color.Gainsboro;
-                CloseButton.ForeColor = Color.Gainsboro;
-                themChange.IconChar = FontAwesome.Sharp.IconChar.Sun;
-                devLabel.ForeColor = Color.Gainsboro;
-            }
-
-            else
-            {
-                leftpanel.BackColor = Color.FromArgb(41, 128, 185);
-                rightpanel.BackColor = SystemColors.Control;
-                UserButton.BackColor = Color.FromArgb(41, 128, 185);
-                ConfigButton.BackColor = Color.FromArgb(41, 128, 185);
-                ConfigButton.ForeColor = Color.Gainsboro;
-                UserButton.ForeColor = Color.Gainsboro;
-                welcomeLabel.ForeColor = Color.FromArgb(41, 128, 185);
-                PIMLabel.ForeColor = Color.FromArgb(41, 128, 185);
-                userLabel.ForeColor = Color.FromArgb(41, 128, 185);
-                passLabel.ForeColor = Color.FromArgb(41, 128, 185);
-                themChange.BackColor = Color.Transparent;
-                CloseButton.BackColor = SystemColors.Control;
-                themChange.IconColor = Color.FromArgb(41, 128, 185);
-                CloseButton.ForeColor = Color.FromArgb(41, 128, 185);
-                themChange.IconChar = FontAwesome.Sharp.IconChar.Moon;
-                devLabel.ForeColor = SystemColors.Control;
-            }
+            CheckTheme();
         }
 
-        private void checkTheme()
+        private void CheckTheme()
         {
             if (PasswordManager.Properties.Settings.Default.DarkMode)
             {

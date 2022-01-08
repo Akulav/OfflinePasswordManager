@@ -81,7 +81,7 @@
             this.themeButton.TabIndex = 3;
             this.themeButton.Text = "THEME PLACEHOLDEER";
             this.themeButton.UseVisualStyleBackColor = false;
-            this.themeButton.Click += new System.EventHandler(this.themeButton_Click);
+            this.themeButton.Click += new System.EventHandler(this.ThemeButton_Click);
             // 
             // Config
             // 

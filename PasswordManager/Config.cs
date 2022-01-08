@@ -23,11 +23,10 @@ namespace PasswordManager
                 themeButton.BackColor = SystemColors.Control;
                 themeButton.ForeColor = Color.FromArgb(41, 128, 185);
             }
-
             else themeButton.Text = "Enable Light Mode";
         }
 
-        private void themeButton_Click(object sender, System.EventArgs e)
+        private void ThemeButton_Click(object sender, System.EventArgs e)
         {
             Properties.Settings.Default.DarkMode = !Properties.Settings.Default.DarkMode;
             Properties.Settings.Default.Save();

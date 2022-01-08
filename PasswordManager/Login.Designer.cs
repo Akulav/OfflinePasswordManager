@@ -143,7 +143,7 @@ namespace SeePass
             this.leftTopPanel.Name = "leftTopPanel";
             this.leftTopPanel.Size = new System.Drawing.Size(262, 42);
             this.leftTopPanel.TabIndex = 20;
-            this.leftTopPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.leftTopPanel_MouseDown);
+            this.leftTopPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LeftTopPanel_MouseDown);
             // 
             // devLabel
             // 
@@ -206,7 +206,7 @@ namespace SeePass
             this.topPanel.Name = "topPanel";
             this.topPanel.Size = new System.Drawing.Size(427, 42);
             this.topPanel.TabIndex = 19;
-            this.topPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.topPanel_MouseDown);
+            this.topPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TopPanel_MouseDown);
             // 
             // themChange
             // 
@@ -222,7 +222,7 @@ namespace SeePass
             this.themChange.TabIndex = 17;
             this.themChange.Text = "X";
             this.themChange.UseVisualStyleBackColor = false;
-            this.themChange.Click += new System.EventHandler(this.themChange_Click);
+            this.themChange.Click += new System.EventHandler(this.ThemChange_Click);
             // 
             // CloseButton
             // 

@@ -59,9 +59,11 @@ namespace SeePass
         {
             if (!PasswordManager.Properties.Settings.Default.DarkMode)
             {
-                DataGridViewCellStyle style = new DataGridViewCellStyle();
-                style.BackColor = SystemColors.Control;
-                style.ForeColor = Color.FromArgb(41, 128, 185);
+                DataGridViewCellStyle style = new DataGridViewCellStyle
+                {
+                    BackColor = SystemColors.Control,
+                    ForeColor = Color.FromArgb(41, 128, 185)
+                };
                 data.RowsDefaultCellStyle = style;
                 data.BackgroundColor = SystemColors.Control;
                 data.ColumnHeadersDefaultCellStyle = style;

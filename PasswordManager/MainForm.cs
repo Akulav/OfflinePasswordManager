@@ -2,7 +2,6 @@
 using PasswordManager;
 using System;
 using System.Drawing;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -20,24 +19,15 @@ namespace SeePass
         public MainForm(string key, string username, int PIM)
         {
             //Import the embedded .dll
-            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
-            {
-                string resourceName = new AssemblyName(args.Name).Name + ".dll";
-                string resource = Array.Find(GetType().Assembly.GetManifestResourceNames(), element => element.EndsWith(resourceName));
+            Utilities ut = new Utilities();
+            ut.ImportDLL();
 
-                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resource))
-                {
-                    byte[] assemblyData = new byte[stream.Length];
-                    stream.Read(assemblyData, 0, assemblyData.Length);
-                    return Assembly.Load(assemblyData);
-                }
-            };
-
-
+            //Start The Clock
             t.Interval = 1000;
             t.Tick += new EventHandler(Tick);
             t.Start();
 
+            //Loads the form
             InitializeComponent();
 
             leftBorderBtn = new Panel
@@ -51,7 +41,7 @@ namespace SeePass
             //Gets transfered the key for encryption / decryption
 
             fullKey = Crypto.FinalKey(Crypto.GenerateMasterKey(key, username), key, PIM);
-            checkTheme();
+            CheckTheme();
 
         }
         //Structs
@@ -67,7 +57,7 @@ namespace SeePass
 
         //Methods
 
-        private void checkTheme()
+        private void CheckTheme()
         {
             if (!PasswordManager.Properties.Settings.Default.DarkMode)
             {
