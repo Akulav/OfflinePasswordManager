@@ -18,10 +18,6 @@ namespace SeePass
 
         public MainForm(string key, string username, int PIM)
         {
-            //Import the embedded .dll
-            Utilities ut = new Utilities();
-            ut.ImportDLL();
-
             //Start The Clock
             t.Interval = 1000;
             t.Tick += new EventHandler(Tick);

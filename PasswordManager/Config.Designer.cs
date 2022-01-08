@@ -28,33 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label0 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.themeButton = new FontAwesome.Sharp.IconButton();
             this.SuspendLayout();
-            // 
-            // label0
-            // 
-            this.label0.AutoSize = true;
-            this.label0.Font = new System.Drawing.Font("Microsoft Sans Serif", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label0.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label0.Location = new System.Drawing.Point(174, 254);
-            this.label0.Name = "label0";
-            this.label0.Size = new System.Drawing.Size(601, 51);
-            this.label0.TabIndex = 0;
-            this.label0.Text = "This program uses encryption.";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label1.Location = new System.Drawing.Point(174, 305);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(561, 51);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "All files are securely erased.";
             // 
             // label2
             // 
@@ -91,8 +67,6 @@
             this.ClientSize = new System.Drawing.Size(924, 621);
             this.Controls.Add(this.themeButton);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.label0);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Config";
             this.Text = "About";
@@ -102,9 +76,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label0;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private FontAwesome.Sharp.IconButton themeButton;
     }

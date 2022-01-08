@@ -13,28 +13,18 @@ namespace SeePass
         {
             InitializeComponent();
             CheckTheme();
-            passwordText.PasswordChar = '*';
-            this.key = key;
-            doneLabel.Visible = false;
+            this.key = key;       
         }
 
         private void Create_Click(object sender, EventArgs e)
         {
-            string username = usernameText.Text;
-            string password = passwordText.Text;
-            string domain = domainText.Text;
-
             Utilities.SetFileReadAccess(Utilities.user_data, false);
-
             var con = new SQLiteConnection(Utilities.user_data_connection);
             con.Open();
             var cmd = new SQLiteCommand(con)
             {
-                CommandText = "INSERT INTO data(username, pass, domain) VALUES(@user,@pass,@domain)"
+                CommandText = $"INSERT INTO data(username, pass, domain) VALUES('{Crypto.Encrypt(usernameText.Text, key)}','{Crypto.Encrypt(passwordText.Text, key)}','{Crypto.Encrypt(domainText.Text, key)}')"
             };
-            cmd.Parameters.AddWithValue("@user", Crypto.Encrypt(username, key));
-            cmd.Parameters.AddWithValue("@pass", Crypto.Encrypt(password, key));
-            cmd.Parameters.AddWithValue("@domain", Crypto.Encrypt(domain, key));
             cmd.ExecuteNonQuery();
             con.Close();
             Reset();

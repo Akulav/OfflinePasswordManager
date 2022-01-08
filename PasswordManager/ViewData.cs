@@ -51,6 +51,7 @@ namespace SeePass
                 cmd.ExecuteNonQuery();
                 Controls.Clear();
                 InitializeComponent();
+                CheckTheme();
                 GetData();
             }
         }
