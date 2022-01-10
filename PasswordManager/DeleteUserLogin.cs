@@ -16,17 +16,17 @@ namespace SeePass
         public DeleteUserLogin()
         {
             InitializeComponent();
-            checkTheme();
+            CheckTheme();
         }
 
-        private void checkTheme()
+        private void CheckTheme()
         {
             if (PasswordManager.Properties.Settings.Default.DarkMode)
             {
                 topPanel.BackColor = Color.FromArgb(31, 30, 68);
                 deleteLabel.BackColor = Color.FromArgb(34, 33, 74);
                 deleteLabel.ForeColor = Color.Gainsboro;
-                noButton.BackColor = Color.FromArgb(34, 33, 74); 
+                noButton.BackColor = Color.FromArgb(34, 33, 74);
                 yesButton.BackColor = Color.FromArgb(34, 33, 74);
                 noButton.ForeColor = Color.Gainsboro;
                 yesButton.ForeColor = Color.Gainsboro;

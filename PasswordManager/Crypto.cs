@@ -137,7 +137,8 @@ namespace PasswordManager
                 Table.Read();
 
                 for (int i = 0; i < lines.Length; i++)
-                {;
+                {
+                    ;
                     lines[i] = Table[i].ToString();
                 }
 

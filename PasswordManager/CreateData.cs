@@ -13,7 +13,7 @@ namespace SeePass
         {
             InitializeComponent();
             CheckTheme();
-            this.key = key;       
+            this.key = key;
         }
 
         private void Create_Click(object sender, EventArgs e)

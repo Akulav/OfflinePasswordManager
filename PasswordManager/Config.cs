@@ -17,7 +17,7 @@ namespace PasswordManager
             {
                 themeButton.Text = "Enable Dark Mode";
                 BackColor = SystemColors.Control;
-                label2.ForeColor = Color.FromArgb(41, 128, 185);
+                themeLabel.ForeColor = Color.FromArgb(41, 128, 185);
                 themeButton.BackColor = SystemColors.Control;
                 themeButton.ForeColor = Color.FromArgb(41, 128, 185);
             }

@@ -16,7 +16,7 @@ namespace SeePass
 
         private void ExportButton_Click(object sender, EventArgs e)
         {
-            if (ImportExportClass.Export()) {statusLabel.Visible = true;}
+            if (ImportExportClass.Export()) { statusLabel.Visible = true; }
         }
 
         private void CheckTheme()

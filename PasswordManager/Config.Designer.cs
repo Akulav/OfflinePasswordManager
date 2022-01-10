@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label2 = new System.Windows.Forms.Label();
+            this.themeLabel = new System.Windows.Forms.Label();
             this.themeButton = new FontAwesome.Sharp.IconButton();
             this.SuspendLayout();
             // 
-            // label2
+            // themeLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label2.Location = new System.Drawing.Point(369, 200);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(475, 51);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "This will restart the app.";
+            this.themeLabel.AutoSize = true;
+            this.themeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.themeLabel.ForeColor = System.Drawing.Color.Gainsboro;
+            this.themeLabel.Location = new System.Drawing.Point(369, 200);
+            this.themeLabel.Name = "themeLabel";
+            this.themeLabel.Size = new System.Drawing.Size(475, 51);
+            this.themeLabel.TabIndex = 2;
+            this.themeLabel.Text = "This will restart the app.";
             // 
             // themeButton
             // 
@@ -66,7 +66,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(924, 621);
             this.Controls.Add(this.themeButton);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.themeLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Config";
             this.Text = "About";
@@ -76,7 +76,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label themeLabel;
         private FontAwesome.Sharp.IconButton themeButton;
     }
 }
