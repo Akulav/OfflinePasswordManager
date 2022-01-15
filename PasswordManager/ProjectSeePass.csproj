@@ -206,6 +206,9 @@
     <EmbeddedResource Include="lib\System.Data.SQLite.Linq.dll" />
     <EmbeddedResource Include="lib\SQLite.Interop.dll" />
     <None Include="Resources\leftimage.png" />
+    <None Include="bin\Debug\FontAwesome.Sharp.dll" />
+    <None Include="Resources\FontAwesome.Sharp.dll" />
+    <None Include="Resources\sqlite.interop.dll" />
     <Content Include="shield.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

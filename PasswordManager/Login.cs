@@ -23,12 +23,12 @@ namespace SeePass
             //Loads all dependencies
             Utilities ut = new Utilities();
             ut.ImportDLL();
-            try
-            {
-                File.WriteAllBytes("SQLite.Interop.dll", PasswordManager.Properties.Resources.SQLite_Interop);
-            }
-            catch { }
+            
+                File.WriteAllBytes("SQLite.Interop.dll", PasswordManager.Properties.Resources.sqlite_interop);
+                File.WriteAllBytes("FontAwesome.Sharp.dll", PasswordManager.Properties.Resources.FontAwesome_Sharp);
+            
             Utilities.MarkHidden("SQLite.Interop.dll");
+            Utilities.MarkHidden("FontAwesome.Sharp.dll");
 
             //Makes sure the app is started as ADMIN
             Utilities.EnforceAdminPrivilegesWorkaround();
