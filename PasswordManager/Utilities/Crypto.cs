@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PasswordManager.Utilities;
+using System;
 using System.Data.SQLite;
 using System.IO;
 using System.Security.Cryptography;
@@ -67,8 +68,8 @@ namespace PasswordManager
         public static void Erase()
         {
 
-            ForceDeleteDirectory(Utilities.fileLocation);
-            DirectoryInfo di = new DirectoryInfo(Utilities.fileLocation);
+            ForceDeleteDirectory(Paths.fileLocation);
+            DirectoryInfo di = new DirectoryInfo(Paths.fileLocation);
 
             foreach (FileInfo file in di.GetFiles())
             {
@@ -128,7 +129,7 @@ namespace PasswordManager
             try
             {
                 string[] lines = new string[6];
-                var con = new SQLiteConnection(Utilities.database_connection);
+                var con = new SQLiteConnection(Paths.database_connection);
                 con.Open();
 
                 string dataQuery = "SELECT * from user";

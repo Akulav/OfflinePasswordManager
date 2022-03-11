@@ -1,5 +1,6 @@
 ﻿using FontAwesome.Sharp;
 using PasswordManager;
+using PasswordManager.Utilities;
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -32,7 +33,7 @@ namespace SeePass
             };
             MenuPanel.Controls.Add(leftBorderBtn);
             //Form
-            winVer.Text = Utilities.GetWindowsVersion();
+            winVer.Text = Utility.GetWindowsVersion();
             MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
             //Gets transfered the key for encryption / decryption
 
@@ -57,12 +58,12 @@ namespace SeePass
         {
             if (!PasswordManager.Properties.Settings.Default.DarkMode)
             {
-                MenuPanel.BackColor = Color.FromArgb(41, 128, 185);
-                panelTitleBar.BackColor = Color.FromArgb(41, 128, 185);
+                MenuPanel.BackColor = Colors.back_light;
+                panelTitleBar.BackColor = Colors.back_light;
                 panelDesktop.BackColor = SystemColors.Control;
                 labelTitleOfChildForm.ForeColor = Color.White;
-                winVer.ForeColor = Color.FromArgb(41, 128, 185);
-                clock.ForeColor = Color.FromArgb(41, 128, 185);
+                winVer.ForeColor = Colors.back_light;
+                clock.ForeColor = Colors.back_light;
                 Minimize.IconColor = Color.White;
                 Exit.IconColor = Color.White;
                 FullSize.IconColor = Color.White;
@@ -76,7 +77,7 @@ namespace SeePass
                 currentBtn = (IconButton)senderBtn;
                 if (PasswordManager.Properties.Settings.Default.DarkMode)
                 {
-                    currentBtn.BackColor = Color.FromArgb(31, 30, 68);
+                    currentBtn.BackColor = Colors.back_darker;
                 }
                 currentBtn.ForeColor = color;
                 currentBtn.TextAlign = ContentAlignment.MiddleCenter;
@@ -117,7 +118,7 @@ namespace SeePass
             {
                 if (PasswordManager.Properties.Settings.Default.DarkMode)
                 {
-                    currentBtn.BackColor = Color.FromArgb(31, 30, 68);
+                    currentBtn.BackColor = Colors.back_darker;
                 }
                 currentBtn.ForeColor = Color.Gainsboro;
                 currentBtn.TextAlign = ContentAlignment.MiddleLeft;

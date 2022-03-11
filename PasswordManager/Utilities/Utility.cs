@@ -1,20 +1,12 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.IO;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace PasswordManager
 {
-    class Utilities
+    class Utility
     {
-        public static readonly string fileLocation = "C:\\PasswordManager\\";
-        public static readonly string viewDataLocation = "C:\\PasswordManager\\localuser";
-        public static readonly string users = "c:\\PasswordManager\\users\\";
-        public static readonly string database = "c:\\PasswordManager\\users\\data.db";
-        public static readonly string database_connection = @"URI=file:C:\PasswordManager\users\data.db";
-        public static readonly string user_data = "c:\\PasswordManager\\localuser\\user_data.db";
-        public static readonly string user_data_connection = @"URI=file:C:\PasswordManager\localuser\user_data.db";
         public static void EnforceAdminPrivilegesWorkaround()
         {
             RegistryKey rk;
@@ -47,32 +39,9 @@ namespace PasswordManager
         {
             _ = new FileInfo(FileName)
             {
-                // Set the IsReadOnly property.
                 IsReadOnly = SetReadOnly
             };
 
-        }
-
-        public static void MarkHidden(string Filename)
-        {
-            FileInfo myFile = new FileInfo(Environment.CurrentDirectory + $@"\{Filename}");
-            myFile.Attributes |= FileAttributes.Hidden;
-        }
-
-        public void ImportDLL()
-        {
-            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
-            {
-                string resourceName = new AssemblyName(args.Name).Name + ".dll";
-                string resource = Array.Find(GetType().Assembly.GetManifestResourceNames(), element => element.EndsWith(resourceName));
-
-                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resource))
-                {
-                    byte[] assemblyData = new byte[stream.Length];
-                    stream.Read(assemblyData, 0, assemblyData.Length);
-                    return Assembly.Load(assemblyData);
-                }
-            };
         }
 
         public static string GetWindowsVersion()

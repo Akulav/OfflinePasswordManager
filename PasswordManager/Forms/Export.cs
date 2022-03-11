@@ -1,4 +1,5 @@
 ﻿using PasswordManager;
+using PasswordManager.Utilities;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -24,9 +25,9 @@ namespace SeePass
             if (!PasswordManager.Properties.Settings.Default.DarkMode)
             {
                 BackColor = SystemColors.Control;
-                exportButton.ForeColor = Color.FromArgb(41, 128, 185);
+                exportButton.ForeColor = Colors.back_light;
                 exportButton.BackColor = SystemColors.Control;
-                statusLabel.ForeColor = Color.FromArgb(41, 128, 185);
+                statusLabel.ForeColor = Colors.back_light;
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using PasswordManager;
+using PasswordManager.Utilities;
 using System;
 using System.Data.SQLite;
 using System.Drawing;
@@ -18,8 +19,8 @@ namespace SeePass
 
         private void Create_Click(object sender, EventArgs e)
         {
-            Utilities.SetFileReadAccess(Utilities.user_data, false);
-            var con = new SQLiteConnection(Utilities.user_data_connection);
+            Utility.SetFileReadAccess(Paths.user_data, false);
+            var con = new SQLiteConnection(Paths.user_data_connection);
             con.Open();
             var cmd = new SQLiteCommand(con)
             {
@@ -51,11 +52,11 @@ namespace SeePass
             if (!PasswordManager.Properties.Settings.Default.DarkMode)
             {
                 BackColor = SystemColors.Control;
-                doneLabel.ForeColor = Color.FromArgb(41, 128, 185);
-                user.ForeColor = Color.FromArgb(41, 128, 185);
-                pass.ForeColor = Color.FromArgb(41, 128, 185);
-                domain.ForeColor = Color.FromArgb(41, 128, 185);
-                create.ForeColor = Color.FromArgb(41, 128, 185);
+                doneLabel.ForeColor = Colors.back_light;
+                user.ForeColor = Colors.back_light;
+                pass.ForeColor = Colors.back_light;
+                domain.ForeColor = Colors.back_light;
+                create.ForeColor = Colors.back_light;
                 create.BackColor = SystemColors.Control;
             }
         }

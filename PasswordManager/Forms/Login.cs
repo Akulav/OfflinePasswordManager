@@ -1,10 +1,12 @@
 ﻿using PasswordManager;
+using PasswordManager.Utilities;
 using System;
 using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+
 
 namespace SeePass
 {
@@ -20,18 +22,8 @@ namespace SeePass
 
         public Login()
         {
-            //Loads all dependencies
-            Utilities ut = new Utilities();
-            ut.ImportDLL();
-            
-                File.WriteAllBytes("SQLite.Interop.dll", PasswordManager.Properties.Resources.sqlite_interop);
-                File.WriteAllBytes("FontAwesome.Sharp.dll", PasswordManager.Properties.Resources.FontAwesome_Sharp);
-            
-            Utilities.MarkHidden("SQLite.Interop.dll");
-            Utilities.MarkHidden("FontAwesome.Sharp.dll");
-
             //Makes sure the app is started as ADMIN
-            Utilities.EnforceAdminPrivilegesWorkaround();
+            Utility.EnforceAdminPrivilegesWorkaround();
 
             //Loads the form
             InitializeComponent();
@@ -73,20 +65,20 @@ namespace SeePass
             try
             {
                 //Creates the folders for the app
-                if (!Directory.Exists(Utilities.users))
+                if (!Directory.Exists(Paths.users))
                 {
-                    Directory.CreateDirectory(Utilities.users);
+                    Directory.CreateDirectory(Paths.users);
                 }
-                if (!Directory.Exists(Utilities.viewDataLocation))
+                if (!Directory.Exists(Paths.viewDataLocation))
                 {
-                    Directory.CreateDirectory(Utilities.viewDataLocation);
+                    Directory.CreateDirectory(Paths.viewDataLocation);
                 }
 
                 //Creates the DB that stores the data for login
-                if (!File.Exists(Utilities.database))
+                if (!File.Exists(Paths.database))
                 {
-                    File.WriteAllText(Utilities.database, null);
-                    var con = new SQLiteConnection(Utilities.database_connection);
+                    File.WriteAllText(Paths.database, null);
+                    var con = new SQLiteConnection(Paths.database_connection);
                     con.Open();
                     var cmd = new SQLiteCommand(con)
                     {
@@ -96,11 +88,11 @@ namespace SeePass
                 }
 
                 //Creates the DB that stores user data
-                if (!File.Exists(Utilities.user_data))
+                if (!File.Exists(Paths.user_data))
                 {
-                    File.WriteAllText(Utilities.user_data, null);
+                    File.WriteAllText(Paths.user_data, null);
                     //User Data Database initialization
-                    var data_con = new SQLiteConnection(Utilities.user_data_connection);
+                    var data_con = new SQLiteConnection(Paths.user_data_connection);
                     data_con.Open();
                     var data_cmd = new SQLiteCommand(data_con)
                     {
@@ -118,7 +110,7 @@ namespace SeePass
         {
             try
             {
-                if (File.Exists(Utilities.database))
+                if (File.Exists(Paths.database))
                 {
                     userFlag = true;
                 }
@@ -205,7 +197,7 @@ namespace SeePass
                     }
 
                     //Insert data into database user and pass actually switch places
-                    var con = new SQLiteConnection(Utilities.database_connection);
+                    var con = new SQLiteConnection(Paths.database_connection);
                     con.Open();
                     var cmd = new SQLiteCommand(con)
                     {
@@ -215,8 +207,8 @@ namespace SeePass
                     cmd.ExecuteNonQuery();
                     con.Close();
 
-                    Utilities.SetFileReadAccess(Utilities.database, true);
-                    Utilities.SetFileReadAccess(Utilities.user_data, true);
+                    Utility.SetFileReadAccess(Paths.database, true);
+                    Utility.SetFileReadAccess(Paths.user_data, true);
                     Application.Restart();
                 }
             }
@@ -290,18 +282,18 @@ namespace SeePass
             if (PasswordManager.Properties.Settings.Default.DarkMode)
             {
 
-                leftpanel.BackColor = Color.FromArgb(31, 30, 68);
-                rightpanel.BackColor = Color.FromArgb(34, 33, 74);
-                UserButton.BackColor = Color.FromArgb(34, 33, 74);
+                leftpanel.BackColor = Colors.back_darker;
+                rightpanel.BackColor = Colors.back_dark;
+                UserButton.BackColor = Colors.back_dark;
                 ConfigButton.ForeColor = Color.Gainsboro;
                 UserButton.ForeColor = Color.Gainsboro;
-                ConfigButton.BackColor = Color.FromArgb(34, 33, 74);
+                ConfigButton.BackColor = Colors.back_dark;
                 welcomeLabel.ForeColor = Color.Gainsboro;
                 PIMLabel.ForeColor = Color.Gainsboro;
                 userLabel.ForeColor = Color.Gainsboro;
                 passLabel.ForeColor = Color.Gainsboro;
-                themChange.BackColor = Color.FromArgb(34, 33, 74);
-                CloseButton.BackColor = Color.FromArgb(34, 33, 74);
+                themChange.BackColor = Colors.back_dark;
+                CloseButton.BackColor = Colors.back_dark;
                 themChange.IconColor = Color.Gainsboro;
                 CloseButton.ForeColor = Color.Gainsboro;
                 themChange.IconChar = FontAwesome.Sharp.IconChar.Sun;
@@ -310,20 +302,20 @@ namespace SeePass
 
             else
             {
-                leftpanel.BackColor = Color.FromArgb(41, 128, 185);
+                leftpanel.BackColor = Colors.back_light;
                 rightpanel.BackColor = SystemColors.Control;
-                UserButton.BackColor = Color.FromArgb(41, 128, 185);
-                ConfigButton.BackColor = Color.FromArgb(41, 128, 185);
+                UserButton.BackColor = Colors.back_light;
+                ConfigButton.BackColor = Colors.back_light;
                 ConfigButton.ForeColor = Color.Gainsboro;
                 UserButton.ForeColor = Color.Gainsboro;
-                welcomeLabel.ForeColor = Color.FromArgb(41, 128, 185);
-                PIMLabel.ForeColor = Color.FromArgb(41, 128, 185);
-                userLabel.ForeColor = Color.FromArgb(41, 128, 185);
-                passLabel.ForeColor = Color.FromArgb(41, 128, 185);
+                welcomeLabel.ForeColor = Colors.back_light;
+                PIMLabel.ForeColor = Colors.back_light;
+                userLabel.ForeColor = Colors.back_light;
+                passLabel.ForeColor = Colors.back_light;
                 themChange.BackColor = Color.Transparent;
                 CloseButton.BackColor = SystemColors.Control;
-                themChange.IconColor = Color.FromArgb(41, 128, 185);
-                CloseButton.ForeColor = Color.FromArgb(41, 128, 185);
+                themChange.IconColor = Colors.back_light;
+                CloseButton.ForeColor = Colors.back_light;
                 themChange.IconChar = FontAwesome.Sharp.IconChar.Moon;
                 devLabel.ForeColor = SystemColors.Control;
             }

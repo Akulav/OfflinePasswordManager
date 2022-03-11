@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using PasswordManager.Utilities;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace PasswordManager
@@ -17,9 +18,9 @@ namespace PasswordManager
             {
                 themeButton.Text = "Enable Dark Mode";
                 BackColor = SystemColors.Control;
-                themeLabel.ForeColor = Color.FromArgb(41, 128, 185);
+                themeLabel.ForeColor = Colors.back_light;
                 themeButton.BackColor = SystemColors.Control;
-                themeButton.ForeColor = Color.FromArgb(41, 128, 185);
+                themeButton.ForeColor = Colors.back_light;
             }
             else themeButton.Text = "Enable Light Mode";
         }

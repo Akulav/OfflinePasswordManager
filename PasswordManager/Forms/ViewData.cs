@@ -1,4 +1,5 @@
 ﻿using PasswordManager;
+using PasswordManager.Utilities;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
@@ -18,7 +19,7 @@ namespace SeePass
 
         private void GetData()
         {
-            var con = new SQLiteConnection(Utilities.user_data_connection);
+            var con = new SQLiteConnection(Paths.user_data_connection);
             con.Open();
             var cmd = new SQLiteCommand(con)
             {
@@ -40,7 +41,7 @@ namespace SeePass
         {
             if (e.ColumnIndex == data.Columns["Delete"].Index)
             {
-                var con = new SQLiteConnection(Utilities.user_data_connection);
+                var con = new SQLiteConnection(Paths.user_data_connection);
                 con.Open();
                 var cmd = new SQLiteCommand(con)
                 {
@@ -63,7 +64,7 @@ namespace SeePass
                 DataGridViewCellStyle style = new DataGridViewCellStyle
                 {
                     BackColor = SystemColors.Control,
-                    ForeColor = Color.FromArgb(41, 128, 185)
+                    ForeColor = Colors.back_light
                 };
                 data.RowsDefaultCellStyle = style;
                 data.BackgroundColor = SystemColors.Control;

@@ -1,4 +1,5 @@
-﻿using System.IO.Compression;
+﻿using PasswordManager.Utilities;
+using System.IO.Compression;
 using System.Windows.Forms;
 
 namespace PasswordManager
@@ -9,7 +10,7 @@ namespace PasswordManager
         {
             OpenFileDialog fileSelectionDialog = new OpenFileDialog
             {
-                InitialDirectory = Utilities.fileLocation,
+                InitialDirectory = Paths.fileLocation,
                 Filter = "Zip files (*.zip)|*.zip*",
                 FilterIndex = 0,
                 RestoreDirectory = true
@@ -25,7 +26,7 @@ namespace PasswordManager
                     {
                         selection = fileSelectionDialog.FileName;
                         Crypto.Erase();
-                        ZipFile.ExtractToDirectory(selection, Utilities.fileLocation);
+                        ZipFile.ExtractToDirectory(selection, Paths.fileLocation);
                         Application.Restart();
                     }
                     catch
@@ -45,7 +46,7 @@ namespace PasswordManager
                 {
                     if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                     {
-                        string startPath = Utilities.fileLocation;
+                        string startPath = Paths.fileLocation;
                         string zipPath = fbd.SelectedPath + @"\data.zip";
                         ZipFile.CreateFromDirectory(startPath, zipPath);
                         return true;
