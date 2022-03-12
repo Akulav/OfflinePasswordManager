@@ -1,5 +1,8 @@
 ﻿using PasswordManager.Utilities;
+using System;
 using System.Drawing;
+using System.IO;
+using System.Net;
 using System.Windows.Forms;
 
 namespace PasswordManager
@@ -19,6 +22,9 @@ namespace PasswordManager
                 themeButton.Text = "Enable Dark Mode";
                 BackColor = SystemColors.Control;
                 themeLabel.ForeColor = Colors.back_light;
+                hash.ForeColor = Colors.back_light;
+                hash.ForeColor = Colors.back_light;
+                downloadedHash.ForeColor = Colors.back_light;
                 themeButton.BackColor = SystemColors.Control;
                 themeButton.ForeColor = Colors.back_light;
             }
@@ -30,6 +36,21 @@ namespace PasswordManager
             Properties.Settings.Default.DarkMode = !Properties.Settings.Default.DarkMode;
             Properties.Settings.Default.Save();
             Application.Restart();
+        }
+
+        private void Config_Load(object sender, System.EventArgs e)
+        {
+            hash.Text = Utility.GetMD5();
+        }
+
+        private void checkHaskButton_Click(object sender, System.EventArgs e)
+        {
+            using (WebClient client = new WebClient())
+            {
+                string update_data = client.DownloadString("https://raw.githubusercontent.com/Akulav/MinecraftModpackUpdater/main/modpack_list.txt");
+                downloadedHash.Text = update_data;
+            }           
+            
         }
     }
 }

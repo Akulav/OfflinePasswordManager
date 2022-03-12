@@ -30,6 +30,9 @@
         {
             this.themeLabel = new System.Windows.Forms.Label();
             this.themeButton = new FontAwesome.Sharp.IconButton();
+            this.checkHaskButton = new FontAwesome.Sharp.IconButton();
+            this.hash = new System.Windows.Forms.Label();
+            this.downloadedHash = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // themeLabel
@@ -59,17 +62,59 @@
             this.themeButton.UseVisualStyleBackColor = false;
             this.themeButton.Click += new System.EventHandler(this.ThemeButton_Click);
             // 
+            // checkHaskButton
+            // 
+            this.checkHaskButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
+            this.checkHaskButton.Font = new System.Drawing.Font("Yu Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkHaskButton.ForeColor = System.Drawing.Color.Gainsboro;
+            this.checkHaskButton.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.checkHaskButton.IconColor = System.Drawing.Color.Black;
+            this.checkHaskButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.checkHaskButton.Location = new System.Drawing.Point(12, 587);
+            this.checkHaskButton.Name = "checkHaskButton";
+            this.checkHaskButton.Size = new System.Drawing.Size(192, 26);
+            this.checkHaskButton.TabIndex = 4;
+            this.checkHaskButton.Text = "Check Hash";
+            this.checkHaskButton.UseVisualStyleBackColor = false;
+            this.checkHaskButton.Click += new System.EventHandler(this.checkHaskButton_Click);
+            // 
+            // hash
+            // 
+            this.hash.AutoSize = true;
+            this.hash.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hash.ForeColor = System.Drawing.Color.Gainsboro;
+            this.hash.Location = new System.Drawing.Point(373, 324);
+            this.hash.Name = "hash";
+            this.hash.Size = new System.Drawing.Size(189, 26);
+            this.hash.TabIndex = 5;
+            this.hash.Text = "PLACE_HOLDER";
+            // 
+            // downloadedHash
+            // 
+            this.downloadedHash.AutoSize = true;
+            this.downloadedHash.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.downloadedHash.ForeColor = System.Drawing.Color.Gainsboro;
+            this.downloadedHash.Location = new System.Drawing.Point(373, 366);
+            this.downloadedHash.Name = "downloadedHash";
+            this.downloadedHash.Size = new System.Drawing.Size(189, 26);
+            this.downloadedHash.TabIndex = 6;
+            this.downloadedHash.Text = "PLACE_HOLDER";
+            // 
             // Config
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(924, 621);
+            this.Controls.Add(this.downloadedHash);
+            this.Controls.Add(this.hash);
+            this.Controls.Add(this.checkHaskButton);
             this.Controls.Add(this.themeButton);
             this.Controls.Add(this.themeLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Config";
             this.Text = "About";
+            this.Load += new System.EventHandler(this.Config_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -78,5 +123,8 @@
         #endregion
         private System.Windows.Forms.Label themeLabel;
         private FontAwesome.Sharp.IconButton themeButton;
+        private FontAwesome.Sharp.IconButton checkHaskButton;
+        private System.Windows.Forms.Label hash;
+        private System.Windows.Forms.Label downloadedHash;
     }
 }
