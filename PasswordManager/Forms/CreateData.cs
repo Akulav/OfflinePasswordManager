@@ -22,11 +22,19 @@ namespace SeePass
             Utility.SetFileReadAccess(Paths.user_data, false);
             var con = new SQLiteConnection(Paths.user_data_connection);
             con.Open();
+            tryAgain:
+            byte[] iv = Crypto.generateIV();
+            string string_iv = System.Text.Encoding.Default.GetString(iv);
             var cmd = new SQLiteCommand(con)
             {
-                CommandText = $"INSERT INTO data(username, pass, domain) VALUES('{Crypto.Encrypt(usernameText.Text, key)}','{Crypto.Encrypt(passwordText.Text, key)}','{Crypto.Encrypt(domainText.Text, key)}')"
+                CommandText = $"INSERT INTO data(username, pass, domain, iv) VALUES('{Crypto.Encrypt(usernameText.Text, key, iv)}','{Crypto.Encrypt(passwordText.Text, key, iv)}','{Crypto.Encrypt(domainText.Text, key, iv)}','{string_iv}')"
             };
-            cmd.ExecuteNonQuery();
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+
+            catch { goto tryAgain; }
             con.Close();
             Reset();
             doneLabel.Visible = true;

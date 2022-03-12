@@ -16,12 +16,12 @@ namespace PasswordManager
             int alphaNumericalChars = rnd.Next(32);
             return Membership.GeneratePassword(length, alphaNumericalChars);
         }
-        public static string Encrypt(string clearText, string EncryptionKey)
+        public static string Encrypt(string clearText, string EncryptionKey, byte[] iv)
         {
             byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
             using (Aes encryptor = Aes.Create())
             {
-                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, iv);
                 encryptor.Key = pdb.GetBytes(32);
                 encryptor.IV = pdb.GetBytes(16);
                 using (MemoryStream ms = new MemoryStream())
@@ -46,23 +46,19 @@ namespace PasswordManager
             return data;
         }
 
-        public static string GenerateMasterKey(string input, string salt)
-        {
-            byte[] bytes = Encoding.ASCII.GetBytes(input + salt);
-            SHA256Managed sHA256ManagedString = new SHA256Managed();
-            byte[] hash = sHA256ManagedString.ComputeHash(bytes);
-            string data = BitConverter.ToString(hash);
-            return data;
-        }
-
         public static string FinalKey(string input, string salt, int PIM)
         {
+            string result = input + salt;
+
             for (int i = 0; i < PIM; i++)
             {
-                input = GenerateMasterKey(input, salt);
+                byte[] bytes = Encoding.ASCII.GetBytes(result);
+                SHA256Managed sHA256ManagedString = new SHA256Managed();
+                byte[] hash = sHA256ManagedString.ComputeHash(bytes);
+                result = BitConverter.ToString(hash);
             }
 
-            return input;
+            return result;
         }
 
         public static void Erase()
@@ -74,7 +70,7 @@ namespace PasswordManager
             foreach (FileInfo file in di.GetFiles())
             {
                 string oldData = File.ReadAllText(@file.ToString());
-                string newData = Encrypt(oldData, GenerateRandomAlphanumericString(20));
+                string newData = Encrypt(oldData, GenerateRandomAlphanumericString(20), Crypto.generateIV());
                 File.WriteAllText(file.ToString(), newData);
                 file.Delete();
             }
@@ -83,6 +79,14 @@ namespace PasswordManager
                 dir.Delete(true);
             }
         }
+
+        public static byte[] generateIV()
+        {
+            var aes = new AesCryptoServiceProvider();
+            byte[] iv = aes.IV;
+            return iv;
+        }
+
         public static bool ValidatePassword(string password)
         {
             const int MIN_LENGTH = 12;
@@ -175,13 +179,13 @@ namespace PasswordManager
             catch { return false; }
         }
 
-        public static string Decrypt(string cipherText, string EncryptionKey)
+        public static string Decrypt(string cipherText, string EncryptionKey, byte[] iv)
         {
             cipherText = cipherText.Replace(" ", "+");
             byte[] cipherBytes = Convert.FromBase64String(cipherText);
             using (Aes encryptor = Aes.Create())
             {
-                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, iv);
                 encryptor.Key = pdb.GetBytes(32);
                 encryptor.IV = pdb.GetBytes(16);
                 using (MemoryStream ms = new MemoryStream())

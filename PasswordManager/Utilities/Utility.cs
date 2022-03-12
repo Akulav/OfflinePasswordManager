@@ -1,12 +1,18 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using System.Windows.Forms;
 
 namespace PasswordManager
 {
     class Utility
     {
+        public static byte[] getBytes(string data)
+        {
+            return Encoding.Default.GetBytes(data);
+        }
         public static void EnforceAdminPrivilegesWorkaround()
         {
             RegistryKey rk;

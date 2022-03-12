@@ -96,7 +96,7 @@ namespace SeePass
                     data_con.Open();
                     var data_cmd = new SQLiteCommand(data_con)
                     {
-                        CommandText = @"CREATE TABLE data(username VARCRHAR(250), pass VARCRHAR(250),domain VARCRHAR(250))"
+                        CommandText = @"CREATE TABLE data(username VARCRHAR(250), pass VARCRHAR(250),domain VARCRHAR(250), iv VARCHAR(255))"
                     };
                     data_cmd.ExecuteNonQuery();
                     data_con.Close();

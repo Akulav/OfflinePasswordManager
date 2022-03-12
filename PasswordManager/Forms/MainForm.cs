@@ -15,15 +15,9 @@ namespace SeePass
         private readonly Panel leftBorderBtn;
         public Form currentChildForm;
         private readonly string fullKey;
-        readonly Timer t = new Timer();
 
         public MainForm(string key, string username, int PIM)
         {
-            //Start The Clock
-            t.Interval = 1000;
-            t.Tick += new EventHandler(Tick);
-            t.Start();
-
             //Loads the form
             InitializeComponent();
 
@@ -37,7 +31,7 @@ namespace SeePass
             MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
             //Gets transfered the key for encryption / decryption
 
-            fullKey = Crypto.FinalKey(Crypto.GenerateMasterKey(key, username), key, PIM);
+            fullKey = Crypto.FinalKey(key + username, key, PIM);
             CheckTheme();
 
         }
@@ -53,6 +47,10 @@ namespace SeePass
         }
 
         //Methods
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            clock.Text = DateTime.Now.ToString("hh:mm:ss");
+        }
 
         private void CheckTheme()
         {
@@ -66,7 +64,6 @@ namespace SeePass
                 clock.ForeColor = Colors.back_light;
                 Minimize.IconColor = Color.White;
                 Exit.IconColor = Color.White;
-                FullSize.IconColor = Color.White;
             }
         }
         private void ActivateButton(object senderBtn, Color color)
@@ -184,17 +181,6 @@ namespace SeePass
             Application.Exit();
         }
 
-        private void FullSize_Click(object sender, EventArgs e)
-        {
-            if (WindowState == FormWindowState.Normal)
-            {
-                WindowState = FormWindowState.Maximized;
-            }
-
-            else
-                WindowState = FormWindowState.Normal;
-        }
-
         private void Minimize_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
@@ -203,50 +189,6 @@ namespace SeePass
         private void ExitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-
-        private void Tick(object sender, EventArgs e)
-        {
-            //get current time
-            int hh = DateTime.Now.Hour;
-            int mm = DateTime.Now.Minute;
-            int ss = DateTime.Now.Second;
-
-            //time
-            string time = "";
-
-            //padding leading zero
-            if (hh < 10)
-            {
-                time += "0" + hh;
-            }
-            else
-            {
-                time += hh;
-            }
-            time += ":";
-
-            if (mm < 10)
-            {
-                time += "0" + mm;
-            }
-            else
-            {
-                time += mm;
-            }
-            time += ":";
-
-            if (ss < 10)
-            {
-                time += "0" + ss;
-            }
-            else
-            {
-                time += ss;
-            }
-
-            //update label
-            clock.Text = time;
         }
     }
 }

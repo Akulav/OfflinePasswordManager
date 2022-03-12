@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MenuPanel = new System.Windows.Forms.Panel();
             this.ExitButton = new FontAwesome.Sharp.IconButton();
@@ -41,15 +42,14 @@
             this.btnHome = new System.Windows.Forms.PictureBox();
             this.panelTitleBar = new System.Windows.Forms.Panel();
             this.Minimize = new FontAwesome.Sharp.IconButton();
-            this.FullSize = new FontAwesome.Sharp.IconButton();
             this.Exit = new FontAwesome.Sharp.IconButton();
             this.labelTitleOfChildForm = new System.Windows.Forms.Label();
             this.iconCurrentChildForm = new FontAwesome.Sharp.IconPictureBox();
-            this.panelShadow = new System.Windows.Forms.Panel();
             this.panelDesktop = new System.Windows.Forms.Panel();
             this.winVer = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.clock = new System.Windows.Forms.Label();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.MenuPanel.SuspendLayout();
             this.PanelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnHome)).BeginInit();
@@ -248,7 +248,6 @@
             // 
             this.panelTitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(25)))), ((int)(((byte)(62)))));
             this.panelTitleBar.Controls.Add(this.Minimize);
-            this.panelTitleBar.Controls.Add(this.FullSize);
             this.panelTitleBar.Controls.Add(this.Exit);
             this.panelTitleBar.Controls.Add(this.labelTitleOfChildForm);
             this.panelTitleBar.Controls.Add(this.iconCurrentChildForm);
@@ -269,7 +268,7 @@
             this.Minimize.IconColor = System.Drawing.Color.Gainsboro;
             this.Minimize.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.Minimize.IconSize = 32;
-            this.Minimize.Location = new System.Drawing.Point(846, 3);
+            this.Minimize.Location = new System.Drawing.Point(874, 3);
             this.Minimize.Name = "Minimize";
             this.Minimize.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.Minimize.Size = new System.Drawing.Size(22, 21);
@@ -278,26 +277,6 @@
             this.Minimize.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.Minimize.UseVisualStyleBackColor = true;
             this.Minimize.Click += new System.EventHandler(this.Minimize_Click);
-            // 
-            // FullSize
-            // 
-            this.FullSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.FullSize.FlatAppearance.BorderSize = 0;
-            this.FullSize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FullSize.ForeColor = System.Drawing.Color.Gainsboro;
-            this.FullSize.IconChar = FontAwesome.Sharp.IconChar.WindowMaximize;
-            this.FullSize.IconColor = System.Drawing.Color.Gainsboro;
-            this.FullSize.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.FullSize.IconSize = 32;
-            this.FullSize.Location = new System.Drawing.Point(874, 3);
-            this.FullSize.Name = "FullSize";
-            this.FullSize.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.FullSize.Size = new System.Drawing.Size(22, 21);
-            this.FullSize.TabIndex = 7;
-            this.FullSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.FullSize.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.FullSize.UseVisualStyleBackColor = true;
-            this.FullSize.Click += new System.EventHandler(this.FullSize_Click);
             // 
             // Exit
             // 
@@ -343,21 +322,13 @@
             this.iconCurrentChildForm.TabIndex = 0;
             this.iconCurrentChildForm.TabStop = false;
             // 
-            // panelShadow
-            // 
-            this.panelShadow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(24)))), ((int)(((byte)(58)))));
-            this.panelShadow.Location = new System.Drawing.Point(220, 75);
-            this.panelShadow.Name = "panelShadow";
-            this.panelShadow.Size = new System.Drawing.Size(626, 9);
-            this.panelShadow.TabIndex = 2;
-            // 
             // panelDesktop
             // 
             this.panelDesktop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.panelDesktop.Controls.Add(this.winVer);
             this.panelDesktop.Controls.Add(this.pictureBox1);
             this.panelDesktop.Controls.Add(this.clock);
-            this.panelDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelDesktop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelDesktop.Location = new System.Drawing.Point(220, 75);
             this.panelDesktop.Name = "panelDesktop";
             this.panelDesktop.Size = new System.Drawing.Size(924, 621);
@@ -394,6 +365,11 @@
             this.clock.TabIndex = 6;
             this.clock.Text = "00:00:00";
             // 
+            // timer
+            // 
+            this.timer.Enabled = true;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -401,13 +377,13 @@
             this.ClientSize = new System.Drawing.Size(1144, 696);
             this.ControlBox = false;
             this.Controls.Add(this.panelDesktop);
-            this.Controls.Add(this.panelShadow);
             this.Controls.Add(this.panelTitleBar);
             this.Controls.Add(this.MenuPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "Vulnerability Scanner";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "SeePass";
             this.MenuPanel.ResumeLayout(false);
             this.MenuPanel.PerformLayout();
             this.PanelLogo.ResumeLayout(false);
@@ -435,15 +411,14 @@
         private System.Windows.Forms.Panel panelTitleBar;
         private FontAwesome.Sharp.IconPictureBox iconCurrentChildForm;
         private System.Windows.Forms.Label labelTitleOfChildForm;
-        private System.Windows.Forms.Panel panelShadow;
         private FontAwesome.Sharp.IconButton Exit;
         private FontAwesome.Sharp.IconButton Minimize;
-        private FontAwesome.Sharp.IconButton FullSize;
         private FontAwesome.Sharp.IconButton ExitButton;
         private System.Windows.Forms.Label labelEstheticLine;
         public System.Windows.Forms.Panel panelDesktop;
         private System.Windows.Forms.Label clock;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label winVer;
+        private System.Windows.Forms.Timer timer;
     }
 }
