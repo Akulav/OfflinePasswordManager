@@ -70,9 +70,9 @@
             this.checkHaskButton.IconChar = FontAwesome.Sharp.IconChar.None;
             this.checkHaskButton.IconColor = System.Drawing.Color.Black;
             this.checkHaskButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.checkHaskButton.Location = new System.Drawing.Point(12, 587);
+            this.checkHaskButton.Location = new System.Drawing.Point(171, 257);
             this.checkHaskButton.Name = "checkHaskButton";
-            this.checkHaskButton.Size = new System.Drawing.Size(192, 26);
+            this.checkHaskButton.Size = new System.Drawing.Size(192, 51);
             this.checkHaskButton.TabIndex = 4;
             this.checkHaskButton.Text = "Check Hash";
             this.checkHaskButton.UseVisualStyleBackColor = false;
@@ -83,7 +83,7 @@
             this.hash.AutoSize = true;
             this.hash.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hash.ForeColor = System.Drawing.Color.Gainsboro;
-            this.hash.Location = new System.Drawing.Point(373, 324);
+            this.hash.Location = new System.Drawing.Point(373, 268);
             this.hash.Name = "hash";
             this.hash.Size = new System.Drawing.Size(189, 26);
             this.hash.TabIndex = 5;
@@ -94,11 +94,12 @@
             this.downloadedHash.AutoSize = true;
             this.downloadedHash.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.downloadedHash.ForeColor = System.Drawing.Color.Gainsboro;
-            this.downloadedHash.Location = new System.Drawing.Point(373, 366);
+            this.downloadedHash.Location = new System.Drawing.Point(174, 322);
             this.downloadedHash.Name = "downloadedHash";
             this.downloadedHash.Size = new System.Drawing.Size(189, 26);
             this.downloadedHash.TabIndex = 6;
             this.downloadedHash.Text = "PLACE_HOLDER";
+            this.downloadedHash.Visible = false;
             // 
             // Config
             // 

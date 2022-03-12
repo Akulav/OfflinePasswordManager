@@ -27,6 +27,8 @@ namespace PasswordManager
                 downloadedHash.ForeColor = Colors.back_light;
                 themeButton.BackColor = SystemColors.Control;
                 themeButton.ForeColor = Colors.back_light;
+                checkHaskButton.BackColor = SystemColors.Control;
+                checkHaskButton.ForeColor = Colors.back_light;
             }
             else themeButton.Text = "Enable Light Mode";
         }
@@ -45,11 +47,18 @@ namespace PasswordManager
 
         private void checkHaskButton_Click(object sender, System.EventArgs e)
         {
-            using (WebClient client = new WebClient())
+            try
             {
-                string update_data = client.DownloadString("https://raw.githubusercontent.com/Akulav/MinecraftModpackUpdater/main/modpack_list.txt");
-                downloadedHash.Text = update_data;
-            }           
+                using (WebClient client = new WebClient())
+                {
+                    string update_data = client.DownloadString("https://raw.githubusercontent.com/Akulav/OfflinePasswordManager/main/PasswordManager/Resources/hash.MD");
+                    downloadedHash.Visible = true;
+                    if (hash.Text != update_data) { downloadedHash.Text = "Application not original or old"; }
+                    else { downloadedHash.Text = "Application is original"; }                  
+                }
+            }
+
+            catch { downloadedHash.Text = "Error downloading hash"; }
             
         }
     }
