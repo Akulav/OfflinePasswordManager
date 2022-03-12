@@ -53,8 +53,7 @@ namespace PasswordManager
                 {
                     string update_data = client.DownloadString("https://raw.githubusercontent.com/Akulav/OfflinePasswordManager/main/PasswordManager/Resources/hash.MD");
                     downloadedHash.Visible = true;
-                    if (hash.Text != update_data) { downloadedHash.Text = "Application not original or old"; }
-                    else { downloadedHash.Text = "Application is original"; }                  
+                    downloadedHash.Text = update_data;                                  
                 }
             }
 
