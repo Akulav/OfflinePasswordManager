@@ -1,7 +1,5 @@
 ﻿using PasswordManager.Utilities;
-using System;
 using System.Drawing;
-using System.IO;
 using System.Net;
 using System.Windows.Forms;
 
@@ -13,24 +11,6 @@ namespace PasswordManager
         {
             InitializeComponent();
             CheckTheme();
-        }
-
-        private void CheckTheme()
-        {
-            if (!Properties.Settings.Default.DarkMode)
-            {
-                themeButton.Text = "Enable Dark Mode";
-                BackColor = SystemColors.Control;
-                themeLabel.ForeColor = Colors.back_light;
-                hash.ForeColor = Colors.back_light;
-                hash.ForeColor = Colors.back_light;
-                downloadedHash.ForeColor = Colors.back_light;
-                themeButton.BackColor = SystemColors.Control;
-                themeButton.ForeColor = Colors.back_light;
-                checkHaskButton.BackColor = SystemColors.Control;
-                checkHaskButton.ForeColor = Colors.back_light;
-            }
-            else themeButton.Text = "Enable Light Mode";
         }
 
         private void ThemeButton_Click(object sender, System.EventArgs e)
@@ -51,14 +31,26 @@ namespace PasswordManager
             {
                 using (WebClient client = new WebClient())
                 {
-                    string update_data = client.DownloadString("https://raw.githubusercontent.com/Akulav/OfflinePasswordManager/main/PasswordManager/Resources/hash.MD");
+                    string update_data = client.DownloadString(Paths.hash);
                     downloadedHash.Visible = true;
                     downloadedHash.Text = update_data;                                  
                 }
             }
 
             catch { downloadedHash.Text = "Error downloading hash"; }
-            
         }
+
+        private void CheckTheme()
+        {
+            if (!Properties.Settings.Default.DarkMode)
+            {
+                themeButton.Text = "Enable Dark Mode";
+                Colors.changeTheme(Controls, this);
+            }
+            
+            else themeButton.Text = "Enable Light Mode";
+        }
+
+       
     }
 }

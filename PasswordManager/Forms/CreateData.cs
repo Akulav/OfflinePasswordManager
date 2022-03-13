@@ -2,7 +2,6 @@
 using PasswordManager.Utilities;
 using System;
 using System.Data.SQLite;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace SeePass
@@ -59,13 +58,7 @@ namespace SeePass
         {
             if (!PasswordManager.Properties.Settings.Default.DarkMode)
             {
-                BackColor = SystemColors.Control;
-                doneLabel.ForeColor = Colors.back_light;
-                user.ForeColor = Colors.back_light;
-                pass.ForeColor = Colors.back_light;
-                domain.ForeColor = Colors.back_light;
-                create.ForeColor = Colors.back_light;
-                create.BackColor = SystemColors.Control;
+                Colors.changeTheme(Controls, this);
             }
         }
     }

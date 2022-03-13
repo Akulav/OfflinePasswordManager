@@ -169,7 +169,7 @@ namespace SeePass
             // 
             // leftPictureBox
             // 
-            this.leftPictureBox.Image = global::PasswordManager.Properties.Resources.leftimage;
+            this.leftPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("leftPictureBox.Image")));
             this.leftPictureBox.Location = new System.Drawing.Point(72, 48);
             this.leftPictureBox.Name = "leftPictureBox";
             this.leftPictureBox.Size = new System.Drawing.Size(119, 133);
