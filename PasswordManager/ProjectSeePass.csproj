@@ -44,6 +44,7 @@
   <ItemGroup>
     <Reference Include="FontAwesome.Sharp, Version=5.15.4.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f, processorArchitecture=MSIL">
       <HintPath>..\packages\FontAwesome.Sharp.5.15.4\lib\net472\FontAwesome.Sharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -157,6 +158,7 @@
     <EmbeddedResource Include="Forms\ViewData.resx">
       <DependentUpon>ViewData.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="ProjectSettings\app.manifest" />
     <None Include="ProjectSettings\packages.config" />
     <None Include="Properties\Settings.settings">
@@ -175,8 +177,6 @@
   <ItemGroup>
     <None Include="Resources\leftimage.png" />
     <None Include="bin\Debug\FontAwesome.Sharp.dll" />
-    <EmbeddedResource Include="Resources\FontAwesome.Sharp.dll" />
-    <None Include="Resources\sqlite.interop.dll" />
     <Content Include="Resources\shield.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

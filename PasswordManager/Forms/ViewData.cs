@@ -55,10 +55,7 @@ namespace SeePass
                     $"domain = '{Crypto.Encrypt(data.Rows[e.RowIndex].Cells[0].Value.ToString(), key, iv)}'"
                 };
                 cmd.ExecuteNonQuery();
-                Controls.Clear();
-                InitializeComponent();
-                CheckTheme();
-                GetData();
+                data.Rows.Remove(data.Rows[e.RowIndex]);
             }
         }
 
