@@ -1,7 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Windows.Forms;
 
@@ -24,7 +23,7 @@ namespace PasswordManager
 
             return sb.ToString().ToUpperInvariant();
         }
-        public static byte[] getBytes(string data)
+        public static byte[] GetBytes(string data)
         {
             return Encoding.Default.GetBytes(data);
         }

@@ -215,12 +215,11 @@ namespace SeePass
             this.themChange.IconChar = FontAwesome.Sharp.IconChar.Moon;
             this.themChange.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
             this.themChange.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.themChange.IconSize = 35;
+            this.themChange.IconSize = 30;
             this.themChange.Location = new System.Drawing.Point(344, -1);
             this.themChange.Name = "themChange";
             this.themChange.Size = new System.Drawing.Size(40, 40);
             this.themChange.TabIndex = 17;
-            this.themChange.Text = "X";
             this.themChange.UseVisualStyleBackColor = false;
             this.themChange.Click += new System.EventHandler(this.ThemChange_Click);
             // 

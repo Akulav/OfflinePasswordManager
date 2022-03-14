@@ -30,7 +30,7 @@ namespace SeePass
             while (Table.Read())
             {
                 var indexC = data.Rows.Add();
-                byte[] iv = Utility.getBytes(Table[3].ToString());
+                byte[] iv = Utility.GetBytes(Table[3].ToString());
                 data.Rows[indexC].Cells[0].Value = Crypto.Decrypt(Table[2].ToString(), key, iv);
                 data.Rows[indexC].Cells[1].Value = Crypto.Decrypt(Table[0].ToString(), key, iv);
                 data.Rows[indexC].Cells[2].Value = Crypto.Decrypt(Table[1].ToString(), key, iv);
@@ -45,7 +45,7 @@ namespace SeePass
         {
             if (e.ColumnIndex == data.Columns["Delete"].Index)
             {
-                byte[] iv = Utility.getBytes(data.Rows[e.RowIndex].Cells[4].Value.ToString());
+                byte[] iv = Utility.GetBytes(data.Rows[e.RowIndex].Cells[4].Value.ToString());
                 var con = new SQLiteConnection(Paths.user_data_connection);
                 con.Open();
                 var cmd = new SQLiteCommand(con)
@@ -64,6 +64,7 @@ namespace SeePass
         {
             if (!PasswordManager.Properties.Settings.Default.DarkMode)
             {
+
                 DataGridViewCellStyle style = new DataGridViewCellStyle
                 {
                     BackColor = SystemColors.Control,
@@ -72,6 +73,8 @@ namespace SeePass
                 data.RowsDefaultCellStyle = style;
                 data.BackgroundColor = SystemColors.Control;
                 data.ColumnHeadersDefaultCellStyle = style;
+
+
             }
         }
     }

@@ -70,7 +70,7 @@ namespace PasswordManager
             foreach (FileInfo file in di.GetFiles())
             {
                 string oldData = File.ReadAllText(@file.ToString());
-                string newData = Encrypt(oldData, GenerateRandomAlphanumericString(20), Crypto.generateIV());
+                string newData = Encrypt(oldData, GenerateRandomAlphanumericString(20), Crypto.GenerateIV());
                 File.WriteAllText(file.ToString(), newData);
                 file.Delete();
             }
@@ -80,7 +80,7 @@ namespace PasswordManager
             }
         }
 
-        public static byte[] generateIV()
+        public static byte[] GenerateIV()
         {
             var aes = new AesCryptoServiceProvider();
             byte[] iv = aes.IV;

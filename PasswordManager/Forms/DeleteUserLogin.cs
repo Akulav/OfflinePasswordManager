@@ -1,7 +1,6 @@
 ﻿using PasswordManager;
 using PasswordManager.Utilities;
 using System;
-using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -24,14 +23,7 @@ namespace SeePass
         {
             if (PasswordManager.Properties.Settings.Default.DarkMode)
             {
-                topPanel.BackColor = Colors.back_darker;
-                deleteLabel.BackColor = Colors.back_dark;
-                deleteLabel.ForeColor = Color.Gainsboro;
-                noButton.BackColor = Colors.back_dark;
-                yesButton.BackColor = Colors.back_dark;
-                noButton.ForeColor = Color.Gainsboro;
-                yesButton.ForeColor = Color.Gainsboro;
-                BackColor = Colors.back_dark;
+                Colors.ChangeTheme(Controls, this, "dark");
             }
         }
 

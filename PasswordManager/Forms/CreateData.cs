@@ -21,8 +21,8 @@ namespace SeePass
             Utility.SetFileReadAccess(Paths.user_data, false);
             var con = new SQLiteConnection(Paths.user_data_connection);
             con.Open();
-            tryAgain:
-            byte[] iv = Crypto.generateIV();
+        tryAgain:
+            byte[] iv = Crypto.GenerateIV();
             string string_iv = System.Text.Encoding.Default.GetString(iv);
             var cmd = new SQLiteCommand(con)
             {
@@ -58,7 +58,7 @@ namespace SeePass
         {
             if (!PasswordManager.Properties.Settings.Default.DarkMode)
             {
-                Colors.changeTheme(Controls, this);
+                Colors.ChangeTheme(Controls, this, "light");
             }
         }
     }

@@ -76,7 +76,7 @@
             this.checkHaskButton.TabIndex = 4;
             this.checkHaskButton.Text = "Check Hash";
             this.checkHaskButton.UseVisualStyleBackColor = false;
-            this.checkHaskButton.Click += new System.EventHandler(this.checkHaskButton_Click);
+            this.checkHaskButton.Click += new System.EventHandler(this.CheckHaskButton_Click);
             // 
             // hash
             // 

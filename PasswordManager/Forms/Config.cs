@@ -1,5 +1,4 @@
 ﻿using PasswordManager.Utilities;
-using System.Drawing;
 using System.Net;
 using System.Windows.Forms;
 
@@ -25,7 +24,7 @@ namespace PasswordManager
             hash.Text = Utility.GetMD5();
         }
 
-        private void checkHaskButton_Click(object sender, System.EventArgs e)
+        private void CheckHaskButton_Click(object sender, System.EventArgs e)
         {
             try
             {
@@ -33,7 +32,7 @@ namespace PasswordManager
                 {
                     string update_data = client.DownloadString(Paths.hash);
                     downloadedHash.Visible = true;
-                    downloadedHash.Text = update_data;                                  
+                    downloadedHash.Text = update_data;
                 }
             }
 
@@ -45,12 +44,12 @@ namespace PasswordManager
             if (!Properties.Settings.Default.DarkMode)
             {
                 themeButton.Text = "Enable Dark Mode";
-                Colors.changeTheme(Controls, this);
+                Colors.ChangeTheme(Controls, this, "light");
             }
-            
+
             else themeButton.Text = "Enable Light Mode";
         }
 
-       
+
     }
 }

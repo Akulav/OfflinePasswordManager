@@ -23,7 +23,7 @@ namespace SeePass
         {
             if (!PasswordManager.Properties.Settings.Default.DarkMode)
             {
-                Colors.changeTheme(Controls, this);
+                Colors.ChangeTheme(Controls, this, "light");
             }
         }
     }

@@ -2,7 +2,6 @@
 using PasswordManager.Utilities;
 using System;
 using System.Data.SQLite;
-using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -275,49 +274,21 @@ namespace SeePass
             PasswordManager.Properties.Settings.Default.DarkMode = !PasswordManager.Properties.Settings.Default.DarkMode;
             PasswordManager.Properties.Settings.Default.Save();
             CheckTheme();
+            Application.Restart();
         }
 
         private void CheckTheme()
         {
             if (PasswordManager.Properties.Settings.Default.DarkMode)
             {
-
-                leftpanel.BackColor = Colors.back_darker;
-                rightpanel.BackColor = Colors.back_dark;
-                UserButton.BackColor = Colors.back_dark;
-                ConfigButton.ForeColor = Color.Gainsboro;
-                UserButton.ForeColor = Color.Gainsboro;
-                ConfigButton.BackColor = Colors.back_dark;
-                welcomeLabel.ForeColor = Color.Gainsboro;
-                PIMLabel.ForeColor = Color.Gainsboro;
-                userLabel.ForeColor = Color.Gainsboro;
-                passLabel.ForeColor = Color.Gainsboro;
-                themChange.BackColor = Colors.back_dark;
-                CloseButton.BackColor = Colors.back_dark;
-                themChange.IconColor = Color.Gainsboro;
-                CloseButton.ForeColor = Color.Gainsboro;
-                themChange.IconChar = FontAwesome.Sharp.IconChar.Sun;
-                devLabel.ForeColor = Color.Gainsboro;
+                Colors.ChangeTheme(Controls, this, "dark");
+                Colors.ChangeTheme(rightpanel.Controls, this, "dark");
             }
 
             else
             {
-                leftpanel.BackColor = Colors.back_light;
-                rightpanel.BackColor = SystemColors.Control;
-                UserButton.BackColor = Colors.back_light;
-                ConfigButton.BackColor = Colors.back_light;
-                ConfigButton.ForeColor = Color.Gainsboro;
-                UserButton.ForeColor = Color.Gainsboro;
-                welcomeLabel.ForeColor = Colors.back_light;
-                PIMLabel.ForeColor = Colors.back_light;
-                userLabel.ForeColor = Colors.back_light;
-                passLabel.ForeColor = Colors.back_light;
-                themChange.BackColor = Color.Transparent;
-                CloseButton.BackColor = SystemColors.Control;
-                themChange.IconColor = Colors.back_light;
-                CloseButton.ForeColor = Colors.back_light;
-                themChange.IconChar = FontAwesome.Sharp.IconChar.Moon;
-                devLabel.ForeColor = SystemColors.Control;
+                Colors.ChangeTheme(Controls, this, "light");
+                Colors.ChangeTheme(rightpanel.Controls, this, "light");
             }
         }
     }

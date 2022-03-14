@@ -47,7 +47,7 @@ namespace SeePass
         }
 
         //Methods
-        private void timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
             clock.Text = DateTime.Now.ToString("hh:mm:ss");
         }
