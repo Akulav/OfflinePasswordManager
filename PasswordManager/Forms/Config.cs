@@ -49,7 +49,5 @@ namespace PasswordManager
 
             else themeButton.Text = "Enable Light Mode";
         }
-
-
     }
 }

@@ -34,8 +34,8 @@ namespace SeePass
                 data.Rows[indexC].Cells[0].Value = Crypto.Decrypt(Table[2].ToString(), key, iv);
                 data.Rows[indexC].Cells[1].Value = Crypto.Decrypt(Table[0].ToString(), key, iv);
                 data.Rows[indexC].Cells[2].Value = Crypto.Decrypt(Table[1].ToString(), key, iv);
-                data.Rows[indexC].Cells[4].Value = Table[3].ToString();
                 data.Rows[indexC].Cells[3].Value = "Delete";
+                data.Rows[indexC].Cells[4].Value = Table[3].ToString();
             }
             Table.Close();
         }
@@ -73,8 +73,6 @@ namespace SeePass
                 data.RowsDefaultCellStyle = style;
                 data.BackgroundColor = SystemColors.Control;
                 data.ColumnHeadersDefaultCellStyle = style;
-
-
             }
         }
     }

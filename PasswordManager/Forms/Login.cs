@@ -101,7 +101,7 @@ namespace SeePass
                     data_con.Close();
                 }
             }
-            catch { userFlag = false; }
+            catch { }
         }
 
         //Checks if user exists
@@ -109,7 +109,7 @@ namespace SeePass
         {
             try
             {
-                if (File.Exists(Paths.database))
+                if (File.Exists(Paths.database) && File.Exists(Paths.user_data))
                 {
                     userFlag = true;
                 }
@@ -126,69 +126,62 @@ namespace SeePass
         //Verify login information
         public void CheckLogin(string user, string pass, int PIM)
         {
-            if (Crypto.CheckHash(user, pass, PIM))
+            if (int.TryParse(PIMBox.Text, out _))
             {
-                try
+                if (Crypto.CheckHash(user, pass, PIM))
                 {
-                    MainForm mf = new MainForm(pass, user, int.Parse(PIMBox.Text))
-                    {
-                        StartPosition = FormStartPosition.CenterScreen
-                    };
+                    MainForm mf = new MainForm(pass, user, PIM);
                     mf.Show();
                     Close();
                 }
-
-                catch
-                {
-                    statusText.Text = "Input a number inside PIM";
-                }
+                else { statusText.Text = "Wrong username / password combination"; }
             }
-            else { statusText.Text = "Wrong username / password combination"; }
         }
 
         //Sign ups the user
         private void CreateUser_Click(object sender, EventArgs e)
         {
+
+            string password = Password.Text;
+            string username = Username.Text;
+
             if (!userFlag)
             {
-                string password = Password.Text;
-                string username = Username.Text;
-                bool flag = true;
 
-                if (username == "")
+                try
                 {
-                    statusText.Text = "Username must not be null";
-                    flag = false;
-                }
-
-                if (int.TryParse(PIMBox.Text, out _))
-                {
-                    int PIM = int.Parse(PIMBox.Text);
-                    if (PIM > 100000 || PIM < 100)
+                    if (username == "")
                     {
-                        statusText.Text = "PIM must be between 100 and 100000";
-                        flag = false;
+                        statusText.Text = "Username must not be null";
+                        throw new Exception();
                     }
-                }
 
-                if (!int.TryParse(PIMBox.Text, out _))
-                {
-                    statusText.Text = "PIM must be a number";
-                    flag = false;
-                }
+                    if (int.TryParse(PIMBox.Text, out _))
+                    {
+                        int PIM = int.Parse(PIMBox.Text);
+                        if (PIM > 100000 || PIM < 100)
+                        {
+                            statusText.Text = "PIM must be between 100 and 100000";
+                            throw new Exception();
+                        }
+                    }
 
-                if (!Crypto.ValidatePassword(password))
-                {
-                    statusText.Text = "Password must be at least 12 characters\n long and contain alphanumeric chars";
-                    flag = false;
-                }
+                    if (!int.TryParse(PIMBox.Text, out _))
+                    {
+                        statusText.Text = "PIM must be a number";
+                        throw new Exception();
+                    }
 
-                if (flag == true)
-                {
+                    if (!Crypto.ValidatePassword(password))
+                    {
+                        statusText.Text = "Password must be at least 12 characters\n long and contain alphanumeric chars";
+                        throw new Exception();
+                    }
+
                     InitializeDataSet();
-                    string[] datapass = Crypto.GenerateHash(password, Crypto.GenerateRandomAlphanumericString(128));
-                    string[] dataname = Crypto.GenerateHash(username, Crypto.GenerateRandomAlphanumericString(128));
-                    string[] PIMRead = Crypto.GenerateHash(password + username, Crypto.GenerateRandomAlphanumericString(128));
+                    string[] datapass = Crypto.GenerateHash(password, Crypto.GenRandString(128));
+                    string[] dataname = Crypto.GenerateHash(username, Crypto.GenRandString(128));
+                    string[] PIMRead = Crypto.GenerateHash(password + username, Crypto.GenRandString(128));
 
                     for (int i = 0; i < int.Parse(PIMBox.Text); i++)
                     {
@@ -210,13 +203,12 @@ namespace SeePass
                     Utility.SetFileReadAccess(Paths.user_data, true);
                     Application.Restart();
                 }
+
+                catch { };
             }
 
             else
             {
-                string password = Password.Text;
-                string username = Username.Text;
-
                 try
                 {
                     int PIM = int.Parse(PIMBox.Text);

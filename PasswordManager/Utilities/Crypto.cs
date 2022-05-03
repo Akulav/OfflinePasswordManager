@@ -10,7 +10,7 @@ namespace PasswordManager
 {
     class Crypto
     {
-        public static string GenerateRandomAlphanumericString(int length)
+        public static string GenRandString(int length)
         {
             Random rnd = new Random();
             int alphaNumericalChars = rnd.Next(32);
@@ -70,7 +70,7 @@ namespace PasswordManager
             foreach (FileInfo file in di.GetFiles())
             {
                 string oldData = File.ReadAllText(@file.ToString());
-                string newData = Encrypt(oldData, GenerateRandomAlphanumericString(20), Crypto.GenerateIV());
+                string newData = Encrypt(oldData, GenRandString(20), Crypto.GenerateIV());
                 File.WriteAllText(file.ToString(), newData);
                 file.Delete();
             }
