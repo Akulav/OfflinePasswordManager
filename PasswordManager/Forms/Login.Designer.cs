@@ -43,12 +43,12 @@ namespace SeePass
             this.leftlabel = new System.Windows.Forms.Label();
             this.leftPictureBox = new System.Windows.Forms.PictureBox();
             this.rightpanel = new System.Windows.Forms.Panel();
-            this.topPanel = new System.Windows.Forms.Panel();
-            this.themChange = new FontAwesome.Sharp.IconButton();
-            this.CloseButton = new System.Windows.Forms.Button();
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.UserButton = new FontAwesome.Sharp.IconButton();
             this.ConfigButton = new FontAwesome.Sharp.IconButton();
+            this.CloseButton = new System.Windows.Forms.Button();
+            this.themChange = new FontAwesome.Sharp.IconButton();
+            this.topPanel = new System.Windows.Forms.Panel();
             this.leftpanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.leftPictureBox)).BeginInit();
             this.rightpanel.SuspendLayout();
@@ -179,6 +179,7 @@ namespace SeePass
             // rightpanel
             // 
             this.rightpanel.BackColor = System.Drawing.SystemColors.Control;
+            this.rightpanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rightpanel.Controls.Add(this.topPanel);
             this.rightpanel.Controls.Add(this.welcomeLabel);
             this.rightpanel.Controls.Add(this.statusText);
@@ -195,47 +196,6 @@ namespace SeePass
             this.rightpanel.Name = "rightpanel";
             this.rightpanel.Size = new System.Drawing.Size(427, 398);
             this.rightpanel.TabIndex = 17;
-            // 
-            // topPanel
-            // 
-            this.topPanel.BackColor = System.Drawing.Color.Transparent;
-            this.topPanel.Controls.Add(this.themChange);
-            this.topPanel.Controls.Add(this.CloseButton);
-            this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.topPanel.Location = new System.Drawing.Point(0, 0);
-            this.topPanel.Name = "topPanel";
-            this.topPanel.Size = new System.Drawing.Size(427, 42);
-            this.topPanel.TabIndex = 19;
-            this.topPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TopPanel_MouseDown);
-            // 
-            // themChange
-            // 
-            this.themChange.BackColor = System.Drawing.Color.Transparent;
-            this.themChange.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.themChange.IconChar = FontAwesome.Sharp.IconChar.Moon;
-            this.themChange.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.themChange.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.themChange.IconSize = 30;
-            this.themChange.Location = new System.Drawing.Point(344, -1);
-            this.themChange.Name = "themChange";
-            this.themChange.Size = new System.Drawing.Size(40, 40);
-            this.themChange.TabIndex = 17;
-            this.themChange.UseVisualStyleBackColor = false;
-            this.themChange.Click += new System.EventHandler(this.ThemChange_Click);
-            // 
-            // CloseButton
-            // 
-            this.CloseButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.CloseButton.Font = new System.Drawing.Font("Verdana", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CloseButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.CloseButton.Location = new System.Drawing.Point(387, -1);
-            this.CloseButton.Margin = new System.Windows.Forms.Padding(0);
-            this.CloseButton.Name = "CloseButton";
-            this.CloseButton.Size = new System.Drawing.Size(40, 40);
-            this.CloseButton.TabIndex = 16;
-            this.CloseButton.Text = "X";
-            this.CloseButton.UseVisualStyleBackColor = true;
-            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // welcomeLabel
             // 
@@ -280,18 +240,63 @@ namespace SeePass
             this.ConfigButton.UseVisualStyleBackColor = false;
             this.ConfigButton.Click += new System.EventHandler(this.ConfigButton_Click);
             // 
+            // CloseButton
+            // 
+            this.CloseButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CloseButton.Font = new System.Drawing.Font("Verdana", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CloseButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.CloseButton.Location = new System.Drawing.Point(387, -1);
+            this.CloseButton.Margin = new System.Windows.Forms.Padding(0);
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Size = new System.Drawing.Size(40, 40);
+            this.CloseButton.TabIndex = 16;
+            this.CloseButton.Text = "X";
+            this.CloseButton.UseVisualStyleBackColor = true;
+            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
+            // 
+            // themChange
+            // 
+            this.themChange.BackColor = System.Drawing.Color.Transparent;
+            this.themChange.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.themChange.IconChar = FontAwesome.Sharp.IconChar.Moon;
+            this.themChange.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.themChange.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.themChange.IconSize = 30;
+            this.themChange.Location = new System.Drawing.Point(344, -1);
+            this.themChange.Name = "themChange";
+            this.themChange.Size = new System.Drawing.Size(40, 40);
+            this.themChange.TabIndex = 17;
+            this.themChange.UseVisualStyleBackColor = false;
+            this.themChange.Click += new System.EventHandler(this.ThemChange_Click);
+            // 
+            // topPanel
+            // 
+            this.topPanel.BackColor = System.Drawing.Color.Transparent;
+            this.topPanel.Controls.Add(this.themChange);
+            this.topPanel.Controls.Add(this.CloseButton);
+            this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.topPanel.Location = new System.Drawing.Point(0, 0);
+            this.topPanel.Name = "topPanel";
+            this.topPanel.Size = new System.Drawing.Size(425, 42);
+            this.topPanel.TabIndex = 19;
+            this.topPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TopPanel_MouseDown);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(689, 398);
+            this.ControlBox = false;
             this.Controls.Add(this.rightpanel);
             this.Controls.Add(this.leftpanel);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Login";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Login_Load);
             this.leftpanel.ResumeLayout(false);
@@ -320,10 +325,10 @@ namespace SeePass
         private System.Windows.Forms.Panel rightpanel;
         private System.Windows.Forms.Label devLabel;
         private System.Windows.Forms.Label leftlabel;
-        private System.Windows.Forms.Button CloseButton;
         private System.Windows.Forms.Label welcomeLabel;
         private System.Windows.Forms.Panel leftTopPanel;
         private System.Windows.Forms.Panel topPanel;
         private FontAwesome.Sharp.IconButton themChange;
+        private System.Windows.Forms.Button CloseButton;
     }
 }

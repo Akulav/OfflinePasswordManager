@@ -15,11 +15,15 @@ namespace SeePass
         private readonly Panel leftBorderBtn;
         public Form currentChildForm;
         private readonly string fullKey;
+        public static readonly Timer TimeoutTimer = new Timer();
+
 
         public MainForm(string key, string username, int PIM)
         {
             //Loads the form
             InitializeComponent();
+            TimeoutTimer.Interval = PasswordManager.Properties.Settings.Default.Timeout;
+            TimeoutTimer.Tick += new EventHandler(Timeout_Tick);
 
             leftBorderBtn = new Panel
             {
@@ -50,6 +54,11 @@ namespace SeePass
         private void Timer_Tick(object sender, EventArgs e)
         {
             clock.Text = DateTime.Now.ToString("hh:mm:ss");
+        }
+
+        private void Timeout_Tick(object sender, EventArgs e)
+        {
+            Application.Restart();
         }
 
         private void CheckTheme()
@@ -189,6 +198,16 @@ namespace SeePass
         private void ExitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void MainForm_Deactivate(object sender, EventArgs e)
+        {
+            TimeoutTimer.Start();
+        }
+
+        private void MainForm_Activated(object sender, EventArgs e)
+        {
+            TimeoutTimer.Stop();
         }
     }
 }

@@ -33,6 +33,9 @@
             this.checkHaskButton = new FontAwesome.Sharp.IconButton();
             this.hash = new System.Windows.Forms.Label();
             this.downloadedHash = new System.Windows.Forms.Label();
+            this.timeBox = new System.Windows.Forms.TextBox();
+            this.timeButton = new FontAwesome.Sharp.IconButton();
+            this.timeLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // themeLabel
@@ -101,12 +104,48 @@
             this.downloadedHash.Text = "PLACE_HOLDER";
             this.downloadedHash.Visible = false;
             // 
+            // timeBox
+            // 
+            this.timeBox.Location = new System.Drawing.Point(378, 364);
+            this.timeBox.Name = "timeBox";
+            this.timeBox.Size = new System.Drawing.Size(184, 20);
+            this.timeBox.TabIndex = 7;
+            // 
+            // timeButton
+            // 
+            this.timeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
+            this.timeButton.Font = new System.Drawing.Font("Yu Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeButton.ForeColor = System.Drawing.Color.Gainsboro;
+            this.timeButton.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.timeButton.IconColor = System.Drawing.Color.Black;
+            this.timeButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.timeButton.Location = new System.Drawing.Point(171, 346);
+            this.timeButton.Name = "timeButton";
+            this.timeButton.Size = new System.Drawing.Size(192, 51);
+            this.timeButton.TabIndex = 8;
+            this.timeButton.Text = "Set Timeout (s)";
+            this.timeButton.UseVisualStyleBackColor = false;
+            this.timeButton.Click += new System.EventHandler(this.timeButton_Click);
+            // 
+            // timeLabel
+            // 
+            this.timeLabel.AutoSize = true;
+            this.timeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeLabel.ForeColor = System.Drawing.Color.Gainsboro;
+            this.timeLabel.Location = new System.Drawing.Point(568, 358);
+            this.timeLabel.Name = "timeLabel";
+            this.timeLabel.Size = new System.Drawing.Size(0, 26);
+            this.timeLabel.TabIndex = 9;
+            // 
             // Config
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(924, 621);
+            this.Controls.Add(this.timeLabel);
+            this.Controls.Add(this.timeButton);
+            this.Controls.Add(this.timeBox);
             this.Controls.Add(this.downloadedHash);
             this.Controls.Add(this.hash);
             this.Controls.Add(this.checkHaskButton);
@@ -127,5 +166,8 @@
         private FontAwesome.Sharp.IconButton checkHaskButton;
         private System.Windows.Forms.Label hash;
         private System.Windows.Forms.Label downloadedHash;
+        private System.Windows.Forms.TextBox timeBox;
+        private FontAwesome.Sharp.IconButton timeButton;
+        private System.Windows.Forms.Label timeLabel;
     }
 }

@@ -158,6 +158,7 @@
     <EmbeddedResource Include="Forms\ViewData.resx">
       <DependentUpon>ViewData.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="ProjectSettings\app.manifest" />
     <None Include="ProjectSettings\packages.config" />

@@ -384,6 +384,8 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SeePass";
+            this.Activated += new System.EventHandler(this.MainForm_Activated);
+            this.Deactivate += new System.EventHandler(this.MainForm_Deactivate);
             this.MenuPanel.ResumeLayout(false);
             this.MenuPanel.PerformLayout();
             this.PanelLogo.ResumeLayout(false);
