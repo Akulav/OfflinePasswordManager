@@ -63,21 +63,16 @@ namespace PasswordManager
 
         public static void Erase()
         {
+            Utility.ForceDeleteDirectory(Paths.fileLocation);
 
-            ForceDeleteDirectory(Paths.fileLocation);
-            DirectoryInfo di = new DirectoryInfo(Paths.fileLocation);
+            string oldData = File.ReadAllText(Paths.database);
+            string newData = Encrypt(oldData, GenRandString(64), Crypto.GenerateIV());
+            File.WriteAllText(Paths.database, newData);
 
-            foreach (FileInfo file in di.GetFiles())
-            {
-                string oldData = File.ReadAllText(@file.ToString());
-                string newData = Encrypt(oldData, GenRandString(20), Crypto.GenerateIV());
-                File.WriteAllText(file.ToString(), newData);
-                file.Delete();
-            }
-            foreach (DirectoryInfo dir in di.GetDirectories())
-            {
-                dir.Delete(true);
-            }
+            oldData = File.ReadAllText(Paths.user_data);
+            newData = Encrypt(oldData, GenRandString(64), Crypto.GenerateIV());
+            File.WriteAllText(Paths.user_data, newData);
+            Directory.Delete(Paths.fileLocation, true);
         }
 
         public static byte[] GenerateIV()
@@ -116,16 +111,6 @@ namespace PasswordManager
                         ;
             return isValid;
 
-        }
-
-        public static void ForceDeleteDirectory(string path)
-        {
-            var directory = new DirectoryInfo(path) { Attributes = FileAttributes.Normal };
-
-            foreach (var info in directory.GetFileSystemInfos("*", SearchOption.AllDirectories))
-            {
-                info.Attributes = FileAttributes.Normal;
-            }
         }
 
         public static bool CheckHash(string user, string pass, int PIM)

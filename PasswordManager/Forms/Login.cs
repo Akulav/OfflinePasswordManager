@@ -11,9 +11,7 @@ namespace SeePass
 {
     public partial class Login : Form
     {
-        //Flags
         private static bool userFlag = false;
-        //UI dll functionality
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
@@ -21,28 +19,16 @@ namespace SeePass
 
         public Login()
         {
-            //Makes sure the app is started as ADMIN
             Utility.EnforceAdminPrivilegesWorkaround();
-
-            //Loads the form
             InitializeComponent();
-
-            //Checks user settings for dark mode
             CheckTheme();
-
-            //Hides Password Chars
             Password.PasswordChar = '*';
-
-            //More responsive on high-refresh rate screens
             DoubleBuffered = true;
         }
 
         private void Login_Load(object sender, EventArgs e)
         {
-            //Checks if there is already a user 
             CheckIfUser();
-
-            //If there is user, allow login
             if (userFlag)
             {
                 UserButton.Text = "Login";
@@ -50,7 +36,6 @@ namespace SeePass
                 ConfigButton.Text = "Delete Account";
             }
 
-            //If no user, allow sign up
             else
             {
                 UserButton.Text = "Create Account";
@@ -63,17 +48,15 @@ namespace SeePass
         {
             try
             {
-                //Creates the folders for the app
-                if (!Directory.Exists(Paths.users))
+                if (!Directory.Exists(Paths.fileLocation))
                 {
-                    Directory.CreateDirectory(Paths.users);
+                    Directory.CreateDirectory(Paths.fileLocation);
                 }
-                if (!Directory.Exists(Paths.viewDataLocation))
+                if (!Directory.Exists(Paths.fileLocation))
                 {
-                    Directory.CreateDirectory(Paths.viewDataLocation);
+                    Directory.CreateDirectory(Paths.fileLocation);
                 }
 
-                //Creates the DB that stores the data for login
                 if (!File.Exists(Paths.database))
                 {
                     File.WriteAllText(Paths.database, null);
@@ -86,11 +69,9 @@ namespace SeePass
                     cmd.ExecuteNonQuery();
                 }
 
-                //Creates the DB that stores user data
                 if (!File.Exists(Paths.user_data))
                 {
                     File.WriteAllText(Paths.user_data, null);
-                    //User Data Database initialization
                     var data_con = new SQLiteConnection(Paths.user_data_connection);
                     data_con.Open();
                     var data_cmd = new SQLiteCommand(data_con)
@@ -104,7 +85,6 @@ namespace SeePass
             catch { }
         }
 
-        //Checks if user exists
         private void CheckIfUser()
         {
             try
@@ -123,7 +103,6 @@ namespace SeePass
             catch { userFlag = false; }
         }
 
-        //Verify login information
         public void CheckLogin(string user, string pass, int PIM)
         {
             if (int.TryParse(PIMBox.Text, out _))
@@ -138,7 +117,6 @@ namespace SeePass
             }
         }
 
-        //Sign ups the user
         private void CreateUser_Click(object sender, EventArgs e)
         {
 
@@ -219,7 +197,6 @@ namespace SeePass
             }
         }
 
-        //UI Events
         private void Password_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
@@ -248,7 +225,6 @@ namespace SeePass
         }
 
 
-        //UI ELEMENTS
         private void LeftTopPanel_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();

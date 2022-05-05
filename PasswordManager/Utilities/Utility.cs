@@ -27,6 +27,17 @@ namespace PasswordManager
         {
             return Encoding.Default.GetBytes(data);
         }
+
+        public static void ForceDeleteDirectory(string path)
+        {
+            var directory = new DirectoryInfo(path) { Attributes = FileAttributes.Normal };
+
+            foreach (var info in directory.GetFileSystemInfos("*", SearchOption.AllDirectories))
+            {
+                info.Attributes = FileAttributes.Normal;
+            }
+        }   
+
         public static void EnforceAdminPrivilegesWorkaround()
         {
             RegistryKey rk;
