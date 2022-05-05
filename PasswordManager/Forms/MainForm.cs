@@ -10,6 +10,32 @@ namespace SeePass
 {
     public partial class MainForm : Form
     {
+        // The enum flag for DwmSetWindowAttribute's second parameter, which tells the function what attribute to set.
+        // Copied from dwmapi.h
+        public enum DWMWINDOWATTRIBUTE
+        {
+            DWMWA_WINDOW_CORNER_PREFERENCE = 33
+        }
+
+        // The DWM_WINDOW_CORNER_PREFERENCE enum for DwmSetWindowAttribute's third parameter, which tells the function
+        // what value of the enum to set.
+        // Copied from dwmapi.h
+        public enum DWM_WINDOW_CORNER_PREFERENCE
+        {
+            DWMWCP_DEFAULT = 0,
+            DWMWCP_DONOTROUND = 1,
+            DWMWCP_ROUND = 2,
+            DWMWCP_ROUNDSMALL = 3
+        }
+
+        // Import dwmapi.dll and define DwmSetWindowAttribute in C# corresponding to the native function.
+        [DllImport("dwmapi.dll", CharSet = CharSet.Unicode, PreserveSig = false)]
+        internal static extern void DwmSetWindowAttribute(IntPtr hwnd,
+                                                         DWMWINDOWATTRIBUTE attribute,
+                                                         ref DWM_WINDOW_CORNER_PREFERENCE pvAttribute,
+                                                         uint cbAttribute);
+
+
         //Fields
         private IconButton currentBtn;
         private readonly Panel leftBorderBtn;
@@ -22,6 +48,11 @@ namespace SeePass
         {
             //Loads the form
             InitializeComponent();
+
+            var attribute = DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE;
+            var preference = DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
+            DwmSetWindowAttribute(this.Handle, attribute, ref preference, sizeof(uint));
+
             TimeoutTimer.Interval = PasswordManager.Properties.Settings.Default.Timeout;
             TimeoutTimer.Tick += new EventHandler(Timeout_Tick);
 
@@ -68,7 +99,6 @@ namespace SeePass
                 MenuPanel.BackColor = Colors.back_light;
                 panelTitleBar.BackColor = Colors.back_light;
                 panelDesktop.BackColor = SystemColors.Control;
-                labelTitleOfChildForm.ForeColor = Color.White;
                 winVer.ForeColor = Colors.back_light;
                 clock.ForeColor = Colors.back_light;
                 Minimize.IconColor = Color.White;
@@ -115,7 +145,6 @@ namespace SeePass
             childForm.BringToFront();
             childForm.Show();
             labelTitleOfChildForm.Text = childForm.Text;
-
         }
 
         private void DisableButton()
@@ -148,28 +177,24 @@ namespace SeePass
         private void CreateData_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color2);
-            labelTitleOfChildForm.Text = "Create Data";
             OpenChildForm(new CreateData(fullKey));
         }
 
         private void ExportTools_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color3);
-            labelTitleOfChildForm.Text = "Export Tools";
             OpenChildForm(new ImportExport());
         }
 
         private void ViewData_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color4);
-            labelTitleOfChildForm.Text = "View Data";
             OpenChildForm(new ViewData(fullKey));
         }
 
         private void Settings_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color5);
-            labelTitleOfChildForm.Text = "Settings";
             OpenChildForm(new Config());
         }
         //Drag Form

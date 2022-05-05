@@ -18,8 +18,8 @@ namespace SeePass
 
         private void Create_Click(object sender, EventArgs e)
         {
-            Utility.SetFileReadAccess(Paths.user_data, false);
-            var con = new SQLiteConnection(Paths.user_data_connection);
+            Utility.SetFileReadAccess(Paths.database, false);
+            var con = new SQLiteConnection(Paths.database_connection);
             con.Open();
         tryAgain:
             byte[] iv = Crypto.GenerateIV();

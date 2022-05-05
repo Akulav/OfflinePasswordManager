@@ -69,9 +69,6 @@ namespace PasswordManager
             string newData = Encrypt(oldData, GenRandString(64), Crypto.GenerateIV());
             File.WriteAllText(Paths.database, newData);
 
-            oldData = File.ReadAllText(Paths.user_data);
-            newData = Encrypt(oldData, GenRandString(64), Crypto.GenerateIV());
-            File.WriteAllText(Paths.user_data, newData);
             Directory.Delete(Paths.fileLocation, true);
         }
 

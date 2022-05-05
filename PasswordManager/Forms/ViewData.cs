@@ -19,7 +19,7 @@ namespace SeePass
 
         private void GetData()
         {
-            var con = new SQLiteConnection(Paths.user_data_connection);
+            var con = new SQLiteConnection(Paths.database_connection);
             con.Open();
             var cmd = new SQLiteCommand(con)
             {
@@ -46,7 +46,7 @@ namespace SeePass
             if (e.ColumnIndex == data.Columns["Delete"].Index)
             {
                 byte[] iv = Utility.GetBytes(data.Rows[e.RowIndex].Cells[4].Value.ToString());
-                var con = new SQLiteConnection(Paths.user_data_connection);
+                var con = new SQLiteConnection(Paths.database_connection);
                 con.Open();
                 var cmd = new SQLiteCommand(con)
                 {

@@ -125,7 +125,7 @@
             this.timeButton.TabIndex = 8;
             this.timeButton.Text = "Set Timeout (s)";
             this.timeButton.UseVisualStyleBackColor = false;
-            this.timeButton.Click += new System.EventHandler(this.timeButton_Click);
+            this.timeButton.Click += new System.EventHandler(this.TimeButton_Click);
             // 
             // timeLabel
             // 
@@ -153,7 +153,7 @@
             this.Controls.Add(this.themeLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Config";
-            this.Text = "About";
+            this.Text = "Configuration";
             this.Load += new System.EventHandler(this.Config_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

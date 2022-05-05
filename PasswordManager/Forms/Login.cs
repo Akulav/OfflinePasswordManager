@@ -17,11 +17,43 @@ namespace SeePass
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
 
+        //
+        // The enum flag for DwmSetWindowAttribute's second parameter, which tells the function what attribute to set.
+        // Copied from dwmapi.h
+        public enum DWMWINDOWATTRIBUTE
+        {
+            DWMWA_WINDOW_CORNER_PREFERENCE = 33
+        }
+
+        // The DWM_WINDOW_CORNER_PREFERENCE enum for DwmSetWindowAttribute's third parameter, which tells the function
+        // what value of the enum to set.
+        // Copied from dwmapi.h
+        public enum DWM_WINDOW_CORNER_PREFERENCE
+        {
+            DWMWCP_DEFAULT = 0,
+            DWMWCP_DONOTROUND = 1,
+            DWMWCP_ROUND = 2,
+            DWMWCP_ROUNDSMALL = 3
+        }
+
+        // Import dwmapi.dll and define DwmSetWindowAttribute in C# corresponding to the native function.
+        [DllImport("dwmapi.dll", CharSet = CharSet.Unicode, PreserveSig = false)]
+        internal static extern void DwmSetWindowAttribute(IntPtr hwnd,
+                                                         DWMWINDOWATTRIBUTE attribute,
+                                                         ref DWM_WINDOW_CORNER_PREFERENCE pvAttribute,
+                                                         uint cbAttribute);
+        //
+
         public Login()
         {
             Utility.EnforceAdminPrivilegesWorkaround();
             InitializeComponent();
             CheckTheme();
+
+            var attribute = DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE;
+            var preference = DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
+            DwmSetWindowAttribute(this.Handle, attribute, ref preference, sizeof(uint));
+
             Password.PasswordChar = '*';
             DoubleBuffered = true;
         }
@@ -52,35 +84,27 @@ namespace SeePass
                 {
                     Directory.CreateDirectory(Paths.fileLocation);
                 }
-                if (!Directory.Exists(Paths.fileLocation))
-                {
-                    Directory.CreateDirectory(Paths.fileLocation);
-                }
 
                 if (!File.Exists(Paths.database))
                 {
                     File.WriteAllText(Paths.database, null);
                     var con = new SQLiteConnection(Paths.database_connection);
                     con.Open();
+
                     var cmd = new SQLiteCommand(con)
                     {
                         CommandText = @"CREATE TABLE user(username VARCRHAR(250), user_salt VARCRHAR(250), pass VARCRHAR(250), pass_salt VARCRHAR(250), pim VARCRHAR(250), pim_salt VARCRHAR(250))"
                     };
-                    cmd.ExecuteNonQuery();
-                }
 
-                if (!File.Exists(Paths.user_data))
-                {
-                    File.WriteAllText(Paths.user_data, null);
-                    var data_con = new SQLiteConnection(Paths.user_data_connection);
-                    data_con.Open();
-                    var data_cmd = new SQLiteCommand(data_con)
+                    var data_cmd = new SQLiteCommand(con)
                     {
                         CommandText = @"CREATE TABLE data(username VARCRHAR(250), pass VARCRHAR(250),domain VARCRHAR(250), iv VARCHAR(255))"
                     };
-                    data_cmd.ExecuteNonQuery();
-                    data_con.Close();
+
+                    data_cmd.ExecuteNonQuery(); 
+                    cmd.ExecuteNonQuery();
                 }
+
             }
             catch { }
         }
@@ -89,7 +113,7 @@ namespace SeePass
         {
             try
             {
-                if (File.Exists(Paths.database) && File.Exists(Paths.user_data))
+                if (File.Exists(Paths.database))
                 {
                     userFlag = true;
                 }
@@ -99,7 +123,6 @@ namespace SeePass
                     userFlag = false;
                 }
             }
-
             catch { userFlag = false; }
         }
 
@@ -175,10 +198,8 @@ namespace SeePass
                     };
 
                     cmd.ExecuteNonQuery();
-                    con.Close();
 
                     Utility.SetFileReadAccess(Paths.database, true);
-                    Utility.SetFileReadAccess(Paths.user_data, true);
                     Application.Restart();
                 }
 
@@ -241,7 +262,6 @@ namespace SeePass
         {
             PasswordManager.Properties.Settings.Default.DarkMode = !PasswordManager.Properties.Settings.Default.DarkMode;
             PasswordManager.Properties.Settings.Default.Save();
-            CheckTheme();
             Application.Restart();
         }
 

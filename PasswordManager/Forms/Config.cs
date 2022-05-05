@@ -52,7 +52,7 @@ namespace PasswordManager
             else themeButton.Text = "Enable Light Mode";
         }
 
-        private void timeButton_Click(object sender, System.EventArgs e)
+        private void TimeButton_Click(object sender, System.EventArgs e)
         {
             try
             {
