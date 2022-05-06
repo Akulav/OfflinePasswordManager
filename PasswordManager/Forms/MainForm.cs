@@ -10,30 +10,17 @@ namespace SeePass
 {
     public partial class MainForm : Form
     {
-        // The enum flag for DwmSetWindowAttribute's second parameter, which tells the function what attribute to set.
-        // Copied from dwmapi.h
-        public enum DWMWINDOWATTRIBUTE
-        {
-            DWMWA_WINDOW_CORNER_PREFERENCE = 33
-        }
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
 
-        // The DWM_WINDOW_CORNER_PREFERENCE enum for DwmSetWindowAttribute's third parameter, which tells the function
-        // what value of the enum to set.
-        // Copied from dwmapi.h
-        public enum DWM_WINDOW_CORNER_PREFERENCE
-        {
-            DWMWCP_DEFAULT = 0,
-            DWMWCP_DONOTROUND = 1,
-            DWMWCP_ROUND = 2,
-            DWMWCP_ROUNDSMALL = 3
-        }
-
-        // Import dwmapi.dll and define DwmSetWindowAttribute in C# corresponding to the native function.
-        [DllImport("dwmapi.dll", CharSet = CharSet.Unicode, PreserveSig = false)]
-        internal static extern void DwmSetWindowAttribute(IntPtr hwnd,
-                                                         DWMWINDOWATTRIBUTE attribute,
-                                                         ref DWM_WINDOW_CORNER_PREFERENCE pvAttribute,
-                                                         uint cbAttribute);
+        private static extern IntPtr CreateRoundRectRgn
+    (
+        int nLeftRect,
+        int nTopRect,
+        int nRightRect,
+        int nBottomRect,
+        int nWidthEllipse,
+        int nHeightEllipse
+    );
 
 
         //Fields
@@ -49,9 +36,7 @@ namespace SeePass
             //Loads the form
             InitializeComponent();
 
-            var attribute = DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE;
-            var preference = DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
-            DwmSetWindowAttribute(this.Handle, attribute, ref preference, sizeof(uint));
+            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
 
             TimeoutTimer.Interval = PasswordManager.Properties.Settings.Default.Timeout;
             TimeoutTimer.Tick += new EventHandler(Timeout_Tick);

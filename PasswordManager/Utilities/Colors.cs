@@ -8,8 +8,9 @@ namespace PasswordManager.Utilities
     class Colors
     {
         public static readonly Color back_light = Color.FromArgb(41, 128, 185);
-        public static readonly Color back_dark = Color.FromArgb(34, 33, 74);
-        public static readonly Color back_darker = Color.FromArgb(31, 30, 68);
+        //public static readonly Color back_dark = Color.FromArgb(34, 33, 74);
+        public static readonly Color back_dark = Color.FromArgb(46,51,73);
+        public static readonly Color back_darker = Color.FromArgb(24, 30, 54);
 
         public static void ChangeTheme(ControlCollection Controls, Form parent, string theme)
         {
@@ -54,6 +55,37 @@ namespace PasswordManager.Utilities
                     else if (Controls[i] is Panel)
                     {
                         Controls[i].BackColor = back_dark;
+                    }
+
+                }
+            }
+
+            else if (theme == "darker")
+            {
+                parent.BackColor = back_darker;
+
+                for (int i = 0; i < Controls.Count; i++)
+                {
+                    if (Controls[i] is Label)
+                    {
+                        Controls[i].ForeColor = Color.Gainsboro;
+                        Controls[i].BackColor = back_darker;
+                    }
+
+                    else if (Controls[i] is IconButton)
+                    {
+                        Controls[i].BackColor = back_darker;
+                        Controls[i].ForeColor = Color.Gainsboro;
+                    }
+
+                    else if (Controls[i] is PictureBox)
+                    {
+                        Controls[i].BackColor = back_darker;           
+                    }
+
+                    else if (Controls[i] is Panel)
+                    {
+                        Controls[i].BackColor = back_darker;
                     }
 
                 }

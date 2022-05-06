@@ -39,6 +39,7 @@
             this.CreateData = new FontAwesome.Sharp.IconButton();
             this.Dashboard = new FontAwesome.Sharp.IconButton();
             this.PanelLogo = new System.Windows.Forms.Panel();
+            this.versionLabel = new System.Windows.Forms.Label();
             this.btnHome = new System.Windows.Forms.PictureBox();
             this.panelTitleBar = new System.Windows.Forms.Panel();
             this.Minimize = new FontAwesome.Sharp.IconButton();
@@ -61,7 +62,7 @@
             // 
             // MenuPanel
             // 
-            this.MenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(30)))), ((int)(((byte)(68)))));
+            this.MenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             this.MenuPanel.Controls.Add(this.ExitButton);
             this.MenuPanel.Controls.Add(this.labelEstheticLine);
             this.MenuPanel.Controls.Add(this.Settings);
@@ -227,6 +228,7 @@
             // 
             // PanelLogo
             // 
+            this.PanelLogo.Controls.Add(this.versionLabel);
             this.PanelLogo.Controls.Add(this.btnHome);
             this.PanelLogo.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelLogo.Location = new System.Drawing.Point(0, 0);
@@ -234,10 +236,21 @@
             this.PanelLogo.Size = new System.Drawing.Size(220, 140);
             this.PanelLogo.TabIndex = 1;
             // 
+            // versionLabel
+            // 
+            this.versionLabel.AutoSize = true;
+            this.versionLabel.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.versionLabel.ForeColor = System.Drawing.Color.Gainsboro;
+            this.versionLabel.Location = new System.Drawing.Point(81, 107);
+            this.versionLabel.Name = "versionLabel";
+            this.versionLabel.Size = new System.Drawing.Size(53, 21);
+            this.versionLabel.TabIndex = 8;
+            this.versionLabel.Text = "V7.0.0";
+            // 
             // btnHome
             // 
             this.btnHome.Image = ((System.Drawing.Image)(resources.GetObject("btnHome.Image")));
-            this.btnHome.Location = new System.Drawing.Point(35, 27);
+            this.btnHome.Location = new System.Drawing.Point(36, 12);
             this.btnHome.Name = "btnHome";
             this.btnHome.Size = new System.Drawing.Size(145, 92);
             this.btnHome.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -246,7 +259,7 @@
             // 
             // panelTitleBar
             // 
-            this.panelTitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(25)))), ((int)(((byte)(62)))));
+            this.panelTitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.panelTitleBar.Controls.Add(this.Minimize);
             this.panelTitleBar.Controls.Add(this.Exit);
             this.panelTitleBar.Controls.Add(this.labelTitleOfChildForm);
@@ -311,7 +324,7 @@
             // 
             // iconCurrentChildForm
             // 
-            this.iconCurrentChildForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(25)))), ((int)(((byte)(62)))));
+            this.iconCurrentChildForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.iconCurrentChildForm.ForeColor = System.Drawing.Color.MediumPurple;
             this.iconCurrentChildForm.IconChar = FontAwesome.Sharp.IconChar.Home;
             this.iconCurrentChildForm.IconColor = System.Drawing.Color.MediumPurple;
@@ -324,7 +337,7 @@
             // 
             // panelDesktop
             // 
-            this.panelDesktop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
+            this.panelDesktop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.panelDesktop.Controls.Add(this.winVer);
             this.panelDesktop.Controls.Add(this.pictureBox1);
             this.panelDesktop.Controls.Add(this.clock);
@@ -389,6 +402,7 @@
             this.MenuPanel.ResumeLayout(false);
             this.MenuPanel.PerformLayout();
             this.PanelLogo.ResumeLayout(false);
+            this.PanelLogo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnHome)).EndInit();
             this.panelTitleBar.ResumeLayout(false);
             this.panelTitleBar.PerformLayout();
@@ -422,5 +436,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label winVer;
         private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Label versionLabel;
     }
 }
