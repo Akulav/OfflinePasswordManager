@@ -42,8 +42,8 @@ namespace PasswordManager
             using (var fbd = new FolderBrowserDialog())
             {
                 DialogResult result = fbd.ShowDialog();
-                try
-                {
+                
+                
                     if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                     {
                         string startPath = Paths.fileLocation;
@@ -54,8 +54,8 @@ namespace PasswordManager
 
                     else { return false; }
                 }
-                catch { return false; }
-            }
+                
+            
         }
     }
 }
