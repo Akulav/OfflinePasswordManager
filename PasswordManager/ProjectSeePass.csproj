@@ -90,6 +90,12 @@
     <Compile Include="Forms\CreateData.Designer.cs">
       <DependentUpon>CreateData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UpdatedView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UpdatedView.Designer.cs">
+      <DependentUpon>UpdatedView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\Colors.cs" />
     <Compile Include="Utilities\Crypto.cs" />
     <Compile Include="Forms\DeleteUserLogin.cs">
@@ -144,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UpdatedView.resx">
+      <DependentUpon>UpdatedView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

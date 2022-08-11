@@ -21,22 +21,38 @@ namespace SeePass
             Utility.SetFileReadAccess(Paths.database, false);
             var con = new SQLiteConnection(Paths.database_connection);
             con.Open();
-        tryAgain:
-            byte[] iv = Crypto.GenerateIV();
-            string string_iv = System.Text.Encoding.Default.GetString(iv);
+
+            string string_iv = getVector();
+            byte[] iv = Utility.GetBytes(string_iv);
             var cmd = new SQLiteCommand(con)
             {
-                CommandText = $"INSERT INTO data(username, pass, domain, iv) VALUES('{Crypto.Encrypt(usernameText.Text, key, iv)}','{Crypto.Encrypt(passwordText.Text, key, iv)}','{Crypto.Encrypt(domainText.Text, key, iv)}','{string_iv}')"
+                CommandText = $"INSERT INTO data(username, pass, domain) VALUES('{Crypto.Encrypt(usernameText.Text, key)}','{Crypto.Encrypt(passwordText.Text, key)}','{Crypto.Encrypt(domainText.Text, key)}')"
             };
-            try
+
             {
                 cmd.ExecuteNonQuery();
             }
 
-            catch { goto tryAgain; }
             con.Close();
             Reset();
             doneLabel.Visible = true;
+        }
+
+        private string getVector()
+        {
+            if (PasswordManager.Properties.Settings.Default.encryptVector == "default")
+            {
+                byte[] iv = Crypto.GenerateIV();
+                string result = System.Text.Encoding.Default.GetString(iv);
+                PasswordManager.Properties.Settings.Default.encryptVector = result;
+                PasswordManager.Properties.Settings.Default.Save();
+                return result;
+            }
+
+            else
+            {
+                return PasswordManager.Properties.Settings.Default.encryptVector;
+            }
         }
 
         private void Reset()

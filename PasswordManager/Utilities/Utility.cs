@@ -48,7 +48,7 @@ namespace PasswordManager
 
                     var data_cmd = new SQLiteCommand(con)
                     {
-                        CommandText = @"CREATE TABLE data(username VARCRHAR(250), pass VARCRHAR(250),domain VARCRHAR(250), iv VARCHAR(255))"
+                        CommandText = @"CREATE TABLE data(username VARCRHAR(250), pass VARCRHAR(250),domain VARCRHAR(250))"
                     };
 
                     data_cmd.ExecuteNonQuery();

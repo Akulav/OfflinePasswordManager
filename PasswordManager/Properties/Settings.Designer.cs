@@ -130,5 +130,17 @@ namespace PasswordManager.Properties {
                 this["user"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("default")]
+        public string encryptVector {
+            get {
+                return ((string)(this["encryptVector"]));
+            }
+            set {
+                this["encryptVector"] = value;
+            }
+        }
     }
 }

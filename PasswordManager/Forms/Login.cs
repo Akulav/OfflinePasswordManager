@@ -35,7 +35,7 @@ namespace SeePass
             InitializeComponent();
             CheckTheme();
 
-            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
+            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
 
             Password.PasswordChar = '*';
             DoubleBuffered = true;

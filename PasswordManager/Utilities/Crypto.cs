@@ -15,9 +15,10 @@ namespace PasswordManager
             int alphaNumericalChars = rnd.Next(32);
             return Membership.GeneratePassword(length, alphaNumericalChars);
         }
-        public static string Encrypt(string clearText, string EncryptionKey, byte[] iv)
+        public static string Encrypt(string clearText, string EncryptionKey)
         {
             byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
+            byte[] iv = Utility.GetBytes(getVector());
             using (Aes encryptor = Aes.Create())
             {
                 Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, iv);
@@ -34,6 +35,23 @@ namespace PasswordManager
                 }
             }
             return clearText;
+        }
+
+        private static string getVector()
+        {
+            if (Properties.Settings.Default.encryptVector == "default")
+            {
+                byte[] iv = Crypto.GenerateIV();
+                string result = System.Text.Encoding.Default.GetString(iv);
+                PasswordManager.Properties.Settings.Default.encryptVector = result;
+                PasswordManager.Properties.Settings.Default.Save();
+                return result;
+            }
+
+            else
+            {
+                return PasswordManager.Properties.Settings.Default.encryptVector;
+            }
         }
 
         public static string[] GenerateHash(string input, string salt)
@@ -65,7 +83,7 @@ namespace PasswordManager
             Utility.ForceDeleteDirectory(Paths.fileLocation);
 
             string oldData = File.ReadAllText(Paths.database);
-            string newData = Encrypt(oldData, GenRandString(64), Crypto.GenerateIV());
+            string newData = Encrypt(oldData, GenRandString(64));
             File.WriteAllText(Paths.database, newData);
 
             Properties.Settings.Default.Reset();
@@ -153,10 +171,11 @@ namespace PasswordManager
             catch { return false; }
         }
 
-        public static string Decrypt(string cipherText, string EncryptionKey, byte[] iv)
+        public static string Decrypt(string cipherText, string EncryptionKey)
         {
             cipherText = cipherText.Replace(" ", "+");
             byte[] cipherBytes = Convert.FromBase64String(cipherText);
+            byte[] iv = Utility.GetBytes(getVector());
             using (Aes encryptor = Aes.Create())
             {
                 Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, iv);

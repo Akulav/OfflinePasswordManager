@@ -30,12 +30,11 @@ namespace SeePass
             while (Table.Read())
             {
                 var indexC = data.Rows.Add();
-                byte[] iv = Utility.GetBytes(Table[3].ToString());
-                data.Rows[indexC].Cells[0].Value = Crypto.Decrypt(Table[2].ToString(), key, iv);
-                data.Rows[indexC].Cells[1].Value = Crypto.Decrypt(Table[0].ToString(), key, iv);
-                data.Rows[indexC].Cells[2].Value = Crypto.Decrypt(Table[1].ToString(), key, iv);
+                byte[] iv = Utility.GetBytes(PasswordManager.Properties.Settings.Default.encryptVector);
+                data.Rows[indexC].Cells[0].Value = Crypto.Decrypt(Table[2].ToString(), key);
+                data.Rows[indexC].Cells[1].Value = Crypto.Decrypt(Table[0].ToString(), key);
+                data.Rows[indexC].Cells[2].Value = Crypto.Decrypt(Table[1].ToString(), key);
                 data.Rows[indexC].Cells[3].Value = "Delete";
-                data.Rows[indexC].Cells[4].Value = Table[3].ToString();
             }
             Table.Close();
         }
@@ -45,14 +44,13 @@ namespace SeePass
         {
             if (e.ColumnIndex == data.Columns["Delete"].Index)
             {
-                byte[] iv = Utility.GetBytes(data.Rows[e.RowIndex].Cells[4].Value.ToString());
                 var con = new SQLiteConnection(Paths.database_connection);
                 con.Open();
                 var cmd = new SQLiteCommand(con)
                 {
-                    CommandText = $"DELETE FROM data WHERE username = '{Crypto.Encrypt(data.Rows[e.RowIndex].Cells[1].Value.ToString(), key, iv)}' AND " +
-                    $"pass = '{Crypto.Encrypt(data.Rows[e.RowIndex].Cells[2].Value.ToString(), key, iv)}' AND " +
-                    $"domain = '{Crypto.Encrypt(data.Rows[e.RowIndex].Cells[0].Value.ToString(), key, iv)}'"
+                    CommandText = $"DELETE FROM data WHERE username = '{Crypto.Encrypt(data.Rows[e.RowIndex].Cells[1].Value.ToString(), key)}' AND " +
+                    $"pass = '{Crypto.Encrypt(data.Rows[e.RowIndex].Cells[2].Value.ToString(), key)}' AND " +
+                    $"domain = '{Crypto.Encrypt(data.Rows[e.RowIndex].Cells[0].Value.ToString(), key)}'"
                 };
                 cmd.ExecuteNonQuery();
                 data.Rows.Remove(data.Rows[e.RowIndex]);
