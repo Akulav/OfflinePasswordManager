@@ -1,5 +1,7 @@
 ﻿using Microsoft.Win32;
+using PasswordManager.Utilities;
 using System;
+using System.Data.SQLite;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -26,6 +28,34 @@ namespace PasswordManager
         public static byte[] GetBytes(string data)
         {
             return Encoding.Default.GetBytes(data);
+        }
+
+        public static void InitializeDataSet()
+        {
+            try
+            {
+
+                if (!Directory.Exists(Paths.fileLocation))
+                {
+                    Directory.CreateDirectory(Paths.fileLocation);
+                }
+
+                if (!File.Exists(Paths.database))
+                {
+                    File.WriteAllText(Paths.database, null);
+                    var con = new SQLiteConnection(Paths.database_connection);
+                    con.Open();
+
+                    var data_cmd = new SQLiteCommand(con)
+                    {
+                        CommandText = @"CREATE TABLE data(username VARCRHAR(250), pass VARCRHAR(250),domain VARCRHAR(250), iv VARCHAR(255))"
+                    };
+
+                    data_cmd.ExecuteNonQuery();
+                }
+
+            }
+            catch { }
         }
 
         public static void ForceDeleteDirectory(string path)

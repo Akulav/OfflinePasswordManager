@@ -1,8 +1,6 @@
 ﻿using PasswordManager;
 using PasswordManager.Utilities;
 using System;
-using System.Data.SQLite;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -59,34 +57,6 @@ namespace SeePass
                 welcomeLabel.Text = "Create an account";
                 ConfigButton.Text = "Import Data";
             }
-        }
-
-        private void InitializeDataSet()
-        {
-            try
-            {
-                
-                if (!Directory.Exists(Paths.fileLocation))
-                {
-                    Directory.CreateDirectory(Paths.fileLocation);
-                }
-
-                if (!File.Exists(Paths.database))
-                {
-                    File.WriteAllText(Paths.database, null);
-                    var con = new SQLiteConnection(Paths.database_connection);
-                    con.Open();
-
-                    var data_cmd = new SQLiteCommand(con)
-                    {
-                        CommandText = @"CREATE TABLE data(username VARCRHAR(250), pass VARCRHAR(250),domain VARCRHAR(250), iv VARCHAR(255))"
-                    };
-
-                    data_cmd.ExecuteNonQuery();
-                }
-
-            }
-            catch { }
         }
 
         private void CheckIfUser()
@@ -150,7 +120,7 @@ namespace SeePass
                         throw new Exception();
                     }
 
-                    InitializeDataSet();
+                    Utility.InitializeDataSet();
                     string[] datapass = Crypto.GenerateHash(password, Crypto.GenRandString(128));
                     string[] dataname = Crypto.GenerateHash(username, Crypto.GenRandString(128));
                     string[] PIMRead = Crypto.GenerateHash(password + username, Crypto.GenRandString(128));
