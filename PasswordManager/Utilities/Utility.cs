@@ -66,7 +66,7 @@ namespace PasswordManager
             {
                 info.Attributes = FileAttributes.Normal;
             }
-        }   
+        }
 
         public static void EnforceAdminPrivilegesWorkaround()
         {
@@ -102,7 +102,6 @@ namespace PasswordManager
             {
                 IsReadOnly = SetReadOnly
             };
-
         }
 
         public static string GetWindowsVersion()

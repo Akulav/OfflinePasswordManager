@@ -56,7 +56,7 @@ namespace PasswordManager
         {
             try
             {
-                Properties.Settings.Default.Timeout = int.Parse(timeBox.Text)*1000;
+                Properties.Settings.Default.Timeout = int.Parse(timeBox.Text) * 1000;
                 Properties.Settings.Default.Save();
                 timeLabel.Text = "Time will be applied next restart";
             }

@@ -22,8 +22,6 @@ namespace SeePass
             var con = new SQLiteConnection(Paths.database_connection);
             con.Open();
 
-            string string_iv = getVector();
-            byte[] iv = Utility.GetBytes(string_iv);
             var cmd = new SQLiteCommand(con)
             {
                 CommandText = $"INSERT INTO data(username, pass, domain) VALUES('{Crypto.Encrypt(usernameText.Text, key)}','{Crypto.Encrypt(passwordText.Text, key)}','{Crypto.Encrypt(domainText.Text, key)}')"
@@ -36,23 +34,6 @@ namespace SeePass
             con.Close();
             Reset();
             doneLabel.Visible = true;
-        }
-
-        private string getVector()
-        {
-            if (PasswordManager.Properties.Settings.Default.encryptVector == "default")
-            {
-                byte[] iv = Crypto.GenerateIV();
-                string result = System.Text.Encoding.Default.GetString(iv);
-                PasswordManager.Properties.Settings.Default.encryptVector = result;
-                PasswordManager.Properties.Settings.Default.Save();
-                return result;
-            }
-
-            else
-            {
-                return PasswordManager.Properties.Settings.Default.encryptVector;
-            }
         }
 
         private void Reset()

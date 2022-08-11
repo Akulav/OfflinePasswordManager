@@ -81,7 +81,7 @@ namespace PasswordManager
         public static void Erase()
         {
             Utility.ForceDeleteDirectory(Paths.fileLocation);
-
+            Crypto.getVector();
             string oldData = File.ReadAllText(Paths.database);
             string newData = Encrypt(oldData, GenRandString(64));
             File.WriteAllText(Paths.database, newData);
