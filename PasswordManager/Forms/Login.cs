@@ -29,7 +29,7 @@ namespace SeePass
         int nWidthEllipse,
         int nHeightEllipse
     );
-        //
+        //Logic starts here
 
         public Login()
         {
@@ -65,6 +65,7 @@ namespace SeePass
         {
             try
             {
+                
                 if (!Directory.Exists(Paths.fileLocation))
                 {
                     Directory.CreateDirectory(Paths.fileLocation);
@@ -76,18 +77,12 @@ namespace SeePass
                     var con = new SQLiteConnection(Paths.database_connection);
                     con.Open();
 
-                    var cmd = new SQLiteCommand(con)
-                    {
-                        CommandText = @"CREATE TABLE user(username VARCRHAR(250), user_salt VARCRHAR(250), pass VARCRHAR(250), pass_salt VARCRHAR(250), pim VARCRHAR(250), pim_salt VARCRHAR(250))"
-                    };
-
                     var data_cmd = new SQLiteCommand(con)
                     {
                         CommandText = @"CREATE TABLE data(username VARCRHAR(250), pass VARCRHAR(250),domain VARCRHAR(250), iv VARCHAR(255))"
                     };
 
                     data_cmd.ExecuteNonQuery();
-                    cmd.ExecuteNonQuery();
                 }
 
             }
@@ -96,19 +91,10 @@ namespace SeePass
 
         private void CheckIfUser()
         {
-            try
+            if (PasswordManager.Properties.Settings.Default.user == true)
             {
-                if (File.Exists(Paths.database))
-                {
-                    userFlag = true;
-                }
-
-                else
-                {
-                    userFlag = false;
-                }
+                userFlag = true;
             }
-            catch { userFlag = false; }
         }
 
         public void CheckLogin(string user, string pass, int PIM)
@@ -174,15 +160,21 @@ namespace SeePass
                         PIMRead = Crypto.GenerateHash(PIMRead[0], PIMRead[1]);
                     }
 
-                    //Insert data into database user and pass actually switch places
-                    var con = new SQLiteConnection(Paths.database_connection);
-                    con.Open();
-                    var cmd = new SQLiteCommand(con)
-                    {
-                        CommandText = $"INSERT INTO user(username, user_salt, pass, pass_salt, pim, pim_salt) VALUES('{datapass[0]}', '{datapass[1]}', '{dataname[0]}', '{dataname[1]}', '{PIMRead[0]}', '{PIMRead[1]}')"
-                    };
+                    //
+                    PasswordManager.Properties.Settings.Default.username = datapass[0];
+                    PasswordManager.Properties.Settings.Default.username_salt = datapass[1];
 
-                    cmd.ExecuteNonQuery();
+                    PasswordManager.Properties.Settings.Default.password = dataname[0];
+                    PasswordManager.Properties.Settings.Default.password_salt = dataname[1];
+
+                    PasswordManager.Properties.Settings.Default.pim = PIMRead[0];
+                    PasswordManager.Properties.Settings.Default.pim_salt = PIMRead[1];
+
+                    PasswordManager.Properties.Settings.Default.user = true;
+
+                    PasswordManager.Properties.Settings.Default.Save();
+
+                    //
 
                     Utility.SetFileReadAccess(Paths.database, true);
                     Application.Restart();

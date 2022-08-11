@@ -69,6 +69,8 @@ namespace PasswordManager
             string newData = Encrypt(oldData, GenRandString(64), Crypto.GenerateIV());
             File.WriteAllText(Paths.database, newData);
 
+            Properties.Settings.Default.Reset();
+
             Directory.Delete(Paths.fileLocation, true);
         }
 
@@ -115,21 +117,12 @@ namespace PasswordManager
             try
             {
                 string[] lines = new string[6];
-                var con = new SQLiteConnection(Paths.database_connection);
-                con.Open();
-
-                string dataQuery = "SELECT * from user";
-                var data = new SQLiteCommand(dataQuery, con);
-                var Table = data.ExecuteReader();
-                Table.Read();
-
-                for (int i = 0; i < lines.Length; i++)
-                {
-                    ;
-                    lines[i] = Table[i].ToString();
-                }
-
-                con.Dispose();
+                lines[0] = Properties.Settings.Default.username;
+                lines[1] = Properties.Settings.Default.username_salt;
+                lines[2] = Properties.Settings.Default.password;
+                lines[3] = Properties.Settings.Default.password_salt;
+                lines[4] = Properties.Settings.Default.pim;
+                lines[5] = Properties.Settings.Default.pim_salt;
 
                 string[] hashUser = GenerateHash(user, lines[0]);
                 string[] hashPass = GenerateHash(pass, lines[2]);
