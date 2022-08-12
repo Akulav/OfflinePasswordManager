@@ -31,7 +31,7 @@ namespace SeePass
         int nHeightEllipse
     );
         //Logic starts here
-
+        Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
         public Login()
         {
             Utility.EnforceAdminPrivilegesWorkaround();
@@ -207,7 +207,6 @@ namespace SeePass
 
         private void ThemChange_Click(object sender, EventArgs e)
         {
-            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
             dt.dark = !dt.dark;
             Utility.saveSettings(dt);
             Application.Restart();
@@ -215,7 +214,6 @@ namespace SeePass
 
         private void CheckTheme()
         {
-            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
             if (dt.dark)
             {
                 Colors.ChangeTheme(Controls, this, "dark");

@@ -32,13 +32,12 @@ namespace SeePass
         public Form currentChildForm;
         private readonly string fullKey;
         public static readonly Timer TimeoutTimer = new Timer();
-
+        Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
 
         public MainForm(string key, string username, int PIM)
         {
             //Loads the form
             InitializeComponent();
-            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
             Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
 
             TimeoutTimer.Interval = dt.Timeout;
@@ -82,7 +81,6 @@ namespace SeePass
 
         private void CheckTheme()
         {
-            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
             if (!dt.dark)
             {
                 MenuPanel.BackColor = Colors.back_light;
@@ -96,7 +94,6 @@ namespace SeePass
         }
         private void ActivateButton(object senderBtn, Color color)
         {
-            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
             if (senderBtn != null)
             {
                 DisableButton();
@@ -139,7 +136,6 @@ namespace SeePass
 
         private void DisableButton()
         {
-            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
             if (currentBtn != null)
             {
                 if (dt.dark)

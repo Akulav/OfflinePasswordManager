@@ -11,6 +11,7 @@ namespace SeePass
 {
     public partial class ViewData : Form
     {
+        Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
         private readonly string key;
         public ViewData(string key)
         {
@@ -32,7 +33,6 @@ namespace SeePass
 
             while (Table.Read())
             {
-                Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
                 var indexC = data.Rows.Add();
                 byte[] iv = Utility.GetBytes(dt.encryptVector);
                 data.Rows[indexC].Cells[0].Value = Crypto.Decrypt(Table[2].ToString(), key);
@@ -64,7 +64,6 @@ namespace SeePass
 
         private void CheckTheme()
         {
-            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
             if (!dt.dark)
             {
 
