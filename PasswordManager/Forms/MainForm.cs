@@ -1,11 +1,8 @@
 ﻿using FontAwesome.Sharp;
-using Newtonsoft.Json;
 using PasswordManager;
-using PasswordManager.Resources;
 using PasswordManager.Utilities;
 using System;
 using System.Drawing;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -32,7 +29,7 @@ namespace SeePass
         public Form currentChildForm;
         private readonly string fullKey;
         public static readonly Timer TimeoutTimer = new Timer();
-        Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
+        Data dt = settingUtilities.getSettings();
 
         public MainForm(string key, string username, int PIM)
         {

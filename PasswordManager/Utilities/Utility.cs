@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json;
-using PasswordManager.Resources;
 using PasswordManager.Utilities;
 using System;
 using System.Data.SQLite;
@@ -54,6 +53,7 @@ namespace PasswordManager
                     };
 
                     data_cmd.ExecuteNonQuery();
+                    con.Close();
                 }
 
                 if (!File.Exists(Paths.settings))
@@ -73,19 +73,10 @@ namespace PasswordManager
             catch { }
         }
 
-        public static void saveSettings(object dt)
-        {
-            string result = JsonConvert.SerializeObject(dt);
-            using (var tw = new StreamWriter(Paths.settings, false))
-            {
-                tw.Write(result);
-                tw.Close();
-            }
-        }
-
         public static bool checkIfUser()
         {
-            if (!File.Exists(Paths.settings))
+            Data dt = settingUtilities.getSettings();
+            if (!dt.userFlag)
             {
                 return false;
             }

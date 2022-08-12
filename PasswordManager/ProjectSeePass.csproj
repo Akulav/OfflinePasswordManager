@@ -107,7 +107,7 @@
     <Compile Include="Forms\CreateData.Designer.cs">
       <DependentUpon>CreateData.cs</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Data.cs" />
+    <Compile Include="Utilities\Data.cs" />
     <Compile Include="Utilities\Colors.cs" />
     <Compile Include="Utilities\Crypto.cs" />
     <Compile Include="Forms\DeleteUserLogin.cs">
@@ -138,6 +138,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Paths.cs" />
+    <Compile Include="Utilities\settingUtilities.cs" />
     <Compile Include="Utilities\Utility.cs" />
     <Compile Include="Forms\ViewData.cs">
       <SubType>Form</SubType>

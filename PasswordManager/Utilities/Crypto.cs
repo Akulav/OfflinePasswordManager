@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using PasswordManager.Resources;
 using PasswordManager.Utilities;
 using System;
 using System.IO;
@@ -41,13 +40,13 @@ namespace PasswordManager
 
         private static string getVector()
         {
-            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
+            Data dt = settingUtilities.getSettings();
             if (dt.encryptVector == "default")
             {
                 byte[] iv = Crypto.GenerateIV();
                 string result = Encoding.Default.GetString(iv);
                 dt.encryptVector = result;
-                Utility.saveSettings(dt);
+                settingUtilities.saveSettings(dt);
                 return result;
             }
 
@@ -136,7 +135,7 @@ namespace PasswordManager
         {
             try
             {
-                Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
+                Data dt = settingUtilities.getSettings();
                 string[] lines = new string[6];
                 lines[0] = dt.username;
                 lines[1] = dt.username_salt;

@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using PasswordManager;
-using PasswordManager.Resources;
 using PasswordManager.Utilities;
 using System.Data.SQLite;
 using System.Drawing;
@@ -41,6 +40,7 @@ namespace SeePass
                 data.Rows[indexC].Cells[3].Value = "Delete";
             }
             Table.Close();
+            con.Close();
         }
 
 
@@ -58,6 +58,7 @@ namespace SeePass
                 };
                 cmd.ExecuteNonQuery();
                 data.Rows.Remove(data.Rows[e.RowIndex]);
+                con.Close();
             }
         }
 

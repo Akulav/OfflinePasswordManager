@@ -1,9 +1,6 @@
-﻿using Newtonsoft.Json;
-using PasswordManager;
-using PasswordManager.Resources;
+﻿using PasswordManager;
 using PasswordManager.Utilities;
 using System;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -31,11 +28,11 @@ namespace SeePass
         int nHeightEllipse
     );
         //Logic starts here
-        Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
         public Login()
         {
             Utility.EnforceAdminPrivilegesWorkaround();
             InitializeComponent();
+            Utility.InitializeDataSet();
             CheckTheme();
 
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
@@ -115,7 +112,6 @@ namespace SeePass
                         throw new Exception();
                     }
 
-                    Utility.InitializeDataSet();
                     string[] datapass = Crypto.GenerateHash(password, Crypto.GenRandString(128));
                     string[] dataname = Crypto.GenerateHash(username, Crypto.GenRandString(128));
                     string[] PIMRead = Crypto.GenerateHash(password + username, Crypto.GenRandString(128));
@@ -140,7 +136,9 @@ namespace SeePass
                     dt.pim = PIMRead[0];
                     dt.pim_salt = PIMRead[1];
 
-                    Utility.saveSettings(dt);
+                    dt.userFlag = true;
+
+                    settingUtilities.saveSettings(dt);
 
                     //
                     //
@@ -207,13 +205,15 @@ namespace SeePass
 
         private void ThemChange_Click(object sender, EventArgs e)
         {
+            Data dt = settingUtilities.getSettings();
             dt.dark = !dt.dark;
-            Utility.saveSettings(dt);
+            settingUtilities.saveSettings(dt);
             Application.Restart();
         }
 
         private void CheckTheme()
         {
+            Data dt = settingUtilities.getSettings();
             if (dt.dark)
             {
                 Colors.ChangeTheme(Controls, this, "dark");
@@ -222,5 +222,6 @@ namespace SeePass
                 leftpanel.BackColor = Colors.back_darker;
             }
         }
+
     }
 }

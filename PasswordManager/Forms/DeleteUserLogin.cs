@@ -1,9 +1,6 @@
-﻿using Newtonsoft.Json;
-using PasswordManager;
-using PasswordManager.Resources;
+﻿using PasswordManager;
 using PasswordManager.Utilities;
 using System;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -24,7 +21,7 @@ namespace SeePass
 
         private void CheckTheme()
         {
-            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
+            Data dt = settingUtilities.getSettings();
             if (dt.dark)
             {
                 Colors.ChangeTheme(Controls, this, "dark");

@@ -1,4 +1,4 @@
-﻿namespace PasswordManager.Resources
+﻿namespace PasswordManager.Utilities
 {
     public class Data
     {
@@ -12,5 +12,6 @@
         public string encryptVector = "default";
         public string version = "7.0.0";
         public int Timeout = 10000;
+        public bool userFlag = false;
     }
 }
