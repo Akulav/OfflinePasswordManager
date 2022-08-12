@@ -37,7 +37,6 @@ namespace SeePass
                 data.Rows[indexC].Cells[3].Value = "Delete";
             }
             Table.Close();
-            con.Close();
         }
 
 
@@ -54,7 +53,6 @@ namespace SeePass
                     $"domain = '{Crypto.Encrypt(data.Rows[e.RowIndex].Cells[0].Value.ToString(), key)}'"
                 };
                 cmd.ExecuteNonQuery();
-                con.Close();
                 data.Rows.Remove(data.Rows[e.RowIndex]);
             }
         }

@@ -1,4 +1,6 @@
 ﻿using Microsoft.Win32;
+using Newtonsoft.Json;
+using PasswordManager.Resources;
 using PasswordManager.Utilities;
 using System;
 using System.Data.SQLite;
@@ -52,6 +54,19 @@ namespace PasswordManager
                     };
 
                     data_cmd.ExecuteNonQuery();
+                }
+
+                if (!File.Exists(Paths.settings))
+                {
+                    File.WriteAllText(Paths.settings, null);
+                    Data dt = new Data();
+                    string result = JsonConvert.SerializeObject(dt);
+                    using (var tw = new StreamWriter(Paths.settings, true))
+                    {
+                        tw.WriteLine(result.ToString());
+                        tw.Close();
+                    }
+
                 }
 
             }
