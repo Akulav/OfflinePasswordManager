@@ -10,18 +10,22 @@ namespace SeePass
 {
     public partial class ViewData : Form
     {
-        Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
+        readonly Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
         private readonly string key;
-        public ViewData(string key)
+        private readonly string secondaryKey;
+        private string fullKey;
+        public ViewData(string[] key)
         {
             InitializeComponent();
-            this.key = key;
+            this.key = key[0];
+            secondaryKey = key[1];
             CheckTheme();
             GetData();
         }
 
         private void GetData()
         {
+            fullKey = Crypto.Decrypt(key, secondaryKey);
             var con = new SQLiteConnection(Paths.database_connection);
             con.Open();
             var cmd = new SQLiteCommand(con)
@@ -33,12 +37,12 @@ namespace SeePass
             while (Table.Read())
             {
                 var indexC = data.Rows.Add();
-                byte[] iv = Utility.GetBytes(dt.encryptVector);
-                data.Rows[indexC].Cells[0].Value = Crypto.Decrypt(Table[2].ToString(), key);
-                data.Rows[indexC].Cells[1].Value = Crypto.Decrypt(Table[0].ToString(), key);
-                data.Rows[indexC].Cells[2].Value = Crypto.Decrypt(Table[1].ToString(), key);
+                data.Rows[indexC].Cells[0].Value = Crypto.Decrypt(Table[2].ToString(), fullKey);
+                data.Rows[indexC].Cells[1].Value = Crypto.Decrypt(Table[0].ToString(), fullKey);
+                data.Rows[indexC].Cells[2].Value = Crypto.Decrypt(Table[1].ToString(), fullKey);
                 data.Rows[indexC].Cells[3].Value = "Delete";
             }
+            fullKey = null;
             Table.Close();
             con.Close();
         }
@@ -46,19 +50,21 @@ namespace SeePass
 
         private void Data_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            fullKey = Crypto.Decrypt(key, secondaryKey);
             if (e.ColumnIndex == data.Columns["Delete"].Index)
             {
                 var con = new SQLiteConnection(Paths.database_connection);
                 con.Open();
                 var cmd = new SQLiteCommand(con)
                 {
-                    CommandText = $"DELETE FROM data WHERE username = '{Crypto.Encrypt(data.Rows[e.RowIndex].Cells[1].Value.ToString(), key)}' AND " +
-                    $"pass = '{Crypto.Encrypt(data.Rows[e.RowIndex].Cells[2].Value.ToString(), key)}' AND " +
-                    $"domain = '{Crypto.Encrypt(data.Rows[e.RowIndex].Cells[0].Value.ToString(), key)}'"
+                    CommandText = $"DELETE FROM data WHERE username = '{Crypto.Encrypt(data.Rows[e.RowIndex].Cells[1].Value.ToString(), fullKey)}' AND " +
+                    $"pass = '{Crypto.Encrypt(data.Rows[e.RowIndex].Cells[2].Value.ToString(), fullKey)}' AND " +
+                    $"domain = '{Crypto.Encrypt(data.Rows[e.RowIndex].Cells[0].Value.ToString(), fullKey)}'"
                 };
                 cmd.ExecuteNonQuery();
                 data.Rows.Remove(data.Rows[e.RowIndex]);
                 con.Close();
+                fullKey = null;
             }
         }
 

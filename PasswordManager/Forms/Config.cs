@@ -22,7 +22,7 @@ namespace PasswordManager
 
         private void Config_Load(object sender, System.EventArgs e)
         {
-            hash.Text = Utility.GetMD5();
+            hash.Text = Crypto.GetMD5();
             int timeValue = dt.Timeout / 1000;
             timeBox.Text = timeValue.ToString();
         }

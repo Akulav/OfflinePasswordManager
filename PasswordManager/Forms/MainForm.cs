@@ -27,9 +27,11 @@ namespace SeePass
         private IconButton currentBtn;
         private readonly Panel leftBorderBtn;
         public Form currentChildForm;
-        private readonly string fullKey;
+        private string[] fullKey;
+        private readonly string obfuscatedKey;
+        private readonly string secondaryKey;
         public static readonly Timer TimeoutTimer = new Timer();
-        Data dt = settingUtilities.getSettings();
+        readonly Data dt = settingUtilities.getSettings();
 
         public MainForm(string key, string username, int PIM)
         {
@@ -50,7 +52,7 @@ namespace SeePass
             MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
             //Gets transfered the key for encryption / decryption
 
-            fullKey = Crypto.FinalKey(key + username, key, PIM);
+            fullKey = KeyObfuscation.Obfuscate(Crypto.FinalKey(key + username, key, PIM));
             CheckTheme();
 
         }

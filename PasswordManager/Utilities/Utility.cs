@@ -11,21 +11,6 @@ namespace PasswordManager
 {
     class Utility
     {
-        public static string GetMD5()
-        {
-            System.Security.Cryptography.MD5CryptoServiceProvider md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
-            System.IO.FileStream stream = new System.IO.FileStream(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName, System.IO.FileMode.Open, System.IO.FileAccess.Read);
-
-            md5.ComputeHash(stream);
-
-            stream.Close();
-
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            for (int i = 0; i < md5.Hash.Length; i++)
-                sb.Append(md5.Hash[i].ToString("x2"));
-
-            return sb.ToString().ToUpperInvariant();
-        }
         public static byte[] GetBytes(string data)
         {
             return Encoding.Default.GetBytes(data);
@@ -41,21 +26,6 @@ namespace PasswordManager
                     Directory.CreateDirectory(Paths.fileLocation);
                 }
 
-                if (!File.Exists(Paths.database))
-                {
-                    File.WriteAllText(Paths.database, null);
-                    var con = new SQLiteConnection(Paths.database_connection);
-                    con.Open();
-
-                    var data_cmd = new SQLiteCommand(con)
-                    {
-                        CommandText = @"CREATE TABLE data(username VARCRHAR(250), pass VARCRHAR(250),domain VARCRHAR(250))"
-                    };
-
-                    data_cmd.ExecuteNonQuery();
-                    con.Close();
-                }
-
                 if (!File.Exists(Paths.settings))
                 {
                     File.WriteAllText(Paths.settings, null);
@@ -69,18 +39,22 @@ namespace PasswordManager
 
                 }
 
+                if (!File.Exists(Paths.database))
+                {
+                    File.WriteAllText(Paths.database, null);
+                    var con = new SQLiteConnection(Paths.database_connection);
+                    con.Open();
+                    var data_cmd = new SQLiteCommand(con)
+                    {
+                        CommandText = @"CREATE TABLE data(username VARCRHAR(250), pass VARCRHAR(250),domain VARCRHAR(250))"
+                    };
+
+                    data_cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+
             }
             catch { }
-        }
-
-        public static bool checkIfUser()
-        {
-            Data dt = settingUtilities.getSettings();
-            if (!dt.userFlag)
-            {
-                return false;
-            }
-            else return true;
         }
 
         public static void ForceDeleteDirectory(string path)

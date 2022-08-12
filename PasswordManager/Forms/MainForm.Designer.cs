@@ -84,7 +84,7 @@
             this.ExitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ExitButton.Font = new System.Drawing.Font("Yu Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ExitButton.ForeColor = System.Drawing.Color.Gainsboro;
-            this.ExitButton.IconChar = FontAwesome.Sharp.IconChar.SignOutAlt;
+            this.ExitButton.IconChar = FontAwesome.Sharp.IconChar.RightFromBracket;
             this.ExitButton.IconColor = System.Drawing.Color.Gainsboro;
             this.ExitButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.ExitButton.IconSize = 32;
@@ -164,7 +164,7 @@
             this.ExportTools.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ExportTools.Font = new System.Drawing.Font("Yu Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ExportTools.ForeColor = System.Drawing.Color.Gainsboro;
-            this.ExportTools.IconChar = FontAwesome.Sharp.IconChar.FileExport;
+            this.ExportTools.IconChar = FontAwesome.Sharp.IconChar.ArrowRightFromFile;
             this.ExportTools.IconColor = System.Drawing.Color.Gainsboro;
             this.ExportTools.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.ExportTools.IconSize = 32;
@@ -187,7 +187,7 @@
             this.CreateData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CreateData.Font = new System.Drawing.Font("Yu Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CreateData.ForeColor = System.Drawing.Color.Gainsboro;
-            this.CreateData.IconChar = FontAwesome.Sharp.IconChar.ChartBar;
+            this.CreateData.IconChar = FontAwesome.Sharp.IconChar.BarChart;
             this.CreateData.IconColor = System.Drawing.Color.Gainsboro;
             this.CreateData.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.CreateData.IconSize = 32;
@@ -297,7 +297,7 @@
             this.Exit.FlatAppearance.BorderSize = 0;
             this.Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Exit.ForeColor = System.Drawing.Color.Gainsboro;
-            this.Exit.IconChar = FontAwesome.Sharp.IconChar.WindowClose;
+            this.Exit.IconChar = FontAwesome.Sharp.IconChar.RectangleXmark;
             this.Exit.IconColor = System.Drawing.Color.Gainsboro;
             this.Exit.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.Exit.IconSize = 32;

@@ -9,22 +9,26 @@ namespace SeePass
     public partial class CreateData : Form
     {
         private readonly string key;
-        public CreateData(string key)
+        private readonly string secondaryKey;
+        private string fullKey;
+        public CreateData(string[] key)
         {
             InitializeComponent();
             CheckTheme();
-            this.key = key;
+            this.key = key[0];
+            secondaryKey = key[1];
         }
 
         private void Create_Click(object sender, EventArgs e)
         {
+            fullKey = Crypto.Decrypt(key, secondaryKey);
             Utility.SetFileReadAccess(Paths.database, false);
             var con = new SQLiteConnection(Paths.database_connection);
             con.Open();
 
             var cmd = new SQLiteCommand(con)
             {
-                CommandText = $"INSERT INTO data(username, pass, domain) VALUES('{Crypto.Encrypt(usernameText.Text, key)}','{Crypto.Encrypt(passwordText.Text, key)}','{Crypto.Encrypt(domainText.Text, key)}')"
+                CommandText = $"INSERT INTO data(username, pass, domain) VALUES('{Crypto.Encrypt(usernameText.Text, fullKey)}','{Crypto.Encrypt(passwordText.Text, fullKey)}','{Crypto.Encrypt(domainText.Text, fullKey)}')"
             };
 
             {

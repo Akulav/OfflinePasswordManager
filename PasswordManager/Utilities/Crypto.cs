@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using PasswordManager.Utilities;
+﻿using PasswordManager.Utilities;
 using System;
 using System.IO;
 using System.Security.Cryptography;
@@ -10,6 +9,21 @@ namespace PasswordManager
 {
     class Crypto
     {
+        public static string GetMD5()
+        {
+            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            FileStream stream = new FileStream(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName, System.IO.FileMode.Open, System.IO.FileAccess.Read);
+
+            md5.ComputeHash(stream);
+
+            stream.Close();
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < md5.Hash.Length; i++)
+                sb.Append(md5.Hash[i].ToString("x2"));
+
+            return sb.ToString().ToUpperInvariant();
+        }
         public static string GenRandString(int length)
         {
             Random rnd = new Random();
@@ -19,7 +33,7 @@ namespace PasswordManager
         public static string Encrypt(string clearText, string EncryptionKey)
         {
             byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
-            byte[] iv = Utility.GetBytes(getVector());
+            byte[] iv = Utility.GetBytes(GetVector());
             using (Aes encryptor = Aes.Create())
             {
                 Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, iv);
@@ -38,7 +52,7 @@ namespace PasswordManager
             return clearText;
         }
 
-        private static string getVector()
+        private static string GetVector()
         {
             Data dt = settingUtilities.getSettings();
             if (dt.encryptVector == "default")
@@ -100,85 +114,11 @@ namespace PasswordManager
             return iv;
         }
 
-        public static bool ValidatePassword(string password)
-        {
-            const int MIN_LENGTH = 12;
-            const int MAX_LENGTH = int.MaxValue - 1;
-
-            if (password == null) throw new ArgumentNullException();
-
-            bool meetsLengthRequirements = password.Length >= MIN_LENGTH && password.Length <= MAX_LENGTH;
-            bool hasUpperCaseLetter = false;
-            bool hasLowerCaseLetter = false;
-            bool hasDecimalDigit = false;
-
-            if (meetsLengthRequirements)
-            {
-                foreach (char c in password)
-                {
-                    if (char.IsUpper(c)) hasUpperCaseLetter = true;
-                    else if (char.IsLower(c)) hasLowerCaseLetter = true;
-                    else if (char.IsDigit(c)) hasDecimalDigit = true;
-                }
-            }
-
-            bool isValid = meetsLengthRequirements
-                        && hasUpperCaseLetter
-                        && hasLowerCaseLetter
-                        && hasDecimalDigit
-                        ;
-            return isValid;
-
-        }
-
-        public static bool CheckHash(string user, string pass, int PIM)
-        {
-            try
-            {
-                Data dt = settingUtilities.getSettings();
-                string[] lines = new string[6];
-                lines[0] = dt.username;
-                lines[1] = dt.username_salt;
-                lines[2] = dt.password;
-                lines[3] = dt.password_salt;
-                lines[4] = dt.pim;
-                lines[5] = dt.pim_salt;
-
-                string[] hashUser = GenerateHash(user, lines[0]);
-                string[] hashPass = GenerateHash(pass, lines[2]);
-                string[] PIMRead = GenerateHash(pass + user, lines[5]);
-
-                for (int i = 0; i < PIM; i++)
-                {
-                    PIMRead = GenerateHash(PIMRead[0], PIMRead[1]);
-                }
-
-                if (hashUser[1] == lines[0])
-                {
-
-                    if (hashPass[1] == lines[2])
-                    {
-                        if (PIMRead[0] == lines[4])
-                        {
-                            return true;
-                        }
-                        else { return false; }
-                    }
-
-                    else { return false; }
-                }
-
-                else { return false; }
-            }
-
-            catch { return false; }
-        }
-
         public static string Decrypt(string cipherText, string EncryptionKey)
         {
             cipherText = cipherText.Replace(" ", "+");
             byte[] cipherBytes = Convert.FromBase64String(cipherText);
-            byte[] iv = Utility.GetBytes(getVector());
+            byte[] iv = Utility.GetBytes(GetVector());
             using (Aes encryptor = Aes.Create())
             {
                 Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, iv);

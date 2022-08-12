@@ -5,7 +5,7 @@
         public string username;
         public string password;
         public string pim;
-        public bool dark = false;
+        public bool dark = true;
         public string username_salt;
         public string password_salt;
         public string pim_salt;
