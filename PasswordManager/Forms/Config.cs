@@ -1,4 +1,7 @@
-﻿using PasswordManager.Utilities;
+﻿using Newtonsoft.Json;
+using PasswordManager.Resources;
+using PasswordManager.Utilities;
+using System.IO;
 using System.Net;
 using System.Windows.Forms;
 
@@ -14,15 +17,17 @@ namespace PasswordManager
 
         private void ThemeButton_Click(object sender, System.EventArgs e)
         {
-            Properties.Settings.Default.DarkMode = !Properties.Settings.Default.DarkMode;
-            Properties.Settings.Default.Save();
+            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
+            dt.dark = !dt.dark;
+            Utility.saveSettings(dt);
             Application.Restart();
         }
 
         private void Config_Load(object sender, System.EventArgs e)
         {
+            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
             hash.Text = Utility.GetMD5();
-            int timeValue = Properties.Settings.Default.Timeout / 1000;
+            int timeValue = dt.Timeout / 1000;
             timeBox.Text = timeValue.ToString();
         }
 
@@ -43,7 +48,8 @@ namespace PasswordManager
 
         private void CheckTheme()
         {
-            if (!Properties.Settings.Default.DarkMode)
+            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
+            if (!dt.dark)
             {
                 themeButton.Text = "Enable Dark Mode";
                 Colors.ChangeTheme(Controls, this, "light");
@@ -56,8 +62,9 @@ namespace PasswordManager
         {
             try
             {
-                Properties.Settings.Default.Timeout = int.Parse(timeBox.Text) * 1000;
-                Properties.Settings.Default.Save();
+                Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
+                dt.Timeout = int.Parse(timeBox.Text) * 1000;
+                Utility.saveSettings(dt);
                 timeLabel.Text = "Time will be applied next restart";
             }
             catch { timeLabel.Text = "Input a valid number"; }

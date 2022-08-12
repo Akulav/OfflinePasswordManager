@@ -1,4 +1,6 @@
-﻿using PasswordManager.Utilities;
+﻿using Newtonsoft.Json;
+using PasswordManager.Resources;
+using PasswordManager.Utilities;
 using System;
 using System.IO;
 using System.Security.Cryptography;
@@ -39,18 +41,19 @@ namespace PasswordManager
 
         private static string getVector()
         {
-            if (Properties.Settings.Default.encryptVector == "default")
+            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
+            if (dt.encryptVector == "default")
             {
                 byte[] iv = Crypto.GenerateIV();
-                string result = System.Text.Encoding.Default.GetString(iv);
-                PasswordManager.Properties.Settings.Default.encryptVector = result;
-                PasswordManager.Properties.Settings.Default.Save();
+                string result = Encoding.Default.GetString(iv);
+                dt.encryptVector = result;
+                Utility.saveSettings(dt);
                 return result;
             }
 
             else
             {
-                return PasswordManager.Properties.Settings.Default.encryptVector;
+                return dt.encryptVector;
             }
         }
 
@@ -81,12 +84,12 @@ namespace PasswordManager
         public static void Erase()
         {
             Utility.ForceDeleteDirectory(Paths.fileLocation);
-            Crypto.getVector();
-            string oldData = File.ReadAllText(Paths.database);
-            string newData = Encrypt(oldData, GenRandString(64));
-            File.WriteAllText(Paths.database, newData);
 
-            Properties.Settings.Default.Reset();
+            for (int i = 0; i < 10; i++)
+            {
+                File.WriteAllText(Paths.database, Crypto.GenRandString(128));
+                File.WriteAllText(Paths.settings, Crypto.GenRandString(128));
+            }
 
             Directory.Delete(Paths.fileLocation, true);
         }
@@ -133,13 +136,14 @@ namespace PasswordManager
         {
             try
             {
+                Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
                 string[] lines = new string[6];
-                lines[0] = Properties.Settings.Default.username;
-                lines[1] = Properties.Settings.Default.username_salt;
-                lines[2] = Properties.Settings.Default.password;
-                lines[3] = Properties.Settings.Default.password_salt;
-                lines[4] = Properties.Settings.Default.pim;
-                lines[5] = Properties.Settings.Default.pim_salt;
+                lines[0] = dt.username;
+                lines[1] = dt.username_salt;
+                lines[2] = dt.password;
+                lines[3] = dt.password_salt;
+                lines[4] = dt.pim;
+                lines[5] = dt.pim_salt;
 
                 string[] hashUser = GenerateHash(user, lines[0]);
                 string[] hashPass = GenerateHash(pass, lines[2]);

@@ -1,7 +1,10 @@
-﻿using PasswordManager;
+﻿using Newtonsoft.Json;
+using PasswordManager;
+using PasswordManager.Resources;
 using PasswordManager.Utilities;
 using System.Data.SQLite;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace SeePass
@@ -29,8 +32,9 @@ namespace SeePass
 
             while (Table.Read())
             {
+                Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
                 var indexC = data.Rows.Add();
-                byte[] iv = Utility.GetBytes(PasswordManager.Properties.Settings.Default.encryptVector);
+                byte[] iv = Utility.GetBytes(dt.encryptVector);
                 data.Rows[indexC].Cells[0].Value = Crypto.Decrypt(Table[2].ToString(), key);
                 data.Rows[indexC].Cells[1].Value = Crypto.Decrypt(Table[0].ToString(), key);
                 data.Rows[indexC].Cells[2].Value = Crypto.Decrypt(Table[1].ToString(), key);
@@ -60,7 +64,8 @@ namespace SeePass
 
         private void CheckTheme()
         {
-            if (!PasswordManager.Properties.Settings.Default.DarkMode)
+            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
+            if (!dt.dark)
             {
 
                 DataGridViewCellStyle style = new DataGridViewCellStyle

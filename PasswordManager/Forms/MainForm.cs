@@ -1,8 +1,11 @@
 ﻿using FontAwesome.Sharp;
+using Newtonsoft.Json;
 using PasswordManager;
+using PasswordManager.Resources;
 using PasswordManager.Utilities;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -35,10 +38,10 @@ namespace SeePass
         {
             //Loads the form
             InitializeComponent();
+            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
+            Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
 
-            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
-
-            TimeoutTimer.Interval = PasswordManager.Properties.Settings.Default.Timeout;
+            TimeoutTimer.Interval = dt.Timeout;
             TimeoutTimer.Tick += new EventHandler(Timeout_Tick);
 
             leftBorderBtn = new Panel
@@ -79,7 +82,8 @@ namespace SeePass
 
         private void CheckTheme()
         {
-            if (!PasswordManager.Properties.Settings.Default.DarkMode)
+            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
+            if (!dt.dark)
             {
                 MenuPanel.BackColor = Colors.back_light;
                 panelTitleBar.BackColor = Colors.back_light;
@@ -92,11 +96,12 @@ namespace SeePass
         }
         private void ActivateButton(object senderBtn, Color color)
         {
+            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
             if (senderBtn != null)
             {
                 DisableButton();
                 currentBtn = (IconButton)senderBtn;
-                if (PasswordManager.Properties.Settings.Default.DarkMode)
+                if (dt.dark)
                 {
                     currentBtn.BackColor = Colors.back_darker;
                 }
@@ -134,9 +139,10 @@ namespace SeePass
 
         private void DisableButton()
         {
+            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
             if (currentBtn != null)
             {
-                if (PasswordManager.Properties.Settings.Default.DarkMode)
+                if (dt.dark)
                 {
                     currentBtn.BackColor = Colors.back_darker;
                 }

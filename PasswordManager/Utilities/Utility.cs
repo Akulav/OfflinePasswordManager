@@ -73,6 +73,25 @@ namespace PasswordManager
             catch { }
         }
 
+        public static void saveSettings(object dt)
+        {
+            string result = JsonConvert.SerializeObject(dt);
+            using (var tw = new StreamWriter(Paths.settings, false))
+            {
+                tw.Write(result);
+                tw.Close();
+            }
+        }
+
+        public static bool checkIfUser()
+        {
+            if (!File.Exists(Paths.settings))
+            {
+                return false;
+            }
+            else return true;
+        }
+
         public static void ForceDeleteDirectory(string path)
         {
             var directory = new DirectoryInfo(path) { Attributes = FileAttributes.Normal };

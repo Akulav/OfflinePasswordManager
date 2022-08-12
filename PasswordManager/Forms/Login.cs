@@ -1,6 +1,9 @@
-﻿using PasswordManager;
+﻿using Newtonsoft.Json;
+using PasswordManager;
+using PasswordManager.Resources;
 using PasswordManager.Utilities;
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -43,7 +46,7 @@ namespace SeePass
 
         private void Login_Load(object sender, EventArgs e)
         {
-            CheckIfUser();
+            userFlag = Utility.checkIfUser();
             if (userFlag)
             {
                 UserButton.Text = "Login";
@@ -56,14 +59,6 @@ namespace SeePass
                 UserButton.Text = "Create Account";
                 welcomeLabel.Text = "Create an account";
                 ConfigButton.Text = "Import Data";
-            }
-        }
-
-        private void CheckIfUser()
-        {
-            if (PasswordManager.Properties.Settings.Default.user == true)
-            {
-                userFlag = true;
             }
         }
 
@@ -131,19 +126,24 @@ namespace SeePass
                     }
 
                     //
-                    PasswordManager.Properties.Settings.Default.username = datapass[0];
-                    PasswordManager.Properties.Settings.Default.username_salt = datapass[1];
+                    //
+                    //
 
-                    PasswordManager.Properties.Settings.Default.password = dataname[0];
-                    PasswordManager.Properties.Settings.Default.password_salt = dataname[1];
+                    Data dt = new Data();
 
-                    PasswordManager.Properties.Settings.Default.pim = PIMRead[0];
-                    PasswordManager.Properties.Settings.Default.pim_salt = PIMRead[1];
+                    dt.username = datapass[0];
+                    dt.username_salt = datapass[1];
 
-                    PasswordManager.Properties.Settings.Default.user = true;
+                    dt.password = dataname[0];
+                    dt.password_salt = dataname[1];
 
-                    PasswordManager.Properties.Settings.Default.Save();
+                    dt.pim = PIMRead[0];
+                    dt.pim_salt = PIMRead[1];
 
+                    Utility.saveSettings(dt);
+
+                    //
+                    //
                     //
 
                     Utility.SetFileReadAccess(Paths.database, true);
@@ -207,14 +207,16 @@ namespace SeePass
 
         private void ThemChange_Click(object sender, EventArgs e)
         {
-            PasswordManager.Properties.Settings.Default.DarkMode = !PasswordManager.Properties.Settings.Default.DarkMode;
-            PasswordManager.Properties.Settings.Default.Save();
+            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
+            dt.dark = !dt.dark;
+            Utility.saveSettings(dt);
             Application.Restart();
         }
 
         private void CheckTheme()
         {
-            if (PasswordManager.Properties.Settings.Default.DarkMode)
+            Data dt = JsonConvert.DeserializeObject<Data>(File.ReadAllText(Paths.settings));
+            if (dt.dark)
             {
                 Colors.ChangeTheme(Controls, this, "dark");
                 Colors.ChangeTheme(rightpanel.Controls, this, "dark");
