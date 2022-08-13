@@ -36,6 +36,7 @@
             this.timeBox = new System.Windows.Forms.TextBox();
             this.timeButton = new FontAwesome.Sharp.IconButton();
             this.timeLabel = new System.Windows.Forms.Label();
+            this.updateBtn = new FontAwesome.Sharp.IconButton();
             this.SuspendLayout();
             // 
             // themeLabel
@@ -106,7 +107,7 @@
             // 
             // timeBox
             // 
-            this.timeBox.Location = new System.Drawing.Point(378, 364);
+            this.timeBox.Location = new System.Drawing.Point(378, 434);
             this.timeBox.Name = "timeBox";
             this.timeBox.Size = new System.Drawing.Size(184, 20);
             this.timeBox.TabIndex = 7;
@@ -119,7 +120,7 @@
             this.timeButton.IconChar = FontAwesome.Sharp.IconChar.None;
             this.timeButton.IconColor = System.Drawing.Color.Black;
             this.timeButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.timeButton.Location = new System.Drawing.Point(171, 346);
+            this.timeButton.Location = new System.Drawing.Point(171, 416);
             this.timeButton.Name = "timeButton";
             this.timeButton.Size = new System.Drawing.Size(192, 51);
             this.timeButton.TabIndex = 8;
@@ -137,12 +138,29 @@
             this.timeLabel.Size = new System.Drawing.Size(0, 26);
             this.timeLabel.TabIndex = 9;
             // 
+            // updateBtn
+            // 
+            this.updateBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.updateBtn.Font = new System.Drawing.Font("Yu Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateBtn.ForeColor = System.Drawing.Color.Gainsboro;
+            this.updateBtn.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.updateBtn.IconColor = System.Drawing.Color.Black;
+            this.updateBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.updateBtn.Location = new System.Drawing.Point(171, 346);
+            this.updateBtn.Name = "updateBtn";
+            this.updateBtn.Size = new System.Drawing.Size(192, 51);
+            this.updateBtn.TabIndex = 10;
+            this.updateBtn.Text = "Check for Updates";
+            this.updateBtn.UseVisualStyleBackColor = false;
+            this.updateBtn.Click += new System.EventHandler(this.updateBtn_Click);
+            // 
             // Config
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(924, 621);
+            this.Controls.Add(this.updateBtn);
             this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.timeButton);
             this.Controls.Add(this.timeBox);
@@ -169,5 +187,6 @@
         private System.Windows.Forms.TextBox timeBox;
         private FontAwesome.Sharp.IconButton timeButton;
         private System.Windows.Forms.Label timeLabel;
+        private FontAwesome.Sharp.IconButton updateBtn;
     }
 }

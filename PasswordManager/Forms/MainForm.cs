@@ -28,8 +28,6 @@ namespace SeePass
         private readonly Panel leftBorderBtn;
         public Form currentChildForm;
         private string[] fullKey;
-        private readonly string obfuscatedKey;
-        private readonly string secondaryKey;
         public static readonly Timer TimeoutTimer = new Timer();
         readonly Data dt = settingUtilities.getSettings();
 
@@ -51,7 +49,7 @@ namespace SeePass
             winVer.Text = Utility.GetWindowsVersion();
             MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
             //Gets transfered the key for encryption / decryption
-
+            versionLabel.Text = dt.version;
             fullKey = KeyObfuscation.Obfuscate(Crypto.FinalKey(key + username, key, PIM));
             CheckTheme();
 

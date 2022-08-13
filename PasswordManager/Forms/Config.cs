@@ -63,5 +63,18 @@ namespace PasswordManager
             }
             catch { timeLabel.Text = "Input a valid number"; }
         }
+
+        private void updateBtn_Click(object sender, System.EventArgs e)
+        {
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    string version = client.DownloadString(Paths.version);
+                }
+            }
+
+            catch { }
+        }
     }
 }

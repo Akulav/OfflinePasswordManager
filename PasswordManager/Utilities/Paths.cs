@@ -7,5 +7,6 @@
         public static readonly string settings = "c:\\PasswordManager\\settings.config";
         public static readonly string database_connection = @"URI=file:C:\PasswordManager\data.db";
         public static readonly string hash = "https://raw.githubusercontent.com/Akulav/OfflinePasswordManager/main/PasswordManager/Resources/hash.MD";
+        public static readonly string version = "";
     }
 }

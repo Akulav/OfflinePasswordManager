@@ -104,7 +104,8 @@ namespace PasswordManager
                 File.WriteAllText(Paths.settings, Crypto.GenRandString(128));
             }
 
-            Directory.Delete(Paths.fileLocation, true);
+            File.Delete(Paths.database);
+            File.Delete(Paths.settings);
         }
 
         public static byte[] GenerateIV()

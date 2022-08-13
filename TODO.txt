@@ -1,5 +1,6 @@
-1. Move all user settings to a proper JSON file.
-2. Fix Export data.
-3. Fix DataView Speed.
-4. Store Data in custom files and remove need for SQL Lite.
-5. Create proper installer.
+1. Fix Export data.
+2. Fix DataView Speed.
+3. Store Data in custom files and remove need for SQL Lite.
+4. Create proper installer.
+5. Better Obfuscation
+6. AutoUpdater
