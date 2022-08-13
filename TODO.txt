@@ -1,6 +1,7 @@
 1. Fix Export data.
 2. Fix DataView Speed.
 3. Store Data in custom files and remove need for SQL Lite.
-4. Create proper installer.
-5. Better Obfuscation
-6. AutoUpdater
+4. Better Obfuscation.
+5. AutoUpdater.
+6. Add repair option to installer.
+7. Make install not delete user data.

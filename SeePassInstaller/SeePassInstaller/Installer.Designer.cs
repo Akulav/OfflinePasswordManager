@@ -60,9 +60,9 @@
             this.statusLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.statusLabel.Location = new System.Drawing.Point(0, 119);
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(151, 13);
+            this.statusLabel.Size = new System.Drawing.Size(189, 13);
             this.statusLabel.TabIndex = 4;
-            this.statusLabel.Text = "*Uninstalling will erase all data.";
+            this.statusLabel.Text = "*Any action will erase all data. Beware.";
             // 
             // statusdLbl
             // 
