@@ -46,6 +46,7 @@ namespace SeePass
             Table.Close();
             cmd.Dispose();
             con.Close();
+            
         }
 
 
@@ -64,6 +65,7 @@ namespace SeePass
                 };
                 cmd.ExecuteNonQuery();
                 data.Rows.Remove(data.Rows[e.RowIndex]);
+                cmd.Dispose();
                 con.Close();
                 fullKey = null;
             }

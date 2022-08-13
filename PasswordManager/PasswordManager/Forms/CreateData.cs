@@ -34,7 +34,7 @@ namespace SeePass
             {
                 cmd.ExecuteNonQuery();
             }
-
+            cmd.Dispose();
             con.Close();
             Reset();
             doneLabel.Visible = true;
