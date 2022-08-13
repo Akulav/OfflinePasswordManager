@@ -11,7 +11,6 @@ namespace PasswordManager.Utilities
                 if (username == "")
                 {
                     return "Username must not be null";
-                    throw new Exception();
                 }
 
                 if (int.TryParse(pim, out _))
@@ -20,25 +19,24 @@ namespace PasswordManager.Utilities
                     if (PIM > 100000 || PIM < 100)
                     {
                         return "PIM must be between 100 and 100000";
-                        throw new Exception();
                     }
                 }
 
                 if (!int.TryParse(pim, out _))
                 {
-                    return "PIM must be a number";
-                    throw new Exception();
+                    return "PIM must be a number";     
                 }
 
                 if (!ValidatePassword(password))
                 {
                     return "Password must be at least 12 characters\n long and contain alphanumeric chars";
-                    throw new Exception();
                 }
+                return "success";
             }
 
-            catch { }
-            return "success";
+            
+            catch { return "error"; }
+            
         }
         public static bool ValidatePassword(string password)
         {

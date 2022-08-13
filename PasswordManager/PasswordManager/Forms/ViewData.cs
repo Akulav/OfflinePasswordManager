@@ -44,6 +44,7 @@ namespace SeePass
             }
             fullKey = null;
             Table.Close();
+            cmd.Dispose();
             con.Close();
         }
 

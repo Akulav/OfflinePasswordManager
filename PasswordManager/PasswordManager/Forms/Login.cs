@@ -72,17 +72,13 @@ namespace SeePass
             string pim = PIMBox.Text;
 
             if (!userFlag)
-            {
-
-                try
-                {
+            {              
                     statusText.Text = UserValidation.CheckInput(username, password, pim);
-                    if (statusText.Text != "success") { throw new Exception(); }
-                    UserUtilities.CreateUser(username, password, pim);
-                }
-
-                catch { };
-                Application.Restart();
+                    if (statusText.Text == "success")
+                    {
+                        UserUtilities.CreateUser(username, password, pim);
+                        Application.Restart();
+                    }
             }
 
             else

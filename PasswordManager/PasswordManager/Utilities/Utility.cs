@@ -20,12 +20,6 @@ namespace PasswordManager
         {
             try
             {
-
-                if (!Directory.Exists(Paths.fileLocation))
-                {
-                    Directory.CreateDirectory(Paths.fileLocation);
-                }
-
                 if (!File.Exists(Paths.settings))
                 {
                     File.WriteAllText(Paths.settings, null);
